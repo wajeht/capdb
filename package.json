@@ -2,7 +2,7 @@
 	"name": "backup-database",
 	"version": "0.0.1",
 	"description": "backup database periodically",
-  "type": "module",
+	"type": "module",
 	"main": "index.js",
 	"scripts": {
 		"build": "tsc",
