@@ -1,8 +1,10 @@
 import { promisify } from 'util';
 import { exec } from 'child_process';
+
 import Queue from 'queue';
 import fs from 'fs';
 import path from 'path';
+import cron from 'node-cron';
 
 const shell = promisify(exec);
 
@@ -40,6 +42,7 @@ async function performPgDump(container: Container): Promise<string> {
 
     const dumpContent = fs.readFileSync(`${backupFolder}/${dumpFileName}`, 'utf-8');
     const dumpWithTimestamp = `-- Dump created at: ${new Date().toLocaleString()}\n${dumpContent}`;
+
     fs.writeFileSync(`${backupFolder}/${dumpFileName}`, dumpWithTimestamp, 'utf-8');
 
     console.log(`Dump file ${dumpFileName} processed for container ${container.name}`);
@@ -51,7 +54,7 @@ async function performPgDump(container: Container): Promise<string> {
   }
 }
 
-(async () => {
+async function backupScript() {
   const q = new Queue({ results: [] });
 
   for (const container of containers) {
@@ -81,4 +84,17 @@ async function performPgDump(container: Container): Promise<string> {
   } catch (error) {
     console.error('Error during processing:', error);
   }
-})();
+}
+
+console.log('Script started. Scheduling cron job...');
+
+// run every 3 hours
+cron.schedule('0 */3 * * *', async () => {
+  console.log('Cron job started at:', new Date().toLocaleString());
+
+  console.log('Running backup script...');
+
+  await backupScript();
+
+  console.log('Backup script completed.');
+});
