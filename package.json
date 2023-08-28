@@ -27,6 +27,9 @@
 		"eslint-plugin-prettier": "^5.0.0",
 		"prettier": "^3.0.2"
 	},
+	"engines": {
+		"node": ">=19"
+	},
 	"dependencies": {
 		"node-cron": "^3.0.2",
 		"queue": "^7.0.0",
