@@ -5,6 +5,7 @@ import Queue from 'queue';
 import fs from 'fs';
 import path from 'path';
 import cron from 'node-cron';
+import logger from './logger';
 
 const shell = promisify(exec);
 
@@ -33,19 +34,19 @@ async function performPgDump(container: Container): Promise<string> {
 		const dumpCommand = `docker exec ${container.name} pg_dump -U ${container.username} -d ${container.database} -f /tmp/${dumpFileName}`;
 		await shell(dumpCommand);
 
-		console.log(`Dumped database ${container.database} from container ${container.name}`);
+		logger.info(`Dumped database ${container.database} from container ${container.name}`);
 
 		const copyCommand = `docker cp ${container.name}:/tmp/${dumpFileName} ${backupFolder}/${dumpFileName}`;
 		await shell(copyCommand);
 
-		console.log(`Copied dump file to ${backupFolder}/${dumpFileName}`);
+		logger.info(`Copied dump file to ${backupFolder}/${dumpFileName}`);
 
 		const dumpContent = fs.readFileSync(`${backupFolder}/${dumpFileName}`, 'utf-8');
 		const dumpWithTimestamp = `-- Dump created at: ${new Date().toLocaleString()}\n${dumpContent}`;
 
 		fs.writeFileSync(`${backupFolder}/${dumpFileName}`, dumpWithTimestamp, 'utf-8');
 
-		console.log(`Dump file ${dumpFileName} processed for container ${container.name}`);
+		logger.info(`Dump file ${dumpFileName} processed for container ${container.name}`);
 
 		return container.name;
 	} catch (error) {
@@ -70,31 +71,31 @@ async function backupScript() {
 	}
 
 	q.addEventListener('success', (e: any) => {
-		console.log('Job finished processing:', e.detail.result);
+		logger.info('Job finished processing:', e.detail.result);
 	});
 
 	q.addEventListener('timeout', (e: any) => {
-		console.log('Job timed out:', e.detail.job.toString().replace(/\n/g, ''));
+		logger.info('Job timed out:', e.detail.job.toString().replace(/\n/g, ''));
 		e.detail.next();
 	});
 
 	try {
 		await q.start();
-		console.log('All done:', q.results);
+		logger.info('All done:', q.results);
 	} catch (error) {
 		console.error('Error during processing:', error);
 	}
 }
 
-console.log('Script started. Scheduling cron job...');
+logger.info('Script started. Scheduling cron job...');
 
 // run every 3 hours
 cron.schedule('0 */3 * * *', async () => {
-	console.log('Cron job started at:', new Date().toLocaleString());
+	logger.info('Cron job started at:', new Date().toLocaleString());
 
-	console.log('Running backup script...');
+	logger.info('Running backup script...');
 
 	await backupScript();
 
-	console.log('Backup script completed.');
+	logger.info('Backup script completed.');
 });

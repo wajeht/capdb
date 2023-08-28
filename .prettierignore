@@ -13,3 +13,4 @@ src/views/auto-imports.d.ts
 backup/*
 backup*
 ./src/index.js
+/dist

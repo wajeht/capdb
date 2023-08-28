@@ -20,7 +20,7 @@ npm install
 npm run build
 
 # Start your TypeScript script using PM2
-pm2 start ./src/index.js --name backup-script
+pm2 start ./dist/index.js --name backup-script
 
 # Display a message indicating successful start
 echo "Backup script started using PM2."

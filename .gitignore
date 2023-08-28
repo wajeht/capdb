@@ -1,5 +1,7 @@
 
 node_modules
 src/index.js
-!./logs/.gitkeep
-./logs/*
+!/logs/.gitkeep
+/logs/*
+/src/*.js
+/dist
