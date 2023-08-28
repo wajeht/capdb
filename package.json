@@ -6,7 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["postgres", "mysql"],
+  "keywords": [
+    "postgres",
+    "mysql"
+  ],
   "author": "wajeht",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.5.7"
+  },
+  "dependencies": {
+    "queue": "^7.0.0",
+    "typescript": "^5.2.2"
+  }
 }
