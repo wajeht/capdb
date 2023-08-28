@@ -1,7 +1,9 @@
 # 💾 Backup Database
+
 nodejs script to back up database inside docker containers
 
 # 📝 Todo
+
 - [x] back up to disk
 - [ ] log to file
 - [ ] email alert
@@ -11,4 +13,5 @@ nodejs script to back up database inside docker containers
 - [ ] config via env
 
 # © License
+
 Distributed under the MIT License © wajeht. See LICENSE for more information.
