@@ -1,7 +1,6 @@
 import { promisify } from 'util';
 import { exec } from 'child_process';
 
-import Queue from 'queue';
 import fs from 'fs';
 import path from 'path';
 import cron from 'node-cron';
@@ -50,52 +49,36 @@ async function performPgDump(container: Container): Promise<string> {
 
 		return container.name;
 	} catch (error) {
-		console.error(`Error for ${container.name}:`, error);
+		logger.error(`Error for ${container.name}:`, error);
 		throw error;
 	}
 }
 
-async function backupScript() {
-	const q = new Queue({ results: [] });
+async function backupScript(containers: Container[]) {
+	const results: string[] = [];
 
 	for (const container of containers) {
-		q.push(async () => {
-			try {
-				const result = await performPgDump(container);
-				return result;
-			} catch (error) {
-				console.error(`Error processing ${container.name}:`, error);
-				throw error;
-			}
-		});
+		try {
+			const result = await performPgDump(container);
+			results.push(result);
+		} catch (error) {
+			logger.error(`Error processing ${container.name}:`, error);
+		}
 	}
 
-	q.addEventListener('success', (e: any) => {
-		logger.info('Job finished processing:', e.detail.result);
-	});
-
-	q.addEventListener('timeout', (e: any) => {
-		logger.info('Job timed out:', e.detail.job.toString().replace(/\n/g, ''));
-		e.detail.next();
-	});
-
-	try {
-		await q.start();
-		logger.info('All done:', q.results);
-	} catch (error) {
-		console.error('Error during processing:', error);
-	}
+	logger.info('All done:', results);
 }
 
 logger.info('Script started. Scheduling cron job...');
 
 // run every 3 hours
-cron.schedule('0 */3 * * *', async () => {
+cron.schedule('*/5 * * * * *', async () => {
+// cron.schedule('0 */3 * * *', async () => {
 	logger.info('Cron job started at:', new Date().toLocaleString());
 
 	logger.info('Running backup script...');
 
-	await backupScript();
+	await backupScript(containers);
 
 	logger.info('Backup script completed.');
 });
