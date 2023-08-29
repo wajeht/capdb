@@ -5,8 +5,9 @@ nodejs script to back up database inside docker containers
 # 📝 Todo
 
 - [x] back up to disk
-- [ ] log to file
+- [x] log to file
 - [ ] email alert
+- [ ] support for mysql
 - [ ] back up to s3
 - [ ] restore cmd
 - [ ] script to setup node and typescript
