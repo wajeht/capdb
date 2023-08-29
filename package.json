@@ -27,7 +27,7 @@
 		"prettier": "^3.0.2"
 	},
 	"engines": {
-		"node": ">=19"
+		"node": ">=18"
 	},
 	"dependencies": {
 		"commander": "^11.0.0",
