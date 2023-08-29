@@ -7,6 +7,8 @@ nodejs script to back up database inside docker containers
 - [x] back up to disk
 - [x] log to file
 - [ ] email alert
+- [ ] cli ?
+- [ ] publish it to npm
 - [ ] support for mysql
 - [ ] back up to s3
 - [ ] restore cmd
