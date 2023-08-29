@@ -5,3 +5,4 @@ src/index.js
 /logs/*
 /src/*.js
 /dist
+env.json
