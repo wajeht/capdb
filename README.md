@@ -1,4 +1,4 @@
-# 💾 Backup Database
+# 💾 Capdb
 
 nodejs script to back up database inside docker containers
 

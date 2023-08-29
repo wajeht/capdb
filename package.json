@@ -1,5 +1,5 @@
 {
-	"name": "backup-database",
+	"name": "capdb",
 	"version": "0.0.1",
 	"description": "backup database periodically",
 	"main": "./dist/index.js",
@@ -30,6 +30,7 @@
 		"node": ">=19"
 	},
 	"dependencies": {
+		"commander": "^11.0.0",
 		"node-cron": "^3.0.2",
 		"pino": "^8.15.0",
 		"typescript": "^5.2.2"
