@@ -2,7 +2,6 @@
 	"name": "backup-database",
 	"version": "0.0.1",
 	"description": "backup database periodically",
-	"type": "module",
 	"main": "./dist/index.js",
 	"scripts": {
 		"build": "tsc",
@@ -33,7 +32,6 @@
 	"dependencies": {
 		"node-cron": "^3.0.2",
 		"pino": "^8.15.0",
-		"queue": "^7.0.0",
 		"typescript": "^5.2.2"
 	}
 }
