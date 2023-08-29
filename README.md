@@ -1,6 +1,6 @@
-# 💾 Capdb
+# 💾 capdb
 
-nodejs script to back up database inside docker containers
+nodejs script to back up the database inside docker containers
 
 # 📝 Todo
 
