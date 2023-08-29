@@ -1,12 +1,21 @@
 {
-	"compilerOptions": {
-		"target": "es2022",
-		"module": "es2022",
-		"esModuleInterop": true,
-		"moduleResolution": "node",
-		"forceConsistentCasingInFileNames": true,
-		"strict": true,
-		"skipLibCheck": true,
-		"outDir": "dist"
-	}
+  "display": "Node LTS",
+  "_version": "18.1.0",
+  "compilerOptions": {
+    "lib": [
+      "es2023"
+    ],
+    "outDir": "dist",
+    "module": "Node16",
+    "target": "es2022",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node16"
+  },
+  "include": [
+    "src"
+  ]
 }
