@@ -23,9 +23,6 @@ import { Command } from 'commander';
 
 const program = new Command();
 
-program
-  .name('capdb')
-  .description('database management cli for caprover')
-  .version('0.0.1');
+program.name('capdb').description('database management cli for caprover').version('0.0.1');
 
 program.parse(process.argv);
