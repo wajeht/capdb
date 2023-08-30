@@ -19,7 +19,7 @@
 // 	logger.info('Backup script completed.');
 // });
 
-import { Command } from "commander";
+import { Command } from 'commander';
 
 const program = new Command();
 
