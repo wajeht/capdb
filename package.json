@@ -7,6 +7,7 @@
 		"capdb": "./dist/index.js"
 	},
 	"scripts": {
+		"cli": "npm run build && npm unlink capdb && chmod +x ./dist/index.js && npm link",
 		"build": "tsc",
 		"format:check": "prettier --check .",
 		"format": "prettier --write .",
