@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import cron from 'node-cron';
 
 import logger from './logger';

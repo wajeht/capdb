@@ -3,6 +3,9 @@
 	"version": "0.0.1",
 	"description": "backup database periodically",
 	"main": "./dist/index.js",
+	"bin": {
+		"capdb": "./dist/index.js"
+	},
 	"scripts": {
 		"build": "tsc",
 		"format:check": "prettier --check .",
