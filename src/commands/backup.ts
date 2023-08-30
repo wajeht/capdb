@@ -4,8 +4,8 @@ import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 
-import logger from './logger';
-import { Container } from './containers';
+import logger from '../utils/logger';
+import { Container } from '../utils/containers';
 
 const shell = promisify(exec);
 
