@@ -20,9 +20,10 @@
 // });
 
 import { Command } from 'commander';
+import { version } from '../package.json';
 
 const program = new Command();
 
-program.name('capdb').description('database management cli for caprover').version('0.0.1');
+program.name('capdb').description('database management cli for caprover').version(version);
 
 program.parse(process.argv);
