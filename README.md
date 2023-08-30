@@ -1,6 +1,6 @@
 # 💾 capdb
 
-database management tool for caprover
+database management cli for caprover
 
 # 📝 Todo
 
