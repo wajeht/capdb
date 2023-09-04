@@ -39,7 +39,7 @@ program
 // prettier-ignore
 program
 	.command('list')
-	.description('add containers database credentials to backup')
+	.description('list all the scheduled containers databases')
 	.action(list);
 
 if (process.argv.length < 3) {
