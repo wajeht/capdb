@@ -4,7 +4,7 @@ import path from 'path';
 const today = new Date().toISOString().split('T')[0];
 
 const fileStream = { stream: pino.destination(path.join(__dirname, '..', 'logs', `${today}.log`)) };
-const consoleStream = { stream: process.stdout }; // Stream to log to console
+const consoleStream = { stream: process.stdout };
 
 const streams = [fileStream, consoleStream];
 
