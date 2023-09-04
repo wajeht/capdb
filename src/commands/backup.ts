@@ -43,8 +43,7 @@ async function performPgDump(container: Container): Promise<string> {
 	}
 }
 
-
-export default async function backupScript(containers: Container[]) {
+export async function backup(containers: Container[]) {
 	const results: string[] = [];
 
 	for (const container of containers) {

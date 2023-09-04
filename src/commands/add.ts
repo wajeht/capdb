@@ -1,3 +1,3 @@
-export const add = function () {
+export function add() {
 	console.log('add()');
 };

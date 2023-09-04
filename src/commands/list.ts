@@ -1,5 +1,5 @@
 import { shell } from '../utils/shell';
 
-export const list = async function () {
+export async function list() {
 	await shell('pm2 list');
 };
