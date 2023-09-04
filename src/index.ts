@@ -21,10 +21,26 @@
 
 import { Command } from 'commander';
 import { version } from '../package.json';
+import { add, list } from './commands';
 
 const program = new Command();
 
-program.name('capdb').description('database management cli for caprover').version(version);
+// prettier-ignore
+program.name('capdb')
+	.description('database management cli for caprover')
+	.version(version);
+
+// prettier-ignore
+program
+	.command('add')
+	.description('add containers database credentials to backup')
+	.action(add);
+
+// prettier-ignore
+program
+	.command('list')
+	.description('add containers database credentials to backup')
+	.action(list);
 
 if (process.argv.length < 3) {
 	program.help();
