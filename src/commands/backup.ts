@@ -1,13 +1,7 @@
-import { promisify } from 'util';
-import { exec } from 'child_process';
-
 import fs from 'fs';
 import path from 'path';
 
-import logger from '../utils/logger';
-import { Container } from '../utils/containers';
-
-const shell = promisify(exec);
+import { Container, logger, shell } from '../utils';
 
 async function performPgDump(container: Container): Promise<string> {
 	try {

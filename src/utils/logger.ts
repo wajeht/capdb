@@ -8,7 +8,7 @@ const consoleStream = { stream: process.stdout };
 
 const streams = [fileStream, consoleStream];
 
-const logger = pino(
+export const logger = pino(
 	{
 		useOnlyCustomProps: true,
 		level: 'info',
@@ -21,5 +21,3 @@ const logger = pino(
 	},
 	pino.multistream(streams),
 );
-
-export default logger;
