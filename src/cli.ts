@@ -21,7 +21,7 @@
 
 import { Command } from 'commander';
 import { version } from '../package.json';
-import { add, list } from './commands';
+import { add, list, start } from './commands';
 
 const program = new Command();
 
@@ -35,6 +35,12 @@ program
 	.command('add')
 	.description('add containers database credentials to backup')
 	.action(add);
+
+// prettier-ignore
+program
+	.command('start')
+	.description('start the cron job to backup all the databases inside docker containers')
+	.action(start);
 
 // prettier-ignore
 program

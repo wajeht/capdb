@@ -1,2 +1,3 @@
-export { add } from './add';
-export { list } from './list';
+export * from './add';
+export * from './list';
+export * from './start';
