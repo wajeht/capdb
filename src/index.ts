@@ -27,7 +27,7 @@ const program = new Command();
 program.name('capdb').description('database management cli for caprover').version(version);
 
 if (process.argv.length < 3) {
-  program.help();
+	program.help();
 }
 
 program.parse(process.argv);
