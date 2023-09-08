@@ -7,7 +7,7 @@
 		"capdb": "./dist/src/cli.js"
 	},
 	"scripts": {
-		"cli": "rm -rf ./dist && npm unlink capdb && npm run build && npm unlink capdb && chmod +x ./dist/src/cli.js && npm link",
+		"cli": "npm unlink capdb && rm -rf ./dist && npm run build && chmod +x ./dist/src/cli.js && npm link",
 		"build": "tsc",
 		"format:check": "prettier --check .",
 		"format": "prettier --write .",
@@ -21,14 +21,14 @@
 	"author": "wajeht",
 	"license": "MIT",
 	"devDependencies": {
-		"@types/node": "^20.5.7",
+		"@types/node": "^20.6.0",
 		"@types/node-cron": "^3.0.8",
-		"@typescript-eslint/eslint-plugin": "^6.4.1",
-		"@typescript-eslint/parser": "^6.4.1",
-		"eslint": "^8.48.0",
+		"@typescript-eslint/eslint-plugin": "^6.6.0",
+		"@typescript-eslint/parser": "^6.6.0",
+		"eslint": "^8.49.0",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-prettier": "^5.0.0",
-		"prettier": "^3.0.2"
+		"prettier": "^3.0.3"
 	},
 	"engines": {
 		"node": ">=18"
@@ -36,7 +36,7 @@
 	"dependencies": {
 		"commander": "^11.0.0",
 		"node-cron": "^3.0.2",
-		"pino": "^8.15.0",
+		"pino": "^8.15.1",
 		"typescript": "^5.2.2"
 	}
 }
