@@ -34,6 +34,7 @@
 		"node": ">=18"
 	},
 	"dependencies": {
+		"@inquirer/prompts": "^3.0.4",
 		"commander": "^11.0.0",
 		"node-cron": "^3.0.2",
 		"pino": "^8.15.1",
