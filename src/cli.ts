@@ -113,7 +113,7 @@ program
   .action(list);
 
 if (process.argv.length < 3) {
-  program.help();
+	program.help();
 }
 
 program.parse(process.argv);
