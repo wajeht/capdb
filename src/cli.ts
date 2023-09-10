@@ -19,7 +19,7 @@
 // 	logger.info('Backup script completed.');
 // });
 
-import { input, confirm } from '@inquirer/prompts';
+import { input } from '@inquirer/prompts';
 import { Command } from 'commander';
 import { version } from '../package.json';
 import { list, start, remove } from './commands';
@@ -56,13 +56,6 @@ program
           });
         }
 
-        if (!username) {
-          username = await input({
-            message: 'Enter username',
-            validate: (value) => value.length !== 0,
-          });
-        }
-
         if (!database) {
           database = await input({
             message: 'Enter database name',
@@ -71,11 +64,19 @@ program
 
         }
 
-        console.log({ container, username, database });
+        if (!username) {
+          username = await input({
+            message: 'Enter database username',
+            validate: (value) => value.length !== 0,
+          });
+        }
+
+        console.table({ container, username, database });
 
         // sure = await confirm({ message: 'are you sure?' })
+
         sure = await input({
-          message: 'Are you sure? (y/n)',
+          message: 'Are you sure these are the correct information? (y/n)',
           validate: (value) => value === 'y' || value === 'n',
         }) === 'y' ? true : false;
 
