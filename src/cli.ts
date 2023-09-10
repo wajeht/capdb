@@ -73,7 +73,11 @@ program
 
         console.log({ container, username, database });
 
-        sure = await confirm({ message: 'are you sure?' })
+        // sure = await confirm({ message: 'are you sure?' })
+        sure = await input({
+          message: 'Are you sure? (y/n)',
+          validate: (value) => value === 'y' || value === 'n',
+        }) === 'y' ? true : false;
 
         if (!sure) {
           modify = await input({
