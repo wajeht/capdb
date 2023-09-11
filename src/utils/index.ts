@@ -1,4 +1,3 @@
-export * from './containers';
 export * from './logger';
 export * from './shell';
 export * from './database';

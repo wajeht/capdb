@@ -1,24 +1,24 @@
 import fs from 'fs';
 import path from 'path';
 
-import { Container, logger, shell } from '../utils';
+import { logger, shell, Container } from '../utils';
 
 async function performPgDump(container: Container): Promise<string> {
 	try {
 		const timestamp = new Date().toISOString().replace(/[-T:.]/g, '');
-		const dumpFileName = `dump_${container.name}_${timestamp}.sql`;
+		const dumpFileName = `dump_${container.container_name}_${timestamp}.sql`;
 		const backupFolder = path.join(__dirname, '..', 'backup');
 
 		if (!fs.existsSync(backupFolder)) {
 			fs.mkdirSync(backupFolder);
 		}
 
-		const dumpCommand = `docker exec ${container.name} pg_dump -U ${container.username} -d ${container.database} -f /tmp/${dumpFileName}`;
+		const dumpCommand = `docker exec ${container.container_name} pg_dump -U ${container.database_username} -d ${container.database_name} -f /tmp/${dumpFileName}`;
 		await shell(dumpCommand);
 
-		logger(`Dumped database ${container.database} from container ${container.name}`);
+		logger(`Dumped database ${container.database_name} from container ${container.container_name}`);
 
-		const copyCommand = `docker cp ${container.name}:/tmp/${dumpFileName} ${backupFolder}/${dumpFileName}`;
+		const copyCommand = `docker cp ${container.container_name}:/tmp/${dumpFileName} ${backupFolder}/${dumpFileName}`;
 		await shell(copyCommand);
 
 		logger(`Copied dump file to ${backupFolder}/${dumpFileName}`);
@@ -28,11 +28,11 @@ async function performPgDump(container: Container): Promise<string> {
 
 		fs.writeFileSync(`${backupFolder}/${dumpFileName}`, dumpWithTimestamp, 'utf-8');
 
-		logger(`Dump file ${dumpFileName} processed for container ${container.name}`);
+		logger(`Dump file ${dumpFileName} processed for container ${container.container_name}`);
 
-		return container.name;
+		return container.container_name;
 	} catch (error) {
-		logger(`Error for ${container.name}:`, error);
+		logger(`Error for ${container.container_name}:`, error);
 		throw error;
 	}
 }
@@ -45,7 +45,7 @@ export async function backup(containers: Container[]) {
 			const result = await performPgDump(container);
 			results.push(result);
 		} catch (error) {
-			logger(`Error processing ${container.name}:`, error);
+			logger(`Error processing ${container.container_name}:`, error);
 		}
 	}
 

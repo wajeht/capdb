@@ -4,7 +4,7 @@ import path from 'path';
 import crypto from 'crypto';
 import { logger } from './logger';
 
-interface Container {
+export interface Container {
 	id: string;
 	container_name: string;
 	database_name: string;
