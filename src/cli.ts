@@ -1,43 +1,12 @@
 #!/usr/bin/env node
 
-// import cron from 'node-cron';
-
-// import logger from './logger';
-// import backupScript from './backup';
-// import { containers } from './containers';
-
-// logger('Script started. Scheduling cron job...');
-
-// // run every 3 hours
-// cron.schedule('0 */3 * * *', async () => {
-// 	logger('Cron job started at:', new Date().toLocaleString());
-
-// 	logger('Running backup script...');
-
-// 	await backupScript(containers);
-
-// 	logger('Backup script completed.');
-// });
-
-import {
-	input,
-	// confirm
-} from '@inquirer/prompts';
 import { Command } from 'commander';
-import {
-	// list,
-	// add,
-	start,
-	// remove,
-} from './commands';
-import { logger, version, Database as db } from './utils';
+import { list, add, start, remove } from './commands';
+import { version } from './utils';
 
 const program = new Command();
 
-// prettier-ignore
-program.name('capdb')
-	.description('database management cli for caprover')
-	.version(version);
+program.name('capdb').description('database management cli for caprover').version(version);
 
 program
 	.command('add')
@@ -45,112 +14,21 @@ program
 	.option('-c, --container <string>', 'container name')
 	.option('-u, --username <string>', 'database username')
 	.option('-d, --database <string>', 'database name')
-	.action(async (cmd) => {
-		let { container, username, database } = cmd;
-
-		let modify = undefined;
-
-		let sure = false;
-
-		if (!container || !username || !database) {
-			while (sure === false) {
-				if (!container) {
-					container = await input({
-						message: 'Enter container name',
-						validate: (value) => value.length !== 0,
-					});
-				}
-
-				if (!database) {
-					database = await input({
-						message: 'Enter database name',
-						validate: (value) => value.length !== 0,
-					});
-				}
-
-				if (!username) {
-					username = await input({
-						message: 'Enter database username',
-						validate: (value) => value.length !== 0,
-					});
-				}
-
-				console.table({ container, username, database });
-
-				// sure = await confirm({ message: 'are you sure?' })
-
-				sure =
-					(await input({
-						message: 'Are you sure these are the correct information? (y/n)',
-						validate: (value) => value === 'y' || value === 'n',
-					})) === 'y'
-						? true
-						: false;
-
-				if (!sure) {
-					modify = await input({
-						message: 'what do you want to chagne? database (u), container (c), username (u) ?',
-						validate: (value) => ['c', 'u', 'd'].includes(value) === true,
-					});
-
-					container = modify === 'c' ? '' : container;
-					username = modify === 'u' ? '' : username;
-					database = modify === 'd' ? '' : database;
-				}
-			}
-		}
-
-		db.add({
-			container_name: container,
-			database_name: database,
-			database_username: username,
-		});
-
-		logger('The following credentials have been added.');
-
-		console.table({ container, username, database });
-	});
+	.action(async (cmd) => await add(cmd));
 
 program
 	.command('remove')
 	.description('remove containers database credentials to backup')
 	.option('-id, --id <string>', 'the id')
 	.option('-a, --all', 'remove all')
-	.action(async (cmd) => {
-		let { id, all } = cmd;
+	.action(async (cmd) => remove(cmd));
 
-		if (all) {
-			return db.removeAll();
-		}
-
-		if (!id) {
-			id = await input({
-				message: 'Enter id',
-				validate: (value) => value.length !== 0,
-			});
-		}
-
-		db.remove(id);
-	});
-
-// prettier-ignore
 program
 	.command('start')
 	.description('start the cron job to backup all the databases inside docker containers')
 	.action(start);
 
-program
-	.command('list')
-	.description('list all the scheduled containers databases')
-	.action(() => {
-		const list = db.getAll();
-
-		if (list.length === 0) {
-			return console.error('Empty!');
-		}
-
-		console.table(list);
-	});
+program.command('list').description('list all the scheduled containers databases').action(list);
 
 if (process.argv.length < 3) {
 	// prettier-ignore
