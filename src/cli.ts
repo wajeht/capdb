@@ -32,13 +32,11 @@ program.command('list').description('list all the scheduled containers databases
 
 if (process.argv.length < 3) {
 	// prettier-ignore
-	console.log(`
-                       __ __
- .----.---.-.-----.--|  |  |--.
- |  __|  _  |  _  |  _  |  _  |
- |____|___._|   __|_____|_____|
-             |__|
-\n`);
+	console.log(`                     __ __
+.----.---.-.-----.--|  |  |--.
+|  __|  _  |  _  |  _  |  _  |
+|____|___._|   __|_____|_____|
+            |__|\n`);
 
 	program.help();
 }
