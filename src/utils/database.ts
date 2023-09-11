@@ -45,7 +45,7 @@ export default class Database {
 		);
 	}
 
-	public getData(): Container[] {
+	public getAll(): Container[] {
 		return this.data;
 	}
 
@@ -67,8 +67,17 @@ export default class Database {
 		this.saveJson();
 	}
 
-	public remove(id: string): void {
+	public async remove(id: string): Promise<void | Error> {
+		const found = this.data.find((container) => container.id === id);
+
+		if (!found) {
+			return console.log('Not found');
+		}
+
 		this.data = this.data.filter((container) => container.id !== id);
+
 		this.saveJson();
+
+		console.log(`${id} has been removed`);
 	}
 }

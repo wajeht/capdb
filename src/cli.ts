@@ -129,7 +129,12 @@ program
 			});
 		}
 
-		db.remove(id);
+		try {
+
+		await db.remove(id);
+		} catch (e) {
+			console.error(e);
+		}
 	});
 
 // prettier-ignore
@@ -142,7 +147,7 @@ program
 	.command('list')
 	.description('list all the scheduled containers databases')
 	.action(() => {
-		const list = db.getData();
+		const list = db.getAll();
 
 		if (list.length === 0) {
 			return console.error('Empty!');
