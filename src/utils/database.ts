@@ -66,4 +66,9 @@ export default class Database {
 
 		this.saveJson();
 	}
+
+	public remove(id: string): void {
+		this.data = this.data.filter((container) => container.id !== id);
+		this.saveJson();
+	}
 }

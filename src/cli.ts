@@ -118,7 +118,19 @@ program
 program
   .command('remove')
   .description('remove containers database credentials to backup')
-  .action(remove);
+	.option('-id, --id <string>', 'id')
+  .action(async (cmd) => {
+		let { id } = cmd
+
+		if (!id) {
+			id = await input({
+				message: 'Enter id',
+				validate: (value) => value.length !== 0,
+			});
+		}
+
+		db.remove(id);
+	});
 
 // prettier-ignore
 program
@@ -126,18 +138,17 @@ program
   .description('start the cron job to backup all the databases inside docker containers')
   .action(start);
 
-// prettier-ignore
 program
-  .command('list')
-  .description('list all the scheduled containers databases')
-  .action(() => {
+	.command('list')
+	.description('list all the scheduled containers databases')
+	.action(() => {
 		const list = db.getData();
 
 		if (list.length === 0) {
 			return console.error('Empty!');
 		}
 
-		console.table(db.getData());
+		console.table(list);
 	});
 
 if (process.argv.length < 3) {
