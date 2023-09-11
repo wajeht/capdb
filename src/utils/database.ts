@@ -35,10 +35,10 @@ export default class Database {
 	}
 
 	private saveJson() {
-		fs.writeFileSync(
-			path.resolve(path.join(process.cwd(), 'src', 'utils', 'database.json')),
-			JSON.stringify(this.data, null, 2),
-		);
+		const configFolder = path.join(os.homedir(), '.config', 'capdb');
+		const jsonFile = path.join(configFolder, 'database.json');
+
+		fs.writeFileSync(jsonFile, JSON.stringify(this.data, null, 2));
 	}
 
 	public getAll(): Container[] {
