@@ -13,13 +13,9 @@ export interface Container {
 }
 
 export default class Database {
-	private data: Container[] = [];
+	private static data: Container[] | null = null;
 
-	constructor() {
-		this.initJson();
-	}
-
-	private initJson() {
+	private static initJson() {
 		const configFolder = path.join(os.homedir(), '.config', 'capdb');
 		const jsonFile = path.join(configFolder, 'database.json');
 
@@ -29,24 +25,33 @@ export default class Database {
 
 		if (!fs.existsSync(jsonFile)) {
 			fs.writeFileSync(jsonFile, JSON.stringify([]));
+		} else {
+			const jsonData = fs.readFileSync(jsonFile, 'utf-8');
+			this.data = JSON.parse(jsonData);
 		}
-
-		this.data = JSON.parse(fs.readFileSync(jsonFile, 'utf-8'));
 	}
 
-	private saveJson() {
+	private static saveJson() {
+		if (this.data === null) {
+			return; // Don't save if data is not initialized
+		}
+
 		const configFolder = path.join(os.homedir(), '.config', 'capdb');
 		const jsonFile = path.join(configFolder, 'database.json');
 
 		fs.writeFileSync(jsonFile, JSON.stringify(this.data, null, 2));
 	}
 
-	public getAll(): Container[] {
-		return this.data;
+	public static getAll(): Container[] {
+		if (this.data === null) {
+			this.initJson();
+		}
+
+		return this.data || [];
 	}
 
-	public add(container: Omit<Container, 'id' | 'last_backed_up_at'>): void {
-		if (!this.data) {
+	public static add(container: Omit<Container, 'id' | 'last_backed_up_at'>): void {
+		if (this.data === null) {
 			this.initJson();
 		}
 
@@ -58,19 +63,23 @@ export default class Database {
 			last_backed_up_at: null,
 		};
 
-		this.data.push(newContainer);
+		this.data!.push(newContainer);
 
 		this.saveJson();
 	}
 
-	public async remove(id: string): Promise<void | Error> {
-		const found = this.data.find((container) => container.id === id);
+	public static async remove(id: string): Promise<void | Error> {
+		if (this.data === null) {
+			this.initJson();
+		}
 
-		if (!found) {
+		const foundIndex = this.data!.findIndex((container) => container.id === id);
+
+		if (foundIndex === -1) {
 			return console.log('Not found');
 		}
 
-		this.data = this.data.filter((container) => container.id !== id);
+		this.data!.splice(foundIndex, 1);
 
 		this.saveJson();
 

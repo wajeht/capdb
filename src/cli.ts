@@ -31,9 +31,7 @@ import {
 	start,
 	// remove,
 } from './commands';
-import Database from './utils/database';
-
-const db = new Database();
+import db from './utils/database';
 
 const program = new Command();
 
