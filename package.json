@@ -8,6 +8,7 @@
 	},
 	"scripts": {
 		"cli": "npm unlink capdb && rm -rf ./dist && npm run build && chmod +x ./dist/src/cli.js && npm link",
+		"dev": "tsc -w",
 		"build": "tsc",
 		"format:check": "prettier --check .",
 		"format": "prettier --write .",
