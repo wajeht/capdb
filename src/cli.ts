@@ -29,7 +29,7 @@ import {
 	// list,
 	// add,
 	start,
-	remove,
+	// remove,
 } from './commands';
 import Database from './utils/database';
 
@@ -39,8 +39,8 @@ const program = new Command();
 
 // prettier-ignore
 program.name('capdb')
-  .description('database management cli for caprover')
-  .version(version);
+	.description('database management cli for caprover')
+	.version(version);
 
 program
 	.command('add')
@@ -116,10 +116,10 @@ program
 
 // prettier-ignore
 program
-  .command('remove')
-  .description('remove containers database credentials to backup')
+	.command('remove')
+	.description('remove containers database credentials to backup')
 	.option('-id, --id <string>', 'id')
-  .action(async (cmd) => {
+	.action(async (cmd) => {
 		let { id } = cmd
 
 		if (!id) {
@@ -129,19 +129,14 @@ program
 			});
 		}
 
-		try {
-
 		await db.remove(id);
-		} catch (e) {
-			console.error(e);
-		}
 	});
 
 // prettier-ignore
 program
-  .command('start')
-  .description('start the cron job to backup all the databases inside docker containers')
-  .action(start);
+	.command('start')
+	.description('start the cron job to backup all the databases inside docker containers')
+	.action(start);
 
 program
 	.command('list')
