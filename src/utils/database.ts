@@ -2,16 +2,7 @@ import os from 'os';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
-
-// const configFolder = os.homedir() + '/.jaw/capdb';
-
-// if (fs.existsSync(configFolder)) {
-// 	console.log('yes');
-// } else {
-// 	fs.mkdirSync(configFolder, { recursive: true });
-// }
-
-// const jsonFile = configFolder + '/database.json';
+import { logger } from './logger';
 
 export interface Container {
 	id: string;
@@ -29,13 +20,18 @@ export default class Database {
 	}
 
 	private initJson() {
-		const filePath = path.resolve(path.join(process.cwd(), 'src', 'utils', 'database.json'));
+		const configFolder = path.join(os.homedir(), '.config', 'capdb');
+		const jsonFile = path.join(configFolder, 'database.json');
 
-		if (!fs.existsSync(filePath)) {
-			fs.writeFileSync(filePath, JSON.stringify([]));
+		if (!fs.existsSync(configFolder)) {
+			fs.mkdirSync(configFolder, { recursive: true });
 		}
 
-		this.data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+		if (!fs.existsSync(jsonFile)) {
+			fs.writeFileSync(jsonFile, JSON.stringify([]));
+		}
+
+		this.data = JSON.parse(fs.readFileSync(jsonFile, 'utf-8'));
 	}
 
 	private saveJson() {
@@ -78,6 +74,6 @@ export default class Database {
 
 		this.saveJson();
 
-		console.log(`${id} has been removed`);
+		logger.info(`${id} has been removed`);
 	}
 }
