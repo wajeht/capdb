@@ -6,17 +6,17 @@
 // import backupScript from './backup';
 // import { containers } from './containers';
 
-// logger.info('Script started. Scheduling cron job...');
+// logger('Script started. Scheduling cron job...');
 
 // // run every 3 hours
 // cron.schedule('0 */3 * * *', async () => {
-// 	logger.info('Cron job started at:', new Date().toLocaleString());
+// 	logger('Cron job started at:', new Date().toLocaleString());
 
-// 	logger.info('Running backup script...');
+// 	logger('Running backup script...');
 
 // 	await backupScript(containers);
 
-// 	logger.info('Backup script completed.');
+// 	logger('Backup script completed.');
 // });
 
 import {
@@ -116,9 +116,15 @@ program
 program
 	.command('remove')
 	.description('remove containers database credentials to backup')
-	.option('-id, --id <string>', 'id')
+	.option('-id, --id <string>', 'the id')
+	.option('-a, --all', 'remove all')
 	.action(async (cmd) => {
-		let { id } = cmd
+		let { id, all } = cmd
+
+		if (all) {
+      db.removeAll();
+      return;
+    }
 
 		if (!id) {
 			id = await input({

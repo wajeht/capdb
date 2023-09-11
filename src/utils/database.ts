@@ -13,7 +13,7 @@ export interface Container {
 }
 
 export default class Database {
-	private static data: Container[] | null = null;
+	private static data: Container[] = [];
 
 	private static initJson() {
 		const configFolder = path.join(os.homedir(), '.config', 'capdb');
@@ -32,10 +32,6 @@ export default class Database {
 	}
 
 	private static saveJson() {
-		if (this.data === null) {
-			return; // Don't save if data is not initialized
-		}
-
 		const configFolder = path.join(os.homedir(), '.config', 'capdb');
 		const jsonFile = path.join(configFolder, 'database.json');
 
@@ -43,15 +39,15 @@ export default class Database {
 	}
 
 	public static getAll(): Container[] {
-		if (this.data === null) {
+		if (!this.data.length) {
 			this.initJson();
 		}
 
-		return this.data || [];
+		return this.data;
 	}
 
 	public static add(container: Omit<Container, 'id' | 'last_backed_up_at'>): void {
-		if (this.data === null) {
+		if (!this.data.length) {
 			this.initJson();
 		}
 
@@ -69,20 +65,32 @@ export default class Database {
 	}
 
 	public static async remove(id: string): Promise<void | Error> {
-		if (this.data === null) {
+		if (!this.data.length) {
 			this.initJson();
 		}
 
-		const foundIndex = this.data!.findIndex((container) => container.id === id);
+		const foundIndex = this.data.findIndex((container) => container.id === id);
 
 		if (foundIndex === -1) {
 			return console.log('Not found');
 		}
 
-		this.data!.splice(foundIndex, 1);
+		this.data.splice(foundIndex, 1);
 
 		this.saveJson();
 
-		logger.info(`${id} has been removed`);
+		logger(`${id} has been removed`);
+	}
+
+	public static removeAll(): void {
+		if (!this.data.length) {
+			this.initJson();
+		}
+
+		this.data = [];
+
+		this.saveJson();
+
+		logger('All data has been removed');
 	}
 }

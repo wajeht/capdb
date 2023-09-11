@@ -1,34 +1,34 @@
-import pino from 'pino';
+import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import fs from 'fs';
 
-const today = new Date().toISOString().split('T')[0];
-
+let logDate = new Date();
 const logDir = path.join(os.homedir(), '.config', 'capdb', 'logs');
+
+function getLogFileName(): string {
+	const today = new Date();
+	if (today.getDate() !== logDate.getDate()) {
+		logDate = today;
+	}
+	const year = today.getFullYear();
+	const month = (today.getMonth() + 1).toString().padStart(2, '0');
+	const day = today.getDate().toString().padStart(2, '0');
+	return `${year}-${month}-${day}.log`;
+}
+
+const logFilePath: string = path.join(logDir, getLogFileName());
 
 if (!fs.existsSync(logDir)) {
 	fs.mkdirSync(logDir, { recursive: true });
 }
 
-const logFilePath = path.join(logDir, `${today}.log`);
+export function logger(...args: any[]): void {
+	const timestamp: string = new Date().toLocaleString('en-US', {
+		timeZoneName: 'short',
+	});
+	const logMessage: string = `[${timestamp}] ${args.join(' ')}\n`;
 
-const fileStream = { stream: pino.destination(logFilePath) };
+	console.log(logMessage);
 
-const consoleStream = { stream: process.stdout };
-
-const streams = [fileStream, consoleStream];
-
-export const logger = pino(
-	{
-		useOnlyCustomProps: true,
-		level: 'info',
-		formatters: {
-			level: (label: string) => {
-				return { level: label };
-			},
-		},
-		timestamp: pino.stdTimeFunctions.isoTime,
-	},
-	pino.multistream(streams),
-);
+	fs.appendFileSync(logFilePath, logMessage, 'utf8');
+}

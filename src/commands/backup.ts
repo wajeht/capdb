@@ -16,23 +16,23 @@ async function performPgDump(container: Container): Promise<string> {
 		const dumpCommand = `docker exec ${container.name} pg_dump -U ${container.username} -d ${container.database} -f /tmp/${dumpFileName}`;
 		await shell(dumpCommand);
 
-		logger.info(`Dumped database ${container.database} from container ${container.name}`);
+		logger(`Dumped database ${container.database} from container ${container.name}`);
 
 		const copyCommand = `docker cp ${container.name}:/tmp/${dumpFileName} ${backupFolder}/${dumpFileName}`;
 		await shell(copyCommand);
 
-		logger.info(`Copied dump file to ${backupFolder}/${dumpFileName}`);
+		logger(`Copied dump file to ${backupFolder}/${dumpFileName}`);
 
 		const dumpContent = fs.readFileSync(`${backupFolder}/${dumpFileName}`, 'utf-8');
 		const dumpWithTimestamp = `-- Dump created at: ${new Date().toLocaleString()}\n${dumpContent}`;
 
 		fs.writeFileSync(`${backupFolder}/${dumpFileName}`, dumpWithTimestamp, 'utf-8');
 
-		logger.info(`Dump file ${dumpFileName} processed for container ${container.name}`);
+		logger(`Dump file ${dumpFileName} processed for container ${container.name}`);
 
 		return container.name;
 	} catch (error) {
-		logger.error(`Error for ${container.name}:`, error);
+		logger(`Error for ${container.name}:`, error);
 		throw error;
 	}
 }
@@ -45,9 +45,9 @@ export async function backup(containers: Container[]) {
 			const result = await performPgDump(container);
 			results.push(result);
 		} catch (error) {
-			logger.error(`Error processing ${container.name}:`, error);
+			logger(`Error processing ${container.name}:`, error);
 		}
 	}
 
-	logger.info('All done:', results);
+	logger('All done:', results);
 }
