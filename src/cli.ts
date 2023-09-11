@@ -24,14 +24,13 @@ import {
 	// confirm
 } from '@inquirer/prompts';
 import { Command } from 'commander';
-import { version } from '../package.json';
 import {
 	// list,
 	// add,
 	start,
 	// remove,
 } from './commands';
-import db from './utils/database';
+import { logger, version, Database as db } from './utils';
 
 const program = new Command();
 
@@ -107,24 +106,22 @@ program
 			database_username: username,
 		});
 
-		console.log('The following credentials have been added.');
+		logger('The following credentials have been added.');
 
 		console.table({ container, username, database });
 	});
 
-// prettier-ignore
 program
 	.command('remove')
 	.description('remove containers database credentials to backup')
 	.option('-id, --id <string>', 'the id')
 	.option('-a, --all', 'remove all')
 	.action(async (cmd) => {
-		let { id, all } = cmd
+		let { id, all } = cmd;
 
 		if (all) {
-      db.removeAll();
-      return;
-    }
+			return db.removeAll();
+		}
 
 		if (!id) {
 			id = await input({
@@ -133,7 +130,7 @@ program
 			});
 		}
 
-		await db.remove(id);
+		db.remove(id);
 	});
 
 // prettier-ignore

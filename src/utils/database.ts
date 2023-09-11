@@ -4,7 +4,7 @@ import path from 'path';
 import crypto from 'crypto';
 import { logger } from './logger';
 
-export interface Container {
+interface Container {
 	id: string;
 	container_name: string;
 	database_name: string;
@@ -12,10 +12,10 @@ export interface Container {
 	last_backed_up_at: Date | null;
 }
 
-export default class Database {
+export class Database {
 	private static data: Container[] = [];
 
-	private static initJson() {
+	private static initJson(): void {
 		const configFolder = path.join(os.homedir(), '.config', 'capdb');
 		const jsonFile = path.join(configFolder, 'database.json');
 
@@ -31,7 +31,7 @@ export default class Database {
 		}
 	}
 
-	private static saveJson() {
+	private static saveJson(): void {
 		const configFolder = path.join(os.homedir(), '.config', 'capdb');
 		const jsonFile = path.join(configFolder, 'database.json');
 
@@ -59,12 +59,14 @@ export default class Database {
 			last_backed_up_at: null,
 		};
 
-		this.data!.push(newContainer);
+		logger(`${id} has been added`);
+
+		this.data.push(newContainer);
 
 		this.saveJson();
 	}
 
-	public static async remove(id: string): Promise<void | Error> {
+	public static remove(id: string): void | Error {
 		if (!this.data.length) {
 			this.initJson();
 		}
