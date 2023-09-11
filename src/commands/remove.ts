@@ -5,6 +5,12 @@ export async function remove(cmd: any) {
 	let { id, all } = cmd;
 
 	if (all) {
+		const list = db.getAll();
+
+		if (list.length === 0) {
+			console.log('There is nothing to remove!');
+		}
+
 		return db.removeAll();
 	}
 

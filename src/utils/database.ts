@@ -2,7 +2,6 @@ import os from 'os';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
-import { logger } from './logger';
 
 export interface Container {
 	id: string;
@@ -15,27 +14,24 @@ export interface Container {
 export class Database {
 	private static data: Container[] = [];
 
+	private static readonly configFolder: string = path.join(os.homedir(), '.config', 'capdb');
+	private static readonly jsonFile: string = path.join(this.configFolder, 'database.json');
+
 	private static initJson(): void {
-		const configFolder = path.join(os.homedir(), '.config', 'capdb');
-		const jsonFile = path.join(configFolder, 'database.json');
-
-		if (!fs.existsSync(configFolder)) {
-			fs.mkdirSync(configFolder, { recursive: true });
+		if (!fs.existsSync(this.configFolder)) {
+			fs.mkdirSync(this.configFolder, { recursive: true });
 		}
 
-		if (!fs.existsSync(jsonFile)) {
-			fs.writeFileSync(jsonFile, JSON.stringify([]));
-		} else {
-			const jsonData = fs.readFileSync(jsonFile, 'utf-8');
-			this.data = JSON.parse(jsonData);
+		if (!fs.existsSync(this.jsonFile)) {
+			fs.writeFileSync(this.jsonFile, '[]');
 		}
+
+		const jsonData = fs.readFileSync(this.jsonFile, 'utf-8');
+		this.data = JSON.parse(jsonData);
 	}
 
 	private static saveJson(): void {
-		const configFolder = path.join(os.homedir(), '.config', 'capdb');
-		const jsonFile = path.join(configFolder, 'database.json');
-
-		fs.writeFileSync(jsonFile, JSON.stringify(this.data, null, 2));
+		fs.writeFileSync(this.jsonFile, JSON.stringify(this.data, null, 2));
 	}
 
 	public static getAll(): Container[] {
@@ -59,8 +55,6 @@ export class Database {
 			last_backed_up_at: null,
 		};
 
-		logger(`${id} has been added`);
-
 		this.data.push(newContainer);
 
 		this.saveJson();
@@ -75,13 +69,12 @@ export class Database {
 
 		if (foundIndex === -1) {
 			return console.log('Not found');
+			return;
 		}
 
 		this.data.splice(foundIndex, 1);
 
 		this.saveJson();
-
-		logger(`${id} has been removed`);
 	}
 
 	public static removeAll(): void {
@@ -92,7 +85,27 @@ export class Database {
 		this.data = [];
 
 		this.saveJson();
+	}
 
-		logger('All data has been removed');
+	public static update(id: string, container: Omit<Container, 'id'>): void {
+		if (!this.data.length) {
+			this.initJson();
+		}
+
+		const foundIndex = this.data.findIndex((c) => c.id === id);
+
+		if (foundIndex === -1) {
+			return console.log('Not found');
+		}
+
+		const updatedContainer: Container = {
+			id,
+			...this.data[foundIndex],
+			...container,
+		};
+
+		this.data[foundIndex] = updatedContainer;
+
+		this.saveJson();
 	}
 }
