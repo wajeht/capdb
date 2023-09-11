@@ -25,7 +25,15 @@ import {
 } from '@inquirer/prompts';
 import { Command } from 'commander';
 import { version } from '../package.json';
-import { list, start, remove } from './commands';
+import {
+	// list,
+	// add,
+	start,
+	remove,
+} from './commands';
+import Database from './utils/database';
+
+const db = new Database();
 
 const program = new Command();
 
@@ -95,11 +103,15 @@ program
 			}
 		}
 
-		console.log('Adding database credentials to backup...', {
-			container,
-			username,
-			database,
+		db.add({
+			container_name: container,
+			database_name: database,
+			database_username: username,
 		});
+
+		console.log('The following credentials have been added.');
+
+		console.table({ container, username, database });
 	});
 
 // prettier-ignore
@@ -118,7 +130,15 @@ program
 program
   .command('list')
   .description('list all the scheduled containers databases')
-  .action(list);
+  .action(() => {
+		const list = db.getData();
+
+		if (list.length === 0) {
+			return console.error('Empty!');
+		}
+
+		console.table(db.getData());
+	});
 
 if (process.argv.length < 3) {
 	program.help();
