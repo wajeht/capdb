@@ -68,8 +68,7 @@ export class Database {
 		const foundIndex = this.data.findIndex((container) => container.id === id);
 
 		if (foundIndex === -1) {
-			return console.log('Not found');
-			return;
+			return console.error('\nNot found\n');
 		}
 
 		this.data.splice(foundIndex, 1);

@@ -8,7 +8,7 @@ export async function remove(cmd: any) {
 		const list = db.getAll();
 
 		if (list.length === 0) {
-			console.log('There is nothing to remove!');
+			return console.warn('\nThere is nothing to remove!\n');
 		}
 
 		return db.removeAll();
