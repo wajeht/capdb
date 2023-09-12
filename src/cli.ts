@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { list, add, start, remove } from './commands';
+import { list, add, start, remove, restore } from './commands';
 import { version } from './utils';
 
 const program = new Command();
@@ -29,6 +29,11 @@ program
 	.action(start);
 
 program.command('list').description('list all the scheduled containers databases').action(list);
+
+program
+	.command('restore')
+	.description('Retore the dump sql to back to the container')
+	.action(restore);
 
 if (process.argv.length < 3) {
 	// prettier-ignore
