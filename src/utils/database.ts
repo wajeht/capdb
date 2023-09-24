@@ -3,9 +3,13 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 
+export type DatabaseType = 'postgres' | 'mysql' | 'mongodb' | 'redis';
+export const validDatabaseTypes: DatabaseType[] = ['postgres', 'mysql', 'mongodb', 'redis'];
+
 export interface Container {
 	id: string;
 	container_name: string;
+	database_tye: DatabaseType;
 	database_name: string;
 	database_username: string;
 	last_backed_up_at: Date | null;
