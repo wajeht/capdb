@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { list, add, start, remove, restore } from './commands';
+import { list, add, start, remove, restore, scan } from './commands';
 import { version } from './utils';
 
 const program = new Command();
@@ -30,7 +30,15 @@ program
 	.description('start the cron job to backup all the databases inside docker containers')
 	.action(start);
 
-program.command('list').description('list all the scheduled containers databases').action(list);
+// prettier-ignore
+program.command('list')
+	.description('list all the scheduled containers databases')
+	.action(list);
+
+// prettier-ignore
+program.command('scan')
+	.description('scan all the available running containers')
+	.action(scan);
 
 program
 	.command('restore')
