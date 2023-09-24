@@ -11,7 +11,9 @@ export async function remove(cmd: any) {
 			return console.warn('\nThere is nothing to remove!\n');
 		}
 
-		return db.removeAll();
+		db.removeAll();
+
+		console.info('\nEverything have been remove\n');
 	}
 
 	if (!id) {
