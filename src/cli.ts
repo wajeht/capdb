@@ -12,7 +12,7 @@ program
 	.command('add')
 	.description('add containers database credentials to backup')
 	.option('-c, --container <string>', 'container name')
-	.option('-t, --type <string>', 'databse type (mysql, postgre, redis, mongodb)')
+	.option('-t, --type <string>', 'databse type (mysql, postgres, redis, mongodb)')
 	.option('-n, --name <string>', 'database name')
 	.option('-u, --username <string>', 'database username')
 	.option('-p, --password <string>', 'database password')
