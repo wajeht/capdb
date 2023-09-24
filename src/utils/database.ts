@@ -9,9 +9,10 @@ export const validDatabaseTypes: DatabaseType[] = ['postgres', 'mysql', 'mongodb
 export interface Container {
 	id: string;
 	container_name: string;
-	database_tye: DatabaseType;
+	database_type: DatabaseType;
 	database_name: string;
 	database_username: string;
+	database_password: string;
 	last_backed_up_at: Date | null;
 }
 

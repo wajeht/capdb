@@ -3,13 +3,13 @@ import { Database as db, logger } from '../utils';
 import { validDatabaseTypes, DatabaseType } from '../utils';
 
 export async function add(cmd: any) {
-	let { container, username, database, type } = cmd;
+	let { container, type, name, username, password } = cmd;
 
 	let modify = undefined;
 
 	let sure = false;
 
-	if (!container || !username || !database || !type) {
+	if (!container || !type || !name || !username || !password) {
 		while (sure === false) {
 			if (!container) {
 				container = await input({
@@ -29,8 +29,8 @@ export async function add(cmd: any) {
 				});
 			}
 
-			if (!database) {
-				database = await input({
+			if (!name) {
+				name = await input({
 					message: 'Enter database name',
 					validate: (value) => value.length !== 0,
 				});
@@ -43,7 +43,14 @@ export async function add(cmd: any) {
 				});
 			}
 
-			console.table({ container, username, database, type });
+			if (!password) {
+				password = await input({
+					message: 'Enter database password',
+					validate: (value) => value.length !== 0,
+				});
+			}
+
+			console.table({ container, type, name, username, password });
 
 			// sure = await confirm({ message: 'are you sure?' })
 
@@ -58,26 +65,28 @@ export async function add(cmd: any) {
 			if (!sure) {
 				modify = await input({
 					message:
-						'what do you want to chagne? database (u), databse type (t), container (c), username (u) ?',
-					validate: (value) => ['c', 'u', 'd', 't'].includes(value) === true,
+						'what do you want to chagne? container (c), databse type (t), database name (n), database username (u), database password (p) ?',
+					validate: (value) => ['c', 't', 'n', 'u', 'p'].includes(value) === true,
 				});
 
 				container = modify === 'c' ? '' : container;
-				username = modify === 'u' ? '' : username;
-				database = modify === 'd' ? '' : database;
 				type = modify === 't' ? '' : type;
+				name = modify === 'n' ? '' : name;
+				username = modify === 'u' ? '' : username;
+				password = modify === 'p' ? '' : password;
 			}
 		}
 	}
 
 	db.add({
 		container_name: container,
-		database_tye: type,
-		database_name: database,
+		database_type: type,
+		database_name: name,
 		database_username: username,
+		database_password: password,
 	});
 
 	logger('The following credentials have been added.');
 
-	console.table({ container, username, database, type });
+	console.table({ container, type, name, username, password });
 }

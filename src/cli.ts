@@ -12,8 +12,10 @@ program
 	.command('add')
 	.description('add containers database credentials to backup')
 	.option('-c, --container <string>', 'container name')
+	.option('-t, --type <string>', 'databse type (mysql, postgre, redis, mongodb)')
+	.option('-n, --name <string>', 'database name')
 	.option('-u, --username <string>', 'database username')
-	.option('-d, --database <string>', 'database name')
+	.option('-p, --password <string>', 'database password')
 	.action(async (cmd) => await add(cmd));
 
 program
