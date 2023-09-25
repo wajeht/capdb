@@ -1,7 +1,24 @@
-import { logger, shell, Container } from '../utils';
+import Docker from 'dockerode';
 
 export async function scan() {
-	console.log('');
-	await shell(`docker ps`);
-	console.log('');
+	const docker = new Docker();
+
+	console.log();
+	docker.listContainers(function (err, containers) {
+		if (containers) {
+			console.table(
+				containers.map((container) => {
+					const { Id, Names, Created } = container;
+					return {
+						Id,
+						Names,
+						Created,
+					};
+				}),
+			);
+		} else {
+			console.error('Error fetching container information:', err);
+		}
+	});
+	console.log();
 }
