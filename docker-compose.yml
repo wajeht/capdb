@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   postgres:
-    image: postgres:alpine
+    image: postgres:latest
     container_name: postgres
     restart: unless-stopped
     environment:
@@ -14,6 +14,40 @@ services:
     volumes:
       - postgres-data:/data/postgres
 
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: mysql_database
+      MYSQL_USER: mysql_user
+      MYSQL_PASSWORD: mysql_password
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+
 volumes:
   postgres-data:
+    driver: local
+  mysql-data:
+    driver: local
+  mongo-data:
     driver: local
