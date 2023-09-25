@@ -63,7 +63,7 @@ export async function add(cmd: any) {
 				});
 			}
 
-			console.table({ container, type, name, username, password, frequency });
+			console.table([{ container, type, name, username, password, frequency }]);
 
 			// sure = await confirm({ message: 'are you sure?' })
 
@@ -104,5 +104,5 @@ export async function add(cmd: any) {
 	console.log('\n');
 	logger('The following credentials have been added.');
 
-	console.table({ container, type, name, username, password });
+	console.table([{ container, type, name, username, password, frequency }]);
 }
