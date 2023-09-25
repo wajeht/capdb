@@ -7,6 +7,13 @@ export async function add(cmd: any) {
 
 	let sure = false;
 
+	if (isNaN(frequency) && frequency.length) {
+		console.log();
+		console.log('Frequency must be a number');
+		console.log();
+		return;
+	}
+
 	while (!sure) {
 		if (!container) {
 			container = await input({
@@ -73,7 +80,7 @@ export async function add(cmd: any) {
 		if (!sure) {
 			const modify = await input({
 				message:
-					'What do you want to change? Container (c), database type (t), database name (n), database username (u), database password (p), backup frequency (f)?',
+					'What do you want to change? \nContainer (c), database type (t), database name (n), database username (u), database password (p), backup frequency (f) ?',
 				validate: (value) => ['c', 't', 'n', 'u', 'p', 'f'].includes(value) === true,
 			});
 
