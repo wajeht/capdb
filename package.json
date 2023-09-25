@@ -23,11 +23,11 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@types/dockerode": "^3.3.20",
-		"@types/node": "^20.6.0",
-		"@types/node-cron": "^3.0.8",
-		"@typescript-eslint/eslint-plugin": "^6.6.0",
-		"@typescript-eslint/parser": "^6.6.0",
-		"eslint": "^8.49.0",
+		"@types/node": "^20.6.5",
+		"@types/node-cron": "^3.0.9",
+		"@typescript-eslint/eslint-plugin": "^6.7.2",
+		"@typescript-eslint/parser": "^6.7.2",
+		"eslint": "^8.50.0",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-prettier": "^5.0.0",
 		"prettier": "^3.0.3"
@@ -36,7 +36,7 @@
 		"node": ">=18"
 	},
 	"dependencies": {
-		"@inquirer/prompts": "^3.0.4",
+		"@inquirer/prompts": "^3.1.1",
 		"commander": "^11.0.0",
 		"dockerode": "^3.3.5",
 		"node-cron": "^3.0.2",
