@@ -16,6 +16,7 @@ program
 	.option('-n, --name <string>', 'database name')
 	.option('-u, --username <string>', 'database username')
 	.option('-p, --password <string>', 'database password')
+	.option('-f, --frequency <number>', 'database backup frequency')
 	.action(async (cmd) => await add(cmd));
 
 program

@@ -14,6 +14,7 @@ export interface Container {
 	database_username: string;
 	database_password: string;
 	last_backed_up_at: Date | null;
+	back_up_frequency: number;
 }
 
 export class Database {
