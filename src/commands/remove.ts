@@ -10,7 +10,10 @@ export async function remove(cmd: any) {
 		const list = db.getAll();
 
 		if (list.length === 0) {
-			return console.warn('\nThere is nothing to remove!\n');
+			console.log();
+			console.warn('There is nothing to remove!');
+			console.log();
+			return;
 		}
 
 		console.table(list);
@@ -24,13 +27,17 @@ export async function remove(cmd: any) {
 				: false;
 
 		if (!sure) {
-			console.info('\nOk, exited remove operation!\n');
+			console.log();
+			console.info('Ok, exited remove operation!');
+			console.log();
 			return;
 		}
 
 		db.removeAll();
 
-		console.info('\nEverything have been remove!\n');
+		console.log();
+		console.info('Everything have been remove!');
+		console.log();
 		return;
 	}
 
