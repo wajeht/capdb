@@ -103,7 +103,7 @@ export async function add(cmd) {
 		});
 
 		console.log('');
-
-		console.log('Those following credentials have been added.');
+		console.log('Those credentials have been added.');
+		console.log();
 	}
 }

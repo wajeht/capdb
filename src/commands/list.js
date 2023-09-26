@@ -6,7 +6,9 @@ export async function list() {
 	console.log();
 
 	if (list.length === 0) {
-		return console.error('There is nothing in the list!');
+		console.error('There is nothing in the list!');
+		console.log();
+		return;
 	}
 
 	console.table(list);

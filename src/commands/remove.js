@@ -12,6 +12,7 @@ export async function remove(cmd) {
 		if (list.length === 0) {
 			console.log();
 			console.warn('There is nothing to remove!');
+			console.log();
 			return;
 		}
 
@@ -28,6 +29,7 @@ export async function remove(cmd) {
 		if (!sure) {
 			console.log();
 			console.info('Ok, exited remove operation!');
+			console.log();
 			return;
 		}
 
@@ -35,6 +37,7 @@ export async function remove(cmd) {
 
 		console.log();
 		console.info('Everything has been removed!');
+		console.log();
 		return;
 	}
 
