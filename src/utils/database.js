@@ -47,6 +47,8 @@ export class Database {
 			id,
 			...container,
 			last_backed_up_at: null,
+			status: null,
+			last_backed_up_file: null,
 		};
 
 		this.data.push(newContainer);

@@ -1,5 +1,4 @@
 import { input } from '@inquirer/prompts';
-import { logger } from '../utils/logger.js';
 import { validDatabaseTypes, Database as db } from '../utils/database.js';
 
 export async function add(cmd) {
