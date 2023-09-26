@@ -7,13 +7,12 @@ down:
 	docker-compose down
 
 clean:
-	docker-compose down --rmi all  # Stop and remove containers and associated images
+	docker-compose down --rmi all
 
 wipe:
-	docker-compose down -v          # Stop and remove containers and associated volumes
-	docker system prune -a --volumes # Clean up all Docker resources
+	docker-compose down -v          
+	docker system prune -a --volumes 
 
-# Additional convenience targets
 restart:
 	make down
 	make up

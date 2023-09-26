@@ -39,30 +39,18 @@ program
 		(async () => await shell('./src/scripts/start.sh'))();
 	});
 
-// prettier-ignore
-program.command('list')
-	.description('list all the scheduled containers databases')
-	.action(list);
-
-// prettier-ignore
-program.command('log')
-	.description('log all the activities')
-	.action(log);
-
-// prettier-ignore
-program.command('stop')
-	.description('stop capdb')
-	.action(stop);
-
-// prettier-ignore
-program.command('scan')
-	.description('scan all the available running containers')
-	.action(scan);
-
 program
 	.command('restore')
-	.description('Retore the dump sql to back to the container')
+	.description('Retore the dump sql to back to the database container')
 	.action(restore);
+
+program.command('list').description('list all the scheduled containers databases').action(list);
+
+program.command('log').description('log all the backup activities').action(log);
+
+program.command('stop').description('stop capdb backup scheduler').action(stop);
+
+program.command('scan').description('scan all the available running containers').action(scan);
 
 if (process.argv.length < 3) {
 	// prettier-ignore
