@@ -5,7 +5,7 @@ export async function scan() {
 
 	console.log();
 	docker.listContainers(function (err, containers) {
-		if (containers) {
+		if (containers?.length) {
 			console.table(
 				containers.map((container) => {
 					const { Id, Names, Created } = container;
@@ -17,7 +17,7 @@ export async function scan() {
 				}),
 			);
 		} else {
-			console.error('Error fetching container information:', err);
+			console.error('No containers found!');
 		}
 	});
 	console.log();
