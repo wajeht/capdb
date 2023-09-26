@@ -32,17 +32,6 @@ async function backupDatabase(container) {
 			);
 			delete process.env.PGPASSWORD;
 			break;
-		case 'mysql':
-			fileName = path.join(
-				backupDirectory,
-				`dump-${container.container_name}-${container.database_name}-${new Date()
-					.toISOString()
-					.replace(/:/g, '-')}.sql`,
-			);
-			await shell(
-				`docker exec -i ${container.container_name} mysqldump -u${container.database_username} -p${container.database_password} ${container.database_name} > ${fileName}`,
-			);
-			break;
 		case 'mongodb':
 			fileName = path.join(
 				backupDirectory,
@@ -53,15 +42,6 @@ async function backupDatabase(container) {
 			await shell(
 				`docker exec -i ${container.container_name} mongodump --username ${container.database_username} --password ${container.database_password} --db ${container.database_name} --out ${fileName}`,
 			);
-			break;
-		case 'redis':
-			fileName = path.join(
-				backupDirectory,
-				`dump-${container.container_name}-${container.database_name}-${new Date()
-					.toISOString()
-					.replace(/:/g, '-')}`,
-			);
-			await shell(`docker exec -i ${container.container_name} redis-cli save > ${fileName}`);
 			break;
 		default:
 			console.log(`Unsupported database type: ${container.database_type}`);
@@ -76,7 +56,11 @@ async function backupDatabase(container) {
 			`*/${container.back_up_frequency} * * * *`,
 			async () => {
 				logger(`backup started for ${container.container_name}`);
-				await backupDatabase(container);
+				try {
+					await backupDatabase(container);
+				} catch (error) {
+					logger(error?.message);
+				}
 				db.update(container.id, {
 					...container,
 					last_backed_up_at: new Date(),
