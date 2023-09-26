@@ -4,7 +4,7 @@ import { Command } from 'commander';
 import { shell } from './utils/shell.js';
 import { add } from './commands/add.js';
 import { remove } from './commands/remove.js';
-import { list } from './commands/list.js';
+import { status } from './commands/status.js';
 import { scan } from './commands/scan.js';
 import { log } from './commands/log.js';
 import { stop } from './commands/stop.js';
@@ -44,7 +44,7 @@ program
 	.description('Retore the dump sql to back to the database container')
 	.action(restore);
 
-program.command('list').description('list all the scheduled containers databases').action(list);
+program.command('status').description('list all the scheduled containers databases').action(status);
 
 program.command('log').description('log all the backup activities').action(log);
 

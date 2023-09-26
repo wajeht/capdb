@@ -15,9 +15,6 @@ npm install
 
 pm2 start ./src/commands/start.js --name backup-script
 
-echo "Backup script started using PM2."
-
-pm2 list
-
 echo ""
 echo "backup scheduler has been started"
+echo ""

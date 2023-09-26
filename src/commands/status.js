@@ -1,6 +1,6 @@
 import { Database as db } from '../utils/database.js';
 
-export async function list() {
+export async function status() {
 	const list = db.getAll();
 
 	console.log();
@@ -12,4 +12,5 @@ export async function list() {
 	}
 
 	console.table(list);
+	console.log();
 }
