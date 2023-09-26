@@ -1,7 +1,9 @@
-import { Container, Database as db, logger, shell } from '../utils';
+import { logger } from '../utils/logger.js';
+import { shell } from '../utils/shell.js';
+import { Database as db } from '../utils/database.js';
 import cron from 'node-cron';
 
-async function backupDatabase(container: Container): Promise<void> {
+async function backupDatabase(container) {
 	switch (container.database_type) {
 		case 'postgres':
 			process.env.PGPASSWORD = container.database_password;
@@ -35,16 +37,16 @@ async function backupDatabase(container: Container): Promise<void> {
 		const task = cron.schedule(
 			`*/${container.back_up_frequency} * * * *`,
 			async () => {
-				// logger(`backup started for ${container.container_name}`);
+				logger(`backup started for ${container.container_name}`);
 				await backupDatabase(container);
-				// logger(`done backup for ${container.container_name}`);
+				logger(`done backup for ${container.container_name}`);
 			},
 			{
 				scheduled: false,
 			},
 		);
 		task.start();
-		// logger(`backup scheduled for ${container.container_name}`);
+		logger(`backup scheduled for ${container.container_name}`);
 	});
 	process.exit(0);
 })();

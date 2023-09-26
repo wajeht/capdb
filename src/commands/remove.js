@@ -1,7 +1,7 @@
 import { input } from '@inquirer/prompts';
-import { Database as db } from '../utils';
+import { Database as db } from '../utils/database.js';
 
-export async function remove(cmd: any) {
+export async function remove(cmd) {
 	let { id, all } = cmd;
 
 	let sure = false;
@@ -36,7 +36,7 @@ export async function remove(cmd: any) {
 		db.removeAll();
 
 		console.log();
-		console.info('Everything have been remove!');
+		console.info('Everything has been removed!');
 		console.log();
 		return;
 	}

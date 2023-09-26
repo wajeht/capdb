@@ -3,27 +3,15 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 
-export type DatabaseType = 'postgres' | 'mysql' | 'mongodb' | 'redis';
-export const validDatabaseTypes: DatabaseType[] = ['postgres', 'mysql', 'mongodb', 'redis'];
-
-export interface Container {
-	id: string;
-	container_name: string;
-	database_type: DatabaseType;
-	database_name: string;
-	database_username: string;
-	database_password: string;
-	last_backed_up_at: Date | null;
-	back_up_frequency: number;
-}
+export const validDatabaseTypes = ['postgres', 'mysql', 'mongodb', 'redis'];
 
 export class Database {
-	private static data: Container[] = [];
+	static data = [];
 
-	private static readonly configFolder: string = path.join(os.homedir(), '.config', 'capdb');
-	private static readonly jsonFile: string = path.join(this.configFolder, 'database.json');
+	static configFolder = path.join(os.homedir(), '.config', 'capdb');
+	static jsonFile = path.join(this.configFolder, 'database.json');
 
-	private static initJson(): void {
+	static initJson() {
 		if (!fs.existsSync(this.configFolder)) {
 			fs.mkdirSync(this.configFolder, { recursive: true });
 		}
@@ -36,11 +24,11 @@ export class Database {
 		this.data = JSON.parse(jsonData);
 	}
 
-	private static saveJson(): void {
+	static saveJson() {
 		fs.writeFileSync(this.jsonFile, JSON.stringify(this.data, null, 2));
 	}
 
-	public static getAll(): Container[] {
+	static getAll() {
 		if (!this.data.length) {
 			this.initJson();
 		}
@@ -48,14 +36,14 @@ export class Database {
 		return this.data;
 	}
 
-	public static add(container: Omit<Container, 'id' | 'last_backed_up_at'>): void {
+	static add(container) {
 		if (!this.data.length) {
 			this.initJson();
 		}
 
 		const id = crypto.randomUUID();
 
-		const newContainer: Container = {
+		const newContainer = {
 			id,
 			...container,
 			last_backed_up_at: null,
@@ -66,7 +54,7 @@ export class Database {
 		this.saveJson();
 	}
 
-	public static remove(id: string): void | Error {
+	static remove(id) {
 		if (!this.data.length) {
 			this.initJson();
 		}
@@ -82,7 +70,7 @@ export class Database {
 		this.saveJson();
 	}
 
-	public static removeAll(): void {
+	static removeAll() {
 		if (!this.data.length) {
 			this.initJson();
 		}
@@ -92,7 +80,7 @@ export class Database {
 		this.saveJson();
 	}
 
-	public static update(id: string, container: Omit<Container, 'id'>): void {
+	static update(id, container) {
 		if (!this.data.length) {
 			this.initJson();
 		}
@@ -103,7 +91,7 @@ export class Database {
 			return console.log('Not found');
 		}
 
-		const updatedContainer: Container = {
+		const updatedContainer = {
 			id,
 			...this.data[foundIndex],
 			...container,

@@ -5,7 +5,7 @@ import os from 'os';
 let logDate = new Date();
 const logDir = path.join(os.homedir(), '.config', 'capdb', 'logs');
 
-function getLogFileName(): string {
+function getLogFileName() {
 	const today = new Date();
 	if (today.getDate() !== logDate.getDate()) {
 		logDate = today;
@@ -16,17 +16,17 @@ function getLogFileName(): string {
 	return `${year}-${month}-${day}.log`;
 }
 
-const logFilePath: string = path.join(logDir, getLogFileName());
+const logFilePath = path.join(logDir, getLogFileName());
 
 if (!fs.existsSync(logDir)) {
 	fs.mkdirSync(logDir, { recursive: true });
 }
 
-export function logger(...args: any[]): void {
-	const timestamp: string = new Date().toLocaleString('en-US', {
+export function logger(...args) {
+	const timestamp = new Date().toLocaleString('en-US', {
 		timeZoneName: 'short',
 	});
-	const logMessage: string = `[${timestamp}] ${args.join(' ')}\n`;
+	const logMessage = `[${timestamp}] ${args.join(' ')}\n`;
 
 	console.log(logMessage);
 

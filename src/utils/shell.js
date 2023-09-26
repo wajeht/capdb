@@ -1,6 +1,6 @@
-import { spawn, ChildProcess } from 'child_process';
+import { spawn } from 'child_process';
 
-export async function shell(command: string): Promise<ChildProcess | null> {
+export async function shell(command) {
 	const childProcess = spawn(command, {
 		shell: true,
 		stdio: 'inherit',

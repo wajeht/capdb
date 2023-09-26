@@ -2,14 +2,13 @@
 	"name": "capdb",
 	"version": "0.0.1",
 	"description": "backup database periodically",
+	"type": "module",
 	"main": "./dist/src/cli.js",
 	"bin": {
-		"capdb": "./dist/src/cli.js"
+		"capdb": "./src/cli.js"
 	},
 	"scripts": {
-		"cli": "npm unlink capdb && rm -rf ./dist && npm run build && chmod +x ./dist/src/cli.js && npm link",
-		"dev": "npm run cli && tsc -w",
-		"build": "tsc",
+		"cli": "npm unlink capdb && chmod +x ./src/cli.js && npm link",
 		"format:check": "prettier --check .",
 		"format": "prettier --write .",
 		"lint:check": "eslint .",

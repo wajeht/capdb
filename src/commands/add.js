@@ -1,8 +1,8 @@
 import { input } from '@inquirer/prompts';
-import { Database as db, logger } from '../utils';
-import { validDatabaseTypes, DatabaseType } from '../utils';
+import { logger } from '../utils/logger.js';
+import { validDatabaseTypes, Database as db } from '../utils/database.js';
 
-export async function add(cmd: any) {
+export async function add(cmd) {
 	let { container, type, name, username, password, frequency } = cmd;
 
 	let sure = false;
@@ -26,7 +26,7 @@ export async function add(cmd: any) {
 			type = await input({
 				message: 'Enter database type',
 				validate: function (value) {
-					return validDatabaseTypes.includes(value as DatabaseType)
+					return validDatabaseTypes.includes(value)
 						? true
 						: `Invalid database type. Please enter one of: ${validDatabaseTypes.join(', ')}.`;
 				},
@@ -84,7 +84,6 @@ export async function add(cmd: any) {
 				validate: (value) => ['c', 't', 'n', 'u', 'p', 'f'].includes(value) === true,
 			});
 
-			// Handle modifications
 			type = modify === 't' ? '' : type;
 			name = modify === 'n' ? '' : name;
 			username = modify === 'u' ? '' : username;

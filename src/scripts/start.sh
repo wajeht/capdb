@@ -16,11 +16,8 @@ fi
 # Install dependencies
 npm install
 
-# build
-npm run build
-
 # Start your TypeScript script using PM2
-pm2 start ./dist/src/commands/start.js --name backup-script
+pm2 start ./src/commands/start.js --name backup-script
 
 # Display a message indicating successful start
 echo "Backup script started using PM2."

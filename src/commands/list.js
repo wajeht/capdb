@@ -1,4 +1,4 @@
-import { Database as db } from '../utils';
+import { Database as db } from '../utils/database.js';
 
 export async function list() {
 	const list = db.getAll();
