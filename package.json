@@ -3,12 +3,12 @@
 	"version": "0.0.1",
 	"description": "backup database periodically",
 	"type": "module",
-	"main": "./dist/src/cli.js",
+	"main": "./dist/src/index.js",
 	"bin": {
-		"capdb": "./src/cli.js"
+		"capdb": "./src/index.js"
 	},
 	"scripts": {
-		"cli": "npm unlink capdb && chmod +x ./src/cli.js && npm link",
+		"cli": "npm unlink capdb && chmod +x ./src/index.js && npm link",
 		"format:check": "prettier --check .",
 		"format": "prettier --write .",
 		"lint:check": "eslint .",

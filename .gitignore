@@ -3,6 +3,5 @@ node_modules
 src/index.js
 !/logs/.gitkeep
 /logs/*
-/src/*.js
 /dist
 env.json
