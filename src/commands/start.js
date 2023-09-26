@@ -77,6 +77,10 @@ async function backupDatabase(container) {
 			async () => {
 				logger(`backup started for ${container.container_name}`);
 				await backupDatabase(container);
+				db.update(container.id, {
+					...container,
+					last_backed_up_at: new Date(),
+				});
 				logger(`done backup for ${container.container_name}`);
 			},
 			{
