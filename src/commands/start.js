@@ -5,6 +5,7 @@ import { Database as db } from '../utils/database.js';
 import cron from 'node-cron';
 import path from 'path';
 import fs from 'fs';
+import os from 'os';
 
 function ensureDirectoryExists(directory) {
 	if (!fs.existsSync(directory)) {
@@ -13,8 +14,9 @@ function ensureDirectoryExists(directory) {
 }
 
 async function backupDatabase(container) {
-	let fileName;
-	const backupDirectory = path.join(process.env.HOME, '.config', 'capdb', 'backups');
+	let fileName = '';
+
+	const backupDirectory = path.join(os.homedir(), '.config', 'capdb', 'backups');
 
 	ensureDirectoryExists(backupDirectory);
 

@@ -3,7 +3,6 @@ import Docker from 'dockerode';
 export async function scan() {
 	const docker = new Docker();
 
-	console.log();
 	docker.listContainers(function (err, containers) {
 		if (containers?.length) {
 			console.table(

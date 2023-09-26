@@ -104,8 +104,6 @@ export async function add(cmd) {
 
 		console.log('');
 
-		logger('The following credentials have been added.');
-
-		console.table([{ container, type, name, username, password, frequency }]);
+		console.log('Those following credentials have been added.');
 	}
 }
