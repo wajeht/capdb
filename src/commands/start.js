@@ -51,29 +51,38 @@ async function backupDatabase(container) {
 	}
 }
 
-(async function start() {
+async function start() {
 	const containers = db.getAll();
-	for (const container of containers) {
-		const task = cron.schedule(
-			`*/${container.back_up_frequency} * * * *`,
-			async () => {
-				logger(`backup started for ${container.container_name}`);
-				try {
-					await backupDatabase(container);
-				} catch (error) {
-					logger(error?.message);
-				}
-				db.update(container.id, {
-					...container,
-					last_backed_up_at: new Date(),
-				});
-				logger(`done backup for ${container.container_name}`);
-			},
-			{
-				scheduled: false,
-			},
-		);
-		task.start();
-		logger(`backup scheduled for ${container.container_name}`);
+
+	if (!containers.length) {
+		logger(`Nothing to backup!`);
+		process.exit(0);
 	}
-})();
+
+	const backupPromises = containers.map(async (container) => {
+		return new Promise(async (resolve) => {
+			const task = cron.schedule(
+				`*/${container.back_up_frequency} * * * *`,
+				async () => {
+					logger(`Backup started for ${container.container_name}`);
+					try {
+						await backupDatabase(container);
+						db.update(container.id, { ...container, last_backed_up_at: new Date() });
+					} catch (error) {
+						logger(error?.message);
+					} finally {
+						logger(`Backup completed for ${container.container_name}`);
+						resolve();
+					}
+				},
+				{ scheduled: false },
+			);
+			task.start();
+			logger(`Backup scheduled for ${container.container_name}`);
+		});
+	});
+
+	await Promise.all(backupPromises);
+}
+
+start();
