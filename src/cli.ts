@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { list, add, start, remove, restore, scan } from './commands';
-import { version } from './utils';
+import { list, add, remove, restore, scan } from './commands';
+import { shell, version } from './utils';
 
 const program = new Command();
 
@@ -29,7 +29,9 @@ program
 program
 	.command('start')
 	.description('start the cron job to backup all the databases inside docker containers')
-	.action(start);
+	.action(async () => {
+		(async () => await shell('./src/scripts/start.sh'))();
+	});
 
 // prettier-ignore
 program.command('list')

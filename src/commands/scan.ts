@@ -11,7 +11,7 @@ export async function scan() {
 					const { Id, Names, Created } = container;
 					return {
 						Id,
-						Names,
+						Names: Names[0]?.split('/')[1],
 						Created,
 					};
 				}),

@@ -7,7 +7,7 @@ export async function add(cmd: any) {
 
 	let sure = false;
 
-	if (isNaN(frequency) && frequency.length) {
+	if (frequency && isNaN(frequency) && frequency.length) {
 		console.log();
 		console.log('Frequency must be a number');
 		console.log();
