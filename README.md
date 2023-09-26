@@ -7,13 +7,13 @@ database management cli for caprover
 - [x] back up to disk
 - [x] log to file
 - [ ] email alert
-- [ ] cli ?
+- [x] cli ?
 - [ ] publish it to npm
-- [ ] support for mysql
+- [x] support for mysql # sorry, we dont' support msyql, this is not democracy, it's dictatorship
 - [ ] back up to s3
 - [ ] restore cmd
-- [ ] script to setup node and typescript
-- [ ] config via env
+- [x] script to setup node and typescript
+- [x] config via env
 
 # 💻 Commands
 
