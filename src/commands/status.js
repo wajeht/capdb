@@ -1,16 +1,16 @@
 import { Database as db } from '../utils/database.js';
 
 export async function status() {
-	const list = db.getAll();
+	let lists = db.getAll();
 
 	console.log();
 
-	if (list.length === 0) {
+	if (lists.length === 0) {
 		console.error('There is nothing in the list!');
 		console.log();
 		return;
 	}
 
-	console.table(list);
+	console.table(lists);
 	console.log();
 }
