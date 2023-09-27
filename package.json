@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"description": "backup database periodically",
 	"type": "module",
-	"main": "./dist/src/index.js",
+	"main": "./src/index.js",
 	"bin": {
 		"capdb": "./src/index.js"
 	},
