@@ -5,15 +5,17 @@ if ! command -v pm2 &> /dev/null; then
   npm install pm2 -g
 fi
 
-if pm2 show backup-script &> /dev/null; then
-  echo "Stopping and deleting existing backup-script..."
-  pm2 stop backup-script
-  pm2 delete backup-script
+if pm2 show capdb &> /dev/null; then
+  echo "Stopping and deleting existing capdb..."
+  pm2 stop capdb
+  pm2 delete capdb
 fi
 
 npm install
 
-pm2 start ./src/commands/start.js --name backup-script
+pm2 start ./src/commands/start.js --name capdb
+pm2 startup
+pm2 save --force
 
 echo ""
 echo "backup scheduler has been started"
