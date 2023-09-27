@@ -92,7 +92,7 @@ export async function add(cmd) {
 	}
 
 	if (sure) {
-		db.add({
+		await db.add({
 			container_name: container,
 			database_type: type,
 			database_name: name,

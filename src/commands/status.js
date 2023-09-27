@@ -1,7 +1,7 @@
 import { Database as db } from '../utils/database.js';
 
 export async function status() {
-	let lists = db.getAll();
+	let lists = await db.getAll();
 
 	console.log();
 

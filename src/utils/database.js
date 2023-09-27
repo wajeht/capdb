@@ -1,5 +1,5 @@
 import os from 'os';
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
 import crypto from 'crypto';
 
@@ -7,39 +7,43 @@ export const validDatabaseTypes = ['postgres', 'mysql', 'mongodb', 'redis'];
 
 export class Database {
 	static data = [];
-
 	static configFolder = path.join(os.homedir(), '.config', 'capdb');
 	static jsonFile = path.join(this.configFolder, 'database.json');
 
-	static initJson() {
-		if (!fs.existsSync(this.configFolder)) {
-			fs.mkdirSync(this.configFolder, { recursive: true });
+	static async initJson() {
+		try {
+			await fs.access(this.configFolder);
+		} catch (error) {
+			await fs.mkdir(this.configFolder, { recursive: true });
 		}
 
-		if (!fs.existsSync(this.jsonFile)) {
-			fs.writeFileSync(this.jsonFile, '[]');
+		try {
+			await fs.access(this.jsonFile);
+		} catch (error) {
+			await fs.writeFile(this.jsonFile, '[]');
 		}
 
-		const jsonData = fs.readFileSync(this.jsonFile, 'utf-8');
+		const jsonData = await fs.readFile(this.jsonFile, 'utf-8');
 		this.data = JSON.parse(jsonData);
 	}
 
-	static saveJson() {
-		fs.writeFileSync(this.jsonFile, JSON.stringify(this.data, null, 2));
+	static async saveJson() {
+		await fs.writeFile(this.jsonFile, JSON.stringify(this.data, null, 2));
 	}
 
-	static getAll() {
+	static async ensureDataInitialized() {
 		if (!this.data.length) {
-			this.initJson();
+			await this.initJson();
 		}
+	}
 
+	static async getAll() {
+		await this.ensureDataInitialized();
 		return this.data;
 	}
 
-	static add(container) {
-		if (!this.data.length) {
-			this.initJson();
-		}
+	static async add(container) {
+		await this.ensureDataInitialized();
 
 		const id = crypto.randomUUID();
 
@@ -53,13 +57,11 @@ export class Database {
 
 		this.data.push(newContainer);
 
-		this.saveJson();
+		await this.saveJson();
 	}
 
-	static remove(id) {
-		if (!this.data.length) {
-			this.initJson();
-		}
+	static async remove(id) {
+		await this.ensureDataInitialized();
 
 		const foundIndex = this.data.findIndex((container) => container.id === id);
 
@@ -69,23 +71,18 @@ export class Database {
 
 		this.data.splice(foundIndex, 1);
 
-		this.saveJson();
+		await this.saveJson();
 	}
 
-	static removeAll() {
-		if (!this.data.length) {
-			this.initJson();
-		}
-
+	static async removeAll() {
+		await this.ensureDataInitialized();
 		this.data = [];
 
-		this.saveJson();
+		await this.saveJson();
 	}
 
-	static update(id, container) {
-		if (!this.data.length) {
-			this.initJson();
-		}
+	static async update(id, container) {
+		await this.ensureDataInitialized();
 
 		const foundIndex = this.data.findIndex((c) => c.id === id);
 
@@ -101,6 +98,6 @@ export class Database {
 
 		this.data[foundIndex] = updatedContainer;
 
-		this.saveJson();
+		await this.saveJson();
 	}
 }

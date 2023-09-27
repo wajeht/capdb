@@ -7,7 +7,7 @@ export async function remove(cmd) {
 	let sure = false;
 
 	if (all) {
-		const list = db.getAll();
+		const list = await db.getAll();
 
 		if (list.length === 0) {
 			console.log();
@@ -33,7 +33,7 @@ export async function remove(cmd) {
 			return;
 		}
 
-		db.removeAll();
+		await db.removeAll();
 
 		console.log();
 		console.info('Everything has been removed!');
@@ -48,5 +48,5 @@ export async function remove(cmd) {
 		});
 	}
 
-	db.remove(id);
+	await db.remove(id);
 }

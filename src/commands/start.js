@@ -52,7 +52,7 @@ async function backupDatabase(container) {
 }
 
 async function start() {
-	const containers = db.getAll();
+	const containers = await db.getAll();
 
 	if (!containers.length) {
 		logger(`Nothing to backup!`);
@@ -67,7 +67,7 @@ async function start() {
 					logger(`Backup started for ${container.container_name}`);
 					try {
 						const filePath = await backupDatabase(container);
-						db.update(container.id, {
+						await db.update(container.id, {
 							...container,
 							last_backed_up_at: new Date(),
 							status: true,
@@ -75,7 +75,7 @@ async function start() {
 						});
 					} catch (error) {
 						logger(error?.message);
-						db.update(container.id, {
+						await db.update(container.id, {
 							...container,
 							last_backed_up_at: new Date(),
 							status: false,
