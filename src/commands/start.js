@@ -1,3 +1,4 @@
+import Docker from 'dockerode';
 import { logger } from '../utils/logger.js';
 import { shell } from '../utils/shell.js';
 import { Database as db } from '../utils/database.js';
@@ -17,8 +18,17 @@ async function backupDatabase(container) {
 	let fileName = '';
 
 	const backupDirectory = path.join(os.homedir(), '.config', 'capdb', 'backups');
-
 	ensureDirectoryExists(backupDirectory);
+
+	const docker = new Docker();
+	const containers = await docker.listContainers({ all: true });
+
+	const containerExists = containers.some((c) => c.Names.includes(`/${container.container_name}`));
+
+	if (!containerExists) {
+		logger(`Container ${container.container_name} does not exist.`);
+		return null;
+	}
 
 	switch (container.database_type) {
 		case 'postgres':
@@ -46,8 +56,8 @@ async function backupDatabase(container) {
 			);
 			return fileName;
 		default:
-			console.log(`Unsupported database type: ${container.database_type}`);
-			break;
+			logger(`Unsupported database type: ${container.database_type}`);
+			return null;
 	}
 }
 
@@ -67,18 +77,22 @@ async function start() {
 					logger(`Backup started for ${container.container_name}`);
 					try {
 						const filePath = await backupDatabase(container);
-						await db.update(container.id, {
-							...container,
-							last_backed_up_at: new Date(),
-							status: true,
-							last_backed_up_file: filePath,
-						});
+						if (filePath) {
+							await db.update(container.id, {
+								...container,
+								status: true,
+								last_backed_up_at: new Date(),
+								last_backed_up_file: filePath,
+							});
+						} else {
+							logger(`Backup failed for ${container.container_name}`);
+						}
 					} catch (error) {
 						logger(error?.message);
 						await db.update(container.id, {
 							...container,
-							last_backed_up_at: new Date(),
 							status: false,
+							last_backed_up_at: new Date(),
 							last_backed_up_file: null,
 						});
 					} finally {
