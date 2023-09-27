@@ -33,7 +33,7 @@ async function backupDatabase(container) {
 				`docker exec -i ${container.container_name} pg_dump -U ${container.database_username} -d ${container.database_name} > ${fileName}`,
 			);
 			delete process.env.PGPASSWORD;
-			break;
+			return fileName;
 		case 'mongodb':
 			fileName = path.join(
 				backupDirectory,
@@ -44,7 +44,7 @@ async function backupDatabase(container) {
 			await shell(
 				`docker exec -i ${container.container_name} mongodump --username ${container.database_username} --password ${container.database_password} --db ${container.database_name} --out ${fileName}`,
 			);
-			break;
+			return fileName;
 		default:
 			console.log(`Unsupported database type: ${container.database_type}`);
 			break;
@@ -66,10 +66,21 @@ async function start() {
 				async () => {
 					logger(`Backup started for ${container.container_name}`);
 					try {
-						await backupDatabase(container);
-						db.update(container.id, { ...container, last_backed_up_at: new Date() });
+						const filePath = await backupDatabase(container);
+						db.update(container.id, {
+							...container,
+							last_backed_up_at: new Date(),
+							status: true,
+							last_backed_up_file: filePath,
+						});
 					} catch (error) {
 						logger(error?.message);
+						db.update(container.id, {
+							...container,
+							last_backed_up_at: new Date(),
+							status: false,
+							last_backed_up_file: null,
+						});
 					} finally {
 						logger(`Backup completed for ${container.container_name}`);
 						resolve();
