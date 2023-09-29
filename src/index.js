@@ -9,6 +9,7 @@ import { scan } from './commands/scan.js';
 import { log } from './commands/log.js';
 import { stop } from './commands/stop.js';
 import { restore } from './commands/restore.js';
+import { Database as db } from './utils/database.js';
 
 const program = new Command();
 
@@ -36,6 +37,16 @@ program
 	.command('start')
 	.description('start the cron job to backup all the databases inside docker containers')
 	.action(async () => {
+		let lists = await db.getAll();
+
+		console.log();
+
+		if (lists.length === 0) {
+			console.error('There is nothing in the list!');
+			console.log();
+			return;
+		}
+
 		(async () => await shell('./src/scripts/start.sh'))();
 	});
 
