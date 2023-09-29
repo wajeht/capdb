@@ -12,18 +12,25 @@ export async function restore(cmd) {
 		return;
 	}
 
-	console.table(lists);
-	console.log();
-
 	let { index } = cmd;
 
 	if (!index) {
-		if (!index) {
-			index = await input({
-				message: 'Specify the index of the container to restore',
-				validate: (value) =>
-					value.length !== 0 && !isNaN(value) ? true : 'Index must be a number!',
-			});
-		}
+		console.table(lists);
+		console.log();
 	}
+
+	if (!index) {
+		index = await input({
+			message: 'Specify the index of the container to restore',
+			validate: function (value) {
+				if (value.length !== 0 && isNaN(value)) return 'Index must be a number';
+
+				if (lists[parseInt(value)] === undefined) return 'No container found with the given index.';
+
+				return true;
+			},
+		});
+	}
+
+	// now we restore ...
 }
