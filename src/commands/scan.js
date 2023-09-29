@@ -17,7 +17,7 @@ export async function scan() {
 			);
 			console.log();
 		} else {
-			console.error('No containers found!');
+			console.error('No containers were found.');
 			console.log();
 		}
 	});

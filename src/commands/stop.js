@@ -7,7 +7,7 @@ export async function stop() {
 	console.log();
 
 	if (lists.length === 0) {
-		console.error('There is nothing in the list. The backup scheduler is not running.');
+		console.error('No items found in the list. The backup scheduler is not active.');
 		console.log();
 		return;
 	}

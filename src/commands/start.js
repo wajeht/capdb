@@ -65,7 +65,7 @@ async function start() {
 	const containers = await db.getAll();
 
 	if (!containers.length) {
-		logger(`Nothing to backup!`);
+		logger(`No containers to back up.`);
 		process.exit(0);
 	}
 

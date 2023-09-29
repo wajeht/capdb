@@ -1,48 +1,53 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
+
 import { shell } from './utils/shell.js';
+
 import { add } from './commands/add.js';
 import { remove } from './commands/remove.js';
 import { status } from './commands/status.js';
 import { scan } from './commands/scan.js';
 import { log } from './commands/log.js';
 import { stop } from './commands/stop.js';
-import { restore } from './commands/restore.js';
+
 import { Database as db } from './utils/database.js';
 
 const program = new Command();
 
-program.name('capdb').description('database management cli for caprover').version(1);
+program.name('capdb').description('CapDB - Database Management CLI for Caprover').version(1);
 
 program
 	.command('add')
-	.description('add containers database credentials to backup')
-	.option('-c, --container <string>', 'container name')
-	.option('-t, --type <string>', 'databse type (mysql, postgres, redis, mongodb)')
-	.option('-n, --name <string>', 'database name')
-	.option('-u, --username <string>', 'database username')
-	.option('-p, --password <string>', 'database password')
-	.option('-f, --frequency <number>', 'database backup frequency')
+	.description('Add database credentials for container backup')
+	.option('-c, --container <string>', 'Specify the container name')
+	.option(
+		'-t, --type <string>',
+		'Specify the database type (e.g., mysql, postgres, redis, mongodb)',
+	)
+	.option('-n, --name <string>', 'Specify the database name')
+	.option('-u, --username <string>', 'Specify the database username')
+	.option('-p, --password <string>', 'Specify the database password')
+	.option('-f, --frequency <number>', 'Specify the database backup frequency in minutes')
 	.action(async (cmd) => await add(cmd));
 
 program
 	.command('remove')
-	.description('remove containers database credentials to backup')
-	.option('-id, --id <string>', 'the id')
-	.option('-a, --all', 'remove all')
+	.description('Remove database credentials from container backup')
+	.option('-id, --id <string>', 'Specify the ID of the credentials to remove')
+	.option('-a, --all', 'Remove all database credentials from backup')
 	.action(async (cmd) => remove(cmd));
 
 program
 	.command('start')
-	.description('start the cron job to backup all the databases inside docker containers')
+	.description('Start the scheduled backup process for all configured database containers')
 	.action(async () => {
 		let lists = await db.getAll();
 
 		console.log();
 
 		if (lists.length === 0) {
-			console.error('There is nothing in the list!');
+			console.error('There are no databases configured for backup.');
 			console.log();
 			return;
 		}
@@ -52,16 +57,16 @@ program
 
 program
 	.command('restore')
-	.description('Retore the dump sql to back to the database container')
+	.description('Restore a database backup to its respective container')
 	.action(restore);
 
-program.command('status').description('list all the scheduled containers databases').action(status);
+program.command('status').description('List all scheduled container databases').action(status);
 
-program.command('log').description('log all the backup activities').action(log);
+program.command('log').description('View logs of all backup activities').action(log);
 
-program.command('stop').description('stop capdb backup scheduler').action(stop);
+program.command('stop').description('Stop the CapDB backup scheduler').action(stop);
 
-program.command('scan').description('scan all the available running containers').action(scan);
+program.command('scan').description('Scan and list all available running containers').action(scan);
 
 if (process.argv.length < 3) {
 	// prettier-ignore
