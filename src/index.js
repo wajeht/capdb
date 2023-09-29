@@ -10,6 +10,7 @@ import { status } from './commands/status.js';
 import { scan } from './commands/scan.js';
 import { log } from './commands/log.js';
 import { stop } from './commands/stop.js';
+import { restore } from './commands/restore.js';
 
 import { Database as db } from './utils/database.js';
 
