@@ -66,7 +66,7 @@ export class Database {
 		const foundIndex = this.data.findIndex((container) => container.id === id);
 
 		if (foundIndex === -1) {
-			return console.error('\nThe specified container ID was not found.\n');
+			return console.error('\nNo containers matching the specified ID were found.\n');
 		}
 
 		this.data.splice(foundIndex, 1);
@@ -87,7 +87,7 @@ export class Database {
 		const foundIndex = this.data.findIndex((c) => c.id === id);
 
 		if (foundIndex === -1) {
-			return console.error('\nThe specified container ID was not found.\n');
+			return console.error('\nNo containers matching the specified ID were found.\n');
 		}
 
 		const updatedContainer = {
