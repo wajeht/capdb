@@ -13,5 +13,6 @@ export async function log() {
 	}
 
 	await shell('pm2 log capdb --lines 5');
+
 	console.log();
 }

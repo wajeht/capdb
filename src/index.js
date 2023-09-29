@@ -58,8 +58,9 @@ program
 
 program
 	.command('restore')
+	.option('-idx, --index <number>', 'Specify the index of the container to restore')
 	.description('Restore a database backup to its respective container')
-	.action(restore);
+	.action(async (cmd) => restore(cmd));
 
 program.command('status').description('List all scheduled container databases').action(status);
 
