@@ -7,9 +7,11 @@ export async function stop() {
 	console.log();
 
 	if (lists.length === 0) {
-		console.error('There is nothing in the list!');
+		console.error('There is nothing in the list. The backup scheduler is not running.');
 		console.log();
 		return;
 	}
+
 	await shell('pm2 delete capdb && pm2 save --force');
+	console.log();
 }

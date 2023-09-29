@@ -7,10 +7,11 @@ export async function log() {
 	console.log();
 
 	if (lists.length === 0) {
-		console.error('There is nothing in the list!');
+		console.error('There is nothing in the list. The backup scheduler is not running.');
 		console.log();
 		return;
 	}
 
 	await shell('pm2 log capdb --lines 5');
+	console.log();
 }
