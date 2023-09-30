@@ -8,6 +8,12 @@ import path from 'path';
 import fs from 'fs';
 import os from 'os';
 
+const backupDirectory = path.join(os.homedir(), '.config', 'capdb', 'backups');
+
+ensureDirectoryExists(backupDirectory);
+
+const docker = new Docker();
+
 function ensureDirectoryExists(directory) {
 	if (!fs.existsSync(directory)) {
 		fs.mkdirSync(directory, { recursive: true });
@@ -17,10 +23,8 @@ function ensureDirectoryExists(directory) {
 async function backupDatabase(container) {
 	let fileName = '';
 
-	const backupDirectory = path.join(os.homedir(), '.config', 'capdb', 'backups');
-	ensureDirectoryExists(backupDirectory);
+	const currentDateISOString = new Date().toISOString().replace(/:/g, '-');
 
-	const docker = new Docker();
 	const containers = await docker.listContainers({ all: true });
 
 	const containerExists = containers.some((c) => c.Names.includes(`/${container.container_name}`));
@@ -30,34 +34,28 @@ async function backupDatabase(container) {
 		return null;
 	}
 
-	switch (container.database_type) {
-		case 'postgres':
+	try {
+		if (container.database_type === 'postgres') {
 			process.env.PGPASSWORD = container.database_password;
-			fileName = path.join(
-				backupDirectory,
-				`dump-${container.container_name}-${container.database_name}-${new Date()
-					.toISOString()
-					.replace(/:/g, '-')}.sql`,
-			);
-			await shell(
-				`docker exec -i ${container.container_name} pg_dump -U ${container.database_username} -d ${container.database_name} > ${fileName}`,
-			);
+			// prettier-ignore
+			fileName = path.join(backupDirectory, `dump-${container.container_name}-${container.database_name}-${currentDateISOString}.sql`);
+			// prettier-ignore
+			await shell(`docker exec -i ${container.container_name} pg_dump -U ${container.database_username} -d ${container.database_name} > ${fileName}`);
 			delete process.env.PGPASSWORD;
-			return fileName;
-		case 'mongodb':
-			fileName = path.join(
-				backupDirectory,
-				`dump-${container.container_name}-${container.database_name}-${new Date()
-					.toISOString()
-					.replace(/:/g, '-')}`,
-			);
-			await shell(
-				`docker exec -i ${container.container_name} mongodump --username ${container.database_username} --password ${container.database_password} --db ${container.database_name} --out ${fileName}`,
-			);
-			return fileName;
-		default:
+		} else if (container.database_type === 'mongodb') {
+			// prettier-ignore
+			fileName = path.join(backupDirectory, `dump-${container.container_name}-${container.database_name}-${currentDateISOString}`);
+			// prettier-ignore
+			await shell(`docker exec -i ${container.container_name} mongodump --username ${container.database_username} --password ${container.database_password} --db ${container.database_name} --out ${fileName}`);
+		} else {
 			logger(`Unsupported database type: ${container.database_type}`);
 			return null;
+		}
+
+		return fileName;
+	} catch (error) {
+		logger(error?.message);
+		return null;
 	}
 }
 
@@ -70,41 +68,38 @@ async function start() {
 	}
 
 	const backupPromises = containers.map(async (container) => {
-		return new Promise(async (resolve) => {
-			const task = cron.schedule(
-				`*/${container.back_up_frequency} * * * *`,
-				async () => {
-					logger(`Backup started for ${container.container_name}`);
-					try {
-						const filePath = await backupDatabase(container);
-						if (filePath) {
-							await db.update(container.id, {
-								...container,
-								status: true,
-								last_backed_up_at: new Date(),
-								last_backed_up_file: filePath,
-							});
-						} else {
-							logger(`Backup failed for ${container.container_name}`);
-						}
-					} catch (error) {
-						logger(error?.message);
+		const task = cron.schedule(
+			`*/${container.back_up_frequency} * * * *`,
+			async () => {
+				logger(`Backup started for ${container.container_name}`);
+				try {
+					const filePath = await backupDatabase(container);
+					if (filePath) {
 						await db.update(container.id, {
 							...container,
-							status: false,
+							status: true,
 							last_backed_up_at: new Date(),
-							last_backed_up_file: null,
+							last_backed_up_file: filePath,
 						});
-					} finally {
-						logger(`Backup completed for ${container.container_name}`);
-						resolve();
+					} else {
+						logger(`Backup failed for ${container.container_name}`);
 					}
-				},
-				{ scheduled: false },
-			);
-			task.start();
-			logger(`Backup scheduled for ${container.container_name}`);
-		});
+				} catch (error) {
+					logger(error?.message);
+					await db.update(container.id, {
+						...container,
+						status: false,
+						last_backed_up_at: new Date(),
+						last_backed_up_file: null,
+					});
+				} finally {
+					logger(`Backup completed for ${container.container_name}`);
+				}
+			},
+			{ scheduled: false },
+		);
+		task.start();
+		logger(`Backup scheduled for ${container.container_name}`);
 	});
 
 	await Promise.all(backupPromises);
