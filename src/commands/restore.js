@@ -4,7 +4,7 @@ import { Database as db } from '../utils/database.js';
 import { input } from '@inquirer/prompts';
 
 export async function restore(cmd) {
-	let lists = await db.getAll();
+	const lists = await db.getAll();
 
 	console.log();
 
@@ -34,12 +34,7 @@ export async function restore(cmd) {
 
 	const container = lists[index];
 
-	if (
-		container.last_backed_up_at === null ||
-		container.status === null ||
-		container.status === false ||
-		container.last_backed_up_file === null
-	) {
+	if (!container.last_backed_up_at || !container.status || !container.last_backed_up_file) {
 		console.log();
 		console.error(
 			'The scheduler has not run for backing up this container or it cannot be restored.',
@@ -57,15 +52,15 @@ export async function restore(cmd) {
 
 	if (container.database_type === 'postgres') {
 		const command = `docker exec -i ${container.container_name} psql -U ${container.database_username} -d ${container.database_name} < ${container.last_backed_up_file}`;
-		exec(command, (stdin, stdout, error) => {
+		exec(command, (error, stdout) => {
 			if (error) {
-				console.error(`Something went wrong while restoreing ${container.container_name}`, error);
+				console.error(`Something went wrong while restoring ${container.container_name}`, error);
 				console.log();
 				return;
 			}
 
 			if (stdout) {
-				console.log('Staring restore.....');
+				console.log('Starting restore.....');
 				console.log();
 				console.log(stdout);
 				console.log('Restoring done.....!');
