@@ -100,4 +100,18 @@ export class Database {
 
 		await this.saveJson();
 	}
+
+	static async get(id) {
+		await this.ensureDataInitialized();
+
+		const foundIndex = this.data.findIndex((container) => container.id === id);
+
+		if (foundIndex === -1) {
+			console.error('\nNo containers matching the specified ID were found.\n');
+			console.log();
+			return null;
+		}
+
+		return this.data[foundIndex];
+	}
 }
