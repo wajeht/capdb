@@ -4,3 +4,4 @@ node_modules
 /logs/*
 /dist
 env.json
+./src/database/db.sqlite
