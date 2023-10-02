@@ -16,7 +16,10 @@ import { Database as db } from './utils/database.js';
 
 const program = new Command();
 
-program.name('capdb').description('CapDB - Database Management CLI for Caprover').version(1);
+program
+	.name('capdb')
+	.description('CapDB - database management cli for docker environments')
+	.version(1);
 
 program
 	.command('add')

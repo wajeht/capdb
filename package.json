@@ -1,7 +1,7 @@
 {
 	"name": "capdb",
 	"version": "0.0.1",
-	"description": "backup database periodically",
+	"description": "database management cli for docker environments",
 	"type": "module",
 	"main": "./src/index.js",
 	"bin": {
