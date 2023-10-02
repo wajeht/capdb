@@ -6,8 +6,9 @@ export function up(knex) {
 		table.integer('database_name').notNullable();
 		table.string('database_username').notNullable();
 		table.string('database_password').notNullable();
-		table.boolean('status').defaultTo(null);
-		table.integer('back_up_frequency').defaultTo(null);
+		table.boolean('status').defaultTo(false);
+		table.boolean('back_up_to_s3').defaultTo(false);
+		table.integer('back_up_frequency').defaultTo(60);
 		table.datetime('last_backed_up_at').defaultTo(null);
 		table.string('last_backed_up_file').defaultTo(null);
 	});

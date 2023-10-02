@@ -10,7 +10,7 @@ const backupsDirectory = path.join(capdbDirectory, 'backups');
 const logsDirectory = path.join(capdbDirectory, 'logs');
 
 export async function config(cmd) {
-	let { path, default: dafault } = cmd;
+	let { path, default: dafault, update } = cmd;
 
 	const config = await db.from('configurations').returning('*');
 
@@ -50,6 +50,15 @@ export async function config(cmd) {
 
 		console.log();
 		process.exit(0);
+	}
+
+	if (update) {
+		console.log();
+		const modify = await input({
+			message:
+				'What do you want to change? \n\nCapdb config folder path (c), s3 access key (a), s3 secret key (s), s3 bucket name (b), s3 region(r) ?',
+			validate: (value) => ['c', 'a', 's', 'b', 'r'].includes(value) === true,
+		});
 	}
 
 	console.log();

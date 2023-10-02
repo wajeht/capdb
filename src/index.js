@@ -70,6 +70,7 @@ program
 	.command('config')
 	.option('-p, --path <string>', 'Specify the back up foler path')
 	.option('-d, --default', 'Initialize default configuration')
+	.option('-u, --update', 'Update capdb configurations')
 	.description('Configuration needed for capdb functionality')
 	.action(async (cmd) => config(cmd));
 
