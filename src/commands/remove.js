@@ -16,7 +16,9 @@ export async function remove(cmd) {
 			process.exit(0);
 		}
 
+		console.log();
 		console.table(containers);
+		console.log();
 
 		sure =
 			(await input({
@@ -48,6 +50,20 @@ export async function remove(cmd) {
 		});
 	}
 
+	const container = await db.select('*').from('containers').where({ id });
+
+	if (container.length === 0) {
+		console.log();
+		console.error(`No container found with id of ${id} in the database.`);
+		console.log();
+		process.exit(0);
+	}
+
 	await db('containers').where({ id }).delete();
+
+	console.log();
+	console.log(`Container of id ${id} has been removed.`);
+
+	console.log();
 	process.exit(0);
 }
