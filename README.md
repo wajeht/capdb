@@ -1,6 +1,6 @@
 # 💾 capdb
 
-database management cli for caprover
+database management cli for docker environments
 
 # 📝 Todo
 
