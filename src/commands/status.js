@@ -1,16 +1,16 @@
-import { Database as db } from '../utils/database.js';
+import db from '../database/db.js';
 
 export async function status() {
-	let lists = await db.getAll();
+	let containers = await db.select('*').from('containers');
 
 	console.log();
 
-	if (lists.length === 0) {
-		console.error('No items found in the list. The backup scheduler is not active.');
+	if (containers.length === 0) {
+		console.error('No containers found in the list. The backup scheduler is not active.');
 		console.log();
-		return;
+		process.exit(0);
 	}
 
-	console.table(lists);
+	console.table(containers);
 	console.log();
 }

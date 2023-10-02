@@ -1,7 +1,16 @@
 import knex from 'knex';
 import knexConfig from './knexfile.js';
-import { env } from '../utils/constants.js';
 
-const db = knex(knexConfig[env]);
+process.chdir('src/database');
 
-export default db;
+// knex(knexConfig)
+// 	.raw('SELECT 1 + 1')
+// 	.then(() => {
+// 		console.debug('Database connection started!');
+// 	})
+// 	.catch(() => {
+// 		console.error('Database connection failed!');
+// 		process.exit(1);
+// 	});
+
+export default knex(knexConfig);
