@@ -71,6 +71,11 @@ program
 	.option('-p, --path <string>', 'Specify the back up foler path')
 	.option('-d, --default', 'Initialize default configuration')
 	.option('-u, --update', 'Update capdb configurations')
+	.option('-c, --config', 'capdb config folder path')
+	.option('-a, --access_key', 's3 access key')
+	.option('-s, --secret_key', 's3 secret key')
+	.option('-b, --backet_name', 's3 backet name')
+	.option('-r, --region', 's3 region')
 	.description('Configuration needed for capdb functionality')
 	.action(async (cmd) => config(cmd));
 
