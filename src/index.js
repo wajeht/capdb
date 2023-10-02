@@ -9,6 +9,7 @@ import { remove } from './commands/remove.js';
 import { status } from './commands/status.js';
 import { scan } from './commands/scan.js';
 import { log } from './commands/log.js';
+import { config } from './commands/config.js';
 import { stop } from './commands/stop.js';
 import { restore } from './commands/restore.js';
 
@@ -64,6 +65,11 @@ program
 	.option('-idx, --index <number>', 'Specify the index of the container to restore')
 	.description('Restore a database backup to its respective container')
 	.action(async (cmd) => restore(cmd));
+
+program
+	.command('config')
+	.description('Configuration needed for capdb functionality')
+	.action(config);
 
 program.command('status').description('List all scheduled container databases').action(status);
 

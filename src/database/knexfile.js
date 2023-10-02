@@ -3,7 +3,7 @@ const knexConfig = {
 		client: 'sqlite3',
 		useNullAsDefault: true,
 		connection: {
-			filename: 'db.sqlite',
+			filename: './db.sqlite',
 		},
 		migrations: { directory: './migrations' },
 		seeds: { directory: './seeds' },
@@ -17,7 +17,7 @@ const knexConfig = {
 		client: 'sqlite3',
 		useNullAsDefault: true,
 		connection: {
-			filename: 'db.sqlite',
+			filename: './db.sqlite',
 		},
 		migrations: { directory: './migrations' },
 		seeds: { directory: './seeds' },

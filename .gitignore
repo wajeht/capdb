@@ -5,3 +5,5 @@ node_modules
 /dist
 env.json
 ./src/database/db.sqlite
+*.sqlite
+/src/database/db.sqlite
