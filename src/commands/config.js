@@ -49,28 +49,24 @@ export async function config(cmd) {
 			if (!access_key) {
 				access_key = await input({
 					message: 'Enter s3 access key',
-					validate: (value) => value.length !== 0,
 				});
 			}
 
 			if (!secret_key) {
 				secret_key = await input({
 					message: 'Enter s3 secret key',
-					validate: (value) => value.length !== 0,
 				});
 			}
 
 			if (!bucket_name) {
 				bucket_name = await input({
 					message: 'Enter s3 backet name',
-					validate: (value) => value.length !== 0,
 				});
 			}
 
 			if (!region) {
 				region = await input({
 					message: 'Enter s3 region',
-					validate: (value) => value.length !== 0,
 				});
 			}
 
@@ -145,7 +141,6 @@ export async function config(cmd) {
 			if (!access_key) {
 				access_key = await input({
 					message: 'Enter s3 access key',
-					validate: (value) => value.length !== 0,
 				});
 				console.log();
 			}
@@ -153,7 +148,6 @@ export async function config(cmd) {
 			if (!secret_key) {
 				secret_key = await input({
 					message: 'Enter s3 secret key',
-					validate: (value) => value.length !== 0,
 				});
 				console.log();
 			}
@@ -161,7 +155,6 @@ export async function config(cmd) {
 			if (!bucket_name) {
 				bucket_name = await input({
 					message: 'Enter s3 backet name',
-					validate: (value) => value.length !== 0,
 				});
 				console.log();
 			}
@@ -169,7 +162,6 @@ export async function config(cmd) {
 			if (!region) {
 				region = await input({
 					message: 'Enter s3 region',
-					validate: (value) => value.length !== 0,
 				});
 				console.log();
 			}

@@ -5,6 +5,14 @@ import { validDatabaseTypes } from '../utils/constants.js';
 export async function add(cmd) {
 	let { container, type, name, username, password, frequency } = cmd;
 
+	const config = await db.select('*').from('configurations');
+
+	if (config.length === 0) {
+		console.log();
+		console.error('No configurations detected. Please run `capdb config` first!');
+		process.exit(0);
+	}
+
 	let sure = false;
 
 	if (frequency && isNaN(frequency) && frequency.length) {
@@ -16,6 +24,7 @@ export async function add(cmd) {
 
 	while (!sure) {
 		if (!container) {
+			console.log();
 			container = await input({
 				message: 'Enter container name',
 				validate: (value) => value.length !== 0,
@@ -23,6 +32,7 @@ export async function add(cmd) {
 		}
 
 		if (!type) {
+			console.log();
 			type = await input({
 				message: 'Enter database type',
 				validate: function (value) {
@@ -34,6 +44,7 @@ export async function add(cmd) {
 		}
 
 		if (!name) {
+			console.log();
 			name = await input({
 				message: 'Enter database name',
 				validate: (value) => value.length !== 0,
@@ -41,6 +52,7 @@ export async function add(cmd) {
 		}
 
 		if (!username) {
+			console.log();
 			username = await input({
 				message: 'Enter database username',
 				validate: (value) => value.length !== 0,
@@ -48,6 +60,7 @@ export async function add(cmd) {
 		}
 
 		if (!password) {
+			console.log();
 			password = await input({
 				message: 'Enter database password',
 				validate: (value) => value.length !== 0,
@@ -55,9 +68,11 @@ export async function add(cmd) {
 		}
 
 		if (!frequency) {
+			console.log();
 			frequency = await input({
 				message: 'Enter backup frequency in minutes',
 				validate: function (value) {
+					if (value.length === 0) return true;
 					const parsedValue = parseInt(value);
 					const isNumber = !isNaN(parsedValue) && parsedValue > 0;
 					return value.length !== 0 && isNumber
@@ -68,7 +83,9 @@ export async function add(cmd) {
 		}
 
 		console.log();
-		console.table([{ container, type, name, username, password, frequency }]);
+		console.table([
+			{ container, type, name, username, password, frequency: frequency === '' ? 60 : frequency },
+		]);
 		console.log();
 
 		sure =
@@ -78,6 +95,7 @@ export async function add(cmd) {
 			})) === 'y';
 
 		if (!sure) {
+			console.log();
 			const modify = await input({
 				message:
 					'What do you want to change? \nContainer (c), database type (t), database name (n), database username (u), database password (p), backup frequency (f) ?',
@@ -99,7 +117,7 @@ export async function add(cmd) {
 			database_name: name,
 			database_username: username,
 			database_password: password,
-			back_up_frequency: frequency,
+			back_up_frequency: frequency === '' ? 60 : frequency,
 		});
 
 		console.log('');
