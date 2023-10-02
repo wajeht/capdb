@@ -68,8 +68,10 @@ program
 
 program
 	.command('config')
+	.option('-p, --path <string>', 'Specify the back up foler path')
+	.option('-d, --default', 'Initialize default configuration')
 	.description('Configuration needed for capdb functionality')
-	.action(config);
+	.action(async (cmd) => config(cmd));
 
 program.command('status').description('List all scheduled container databases').action(status);
 

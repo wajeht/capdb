@@ -10,7 +10,6 @@ export function up(knex) {
 		table.integer('back_up_frequency').defaultTo(null);
 		table.datetime('last_backed_up_at').defaultTo(null);
 		table.string('last_backed_up_file').defaultTo(null);
-		table.timestamps();
 	});
 }
 
