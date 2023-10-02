@@ -68,10 +68,9 @@ program
 
 program
 	.command('config')
-	.option('-p, --path <string>', 'Specify the back up foler path')
 	.option('-d, --default', 'Initialize default configuration')
 	.option('-u, --update', 'Update capdb configurations')
-	.option('-c, --config', 'capdb config folder path')
+	.option('-p, --path <string>', 'capdb config folder path')
 	.option('-a, --access_key', 's3 access key')
 	.option('-s, --secret_key', 's3 secret key')
 	.option('-b, --backet_name', 's3 backet name')
