@@ -91,6 +91,7 @@ export async function config(cmd) {
 					message: 'Are you sure these are the correct information? (y/n)',
 					validate: (value) => value === 'y' || value === 'n',
 				})) === 'y';
+			console.log();
 
 			if (!sure) {
 				let modify = await input({
@@ -117,8 +118,9 @@ export async function config(cmd) {
 						s3_region: region,
 					})
 					.into('configurations');
+				console.log();
+				process.exit(0);
 			}
-			process.exit(0);
 		}
 	}
 
