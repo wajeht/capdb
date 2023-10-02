@@ -1,5 +1,6 @@
 import { input } from '@inquirer/prompts';
-import { validDatabaseTypes, Database as db } from '../utils/database.js';
+import db from '../database/db.js';
+import { validDatabaseTypes } from '../utils/constants.js';
 
 export async function add(cmd) {
 	let { container, type, name, username, password, frequency } = cmd;
@@ -10,7 +11,7 @@ export async function add(cmd) {
 		console.log();
 		console.log('Frequency must be a number');
 		console.log();
-		return;
+		process.exit(0);
 	}
 
 	while (!sure) {
@@ -92,7 +93,7 @@ export async function add(cmd) {
 	}
 
 	if (sure) {
-		await db.add({
+		await db('containers').insert({
 			container_name: container,
 			database_type: type,
 			database_name: name,
@@ -104,5 +105,6 @@ export async function add(cmd) {
 		console.log('');
 		console.log('Those credentials have been added.');
 		console.log();
+		process.exit(0);
 	}
 }

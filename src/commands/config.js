@@ -10,9 +10,9 @@ export async function config() {
 		console.error('No items found in the list. The backup scheduler is not active.');
 		console.log();
 		process.exit(0);
-		return;
 	}
 
 	await shell('pm2 delete capdb && pm2 save --force');
 	console.log();
+	process.exit(0);
 }

@@ -1,5 +1,5 @@
 import { input } from '@inquirer/prompts';
-import { Database as db } from '../utils/database.js';
+import db from '../database/db.js';
 
 export async function remove(cmd) {
 	let { id, all } = cmd;
@@ -7,16 +7,16 @@ export async function remove(cmd) {
 	let sure = false;
 
 	if (all) {
-		const list = await db.getAll();
+		const containers = await db.select('*').from('containers');
 
-		if (list.length === 0) {
+		if (containers.length === 0) {
 			console.log();
-			console.warn('There is nothing to remove!');
+			console.warn('No containers found in the database.');
 			console.log();
-			return;
+			process.exit(0);
 		}
 
-		console.table(list);
+		console.table(containers);
 
 		sure =
 			(await input({
@@ -30,15 +30,15 @@ export async function remove(cmd) {
 			console.log();
 			console.info('Ok, exited remove operation!');
 			console.log();
-			return;
+			process.exit(0);
 		}
 
-		await db.removeAll();
+		await db.del('*').from('containers');
 
 		console.log();
 		console.info('Everything has been removed!');
 		console.log();
-		return;
+		process.exit(0);
 	}
 
 	if (!id) {
@@ -48,5 +48,6 @@ export async function remove(cmd) {
 		});
 	}
 
-	await db.remove(id);
+	await db('containers').where({ id }).delete();
+	process.exit(0);
 }
