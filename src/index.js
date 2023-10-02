@@ -75,6 +75,7 @@ program
 	.option('-s, --secret_key', 's3 secret key')
 	.option('-b, --backet_name', 's3 backet name')
 	.option('-r, --region', 's3 region')
+	.option('-rm, --remove-all', 'remove all capdb configuration')
 	.description('Configuration needed for capdb functionality')
 	.action(async (cmd) => config(cmd));
 

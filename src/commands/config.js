@@ -9,7 +9,16 @@ const backupsDirectory = path.join(capdbDirectory, 'backups');
 const logsDirectory = path.join(capdbDirectory, 'logs');
 
 export async function config(cmd) {
-	let { path, default: dafault, update, access_key, secret_key, bucket_name, region } = cmd;
+	let {
+		path,
+		default: dafault,
+		update,
+		access_key,
+		secret_key,
+		bucket_name,
+		region,
+		removeAll,
+	} = cmd;
 
 	let sure = false;
 
@@ -27,6 +36,15 @@ export async function config(cmd) {
 			await db.insert({ capdb_config_folder_path: capdbDirectory }).into('configurations');
 
 			console.log('Default folder structure created at', capdbDirectory);
+		}
+
+		// capdb config --remove-all
+		if (removeAll) {
+			console.log();
+			console.log(
+				'There is no configuration found to remove in the database. Starting interactive configuration!',
+			);
+			console.log();
 		}
 
 		// capdb config
@@ -117,6 +135,26 @@ export async function config(cmd) {
 				console.log();
 				process.exit(0);
 			}
+		}
+	}
+
+	// capdb config --remove-all
+	if (removeAll) {
+		console.log();
+		console.table(configurations);
+		console.log();
+
+		sure =
+			(await input({
+				message: 'Are you sure you want to remove all configurations?(y/n)',
+				validate: (value) => value === 'y' || value === 'n',
+			})) === 'y';
+
+		if (sure) {
+			await db.del('*').from('configurations');
+			console.log();
+			console.log('All configuration have been removed!');
+			process.exit(0);
 		}
 	}
 
