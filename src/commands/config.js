@@ -62,7 +62,8 @@ export async function config(cmd) {
 			if (!path) {
 				path = await input({
 					message: 'Enter capdb config folder path',
-					validate: (value) => value.length !== 0,
+					validate: (value) =>
+						value.length !== 0 && fs.existsSync(value) ? true : 'Path does not exist!',
 				});
 			}
 
