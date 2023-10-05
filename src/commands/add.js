@@ -10,6 +10,7 @@ export async function add(cmd) {
 	if (config.length === 0) {
 		console.log();
 		console.error('No configurations detected. Please run `capdb config` first!');
+		console.log();
 		process.exit(0);
 	}
 

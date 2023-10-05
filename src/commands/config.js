@@ -35,7 +35,9 @@ export async function config(cmd) {
 
 			await db.insert({ capdb_config_folder_path: capdbDirectory }).into('configurations');
 
+			console.log();
 			console.log('Default folder structure created at', capdbDirectory);
+			console.log();
 		}
 
 		// capdb config --remove-all
@@ -154,6 +156,7 @@ export async function config(cmd) {
 			await db.del('*').from('configurations');
 			console.log();
 			console.log('All configuration have been removed!');
+			console.log();
 			process.exit(0);
 		}
 	}
