@@ -1,6 +1,7 @@
 import { input } from '@inquirer/prompts';
 import db from '../database/db.js';
 import path from 'path';
+import ppath from 'path';
 import fs from 'fs';
 import os from 'os';
 
@@ -60,32 +61,81 @@ export async function config(cmd) {
 
 		while (!sure) {
 			if (!path) {
-				path = await input({
-					message: 'Enter capdb config folder path',
-					validate: (value) =>
-						value.length !== 0 && fs.existsSync(value) ? true : 'Path does not exist!',
-				});
+				let pathIsValid = false;
+				while (!pathIsValid) {
+					console.log();
+					path = await input({
+						message: 'Enter capdb config folder path',
+					});
+
+					if (path.length === 0) {
+						console.log();
+						console.log('Path cannot be empty!');
+					} else if (!fs.existsSync(path)) {
+						console.log();
+						const createDir = await input({
+							message: 'Path does not exist. Do you want to create it? (y/n)',
+							validate: (value) => value === 'y' || value === 'n',
+						});
+
+						if (createDir === 'y') {
+							try {
+								if (!path.startsWith('~') || !path.startsWith('~/') || !path.startsWith('/')) {
+									path = ppath.join(os.homedir(), path);
+								}
+
+								fs.mkdirSync(path, { recursive: true });
+
+								if (fs.existsSync(path)) {
+									console.log();
+									console.log(ppath.resolve(path));
+									console.log();
+									console.log('Directory created successfully!');
+
+									path = ppath.resolve(path);
+									pathIsValid = true;
+								} else {
+									console.log();
+									console.log('Failed to create the directory.');
+								}
+							} catch (err) {
+								console.log();
+								console.error(`Error creating directory: ${err.message}`);
+							}
+						}
+					} else {
+						console.log();
+						console.log(ppath.resolve(path));
+						console.log();
+						console.log('Directory created successfully!');
+						pathIsValid = true;
+					}
+				}
 			}
 
 			if (!access_key) {
+				console.log();
 				access_key = await input({
 					message: 'Enter s3 access key',
 				});
 			}
 
 			if (!secret_key) {
+				console.log();
 				secret_key = await input({
 					message: 'Enter s3 secret key',
 				});
 			}
 
 			if (!bucket_name) {
+				console.log();
 				bucket_name = await input({
 					message: 'Enter s3 backet name',
 				});
 			}
 
 			if (!region) {
+				console.log();
 				region = await input({
 					message: 'Enter s3 region',
 				});
