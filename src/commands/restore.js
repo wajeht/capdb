@@ -17,7 +17,7 @@ export async function restore(cmd) {
 	let { index } = cmd;
 
 	if (!index) {
-		console.table(lists);
+		console.table(containers);
 		console.log();
 	}
 
@@ -26,13 +26,14 @@ export async function restore(cmd) {
 			message: 'Specify the index of the container to restore',
 			validate: function (value) {
 				if (value.length !== 0 && isNaN(value)) return 'Index must be a number';
-				if (lists[parseInt(value)] === undefined) return 'No container found with the given index.';
+				if (containers[parseInt(value)] === undefined)
+					return 'No container found with the given index.';
 				return true;
 			},
 		});
 	}
 
-	const container = lists[index];
+	const container = containers[index];
 
 	if (!container.last_backed_up_at || !container.status || !container.last_backed_up_file) {
 		console.log();
