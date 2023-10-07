@@ -80,7 +80,9 @@ export async function config(cmd) {
 
 						if (createDir === 'y') {
 							try {
-								if (!path.startsWith('~') || !path.startsWith('~/') || !path.startsWith('/')) {
+								if (path.startsWith('~/')) {
+									path = path.replace(/^~\//, os.homedir() + '/');
+								} else if (!path.startsWith('/') && !path.startsWith('~')) {
 									path = ppath.join(os.homedir(), path);
 								}
 
@@ -88,7 +90,7 @@ export async function config(cmd) {
 
 								if (fs.existsSync(path)) {
 									console.log();
-									console.log(ppath.resolve(path));
+									console.log(path);
 									console.log();
 									console.log('Directory created successfully!');
 
@@ -105,7 +107,7 @@ export async function config(cmd) {
 						}
 					} else {
 						console.log();
-						console.log(ppath.resolve(path));
+						console.log(path);
 						console.log();
 						console.log('Directory created successfully!');
 						pathIsValid = true;
