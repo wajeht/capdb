@@ -19,8 +19,6 @@ function getLogFileName() {
 	return `${year}-${month}-${day}.log`;
 }
 
-const logFilePath = path.join(logDir, getLogFileName());
-
 if (!fs.existsSync(logDir)) {
 	fs.mkdirSync(logDir, { recursive: true });
 }
