@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if ! command -v pm2 &> /dev/null; then
   echo "Installing PM2..."
@@ -20,4 +21,4 @@ pm2 save --force
 echo ""
 echo "backup scheduler has been started"
 echo ""
-exit
+exit 0

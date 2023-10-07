@@ -26,9 +26,13 @@ if (!fs.existsSync(logDir)) {
 }
 
 export function logger(...args) {
-	const timestamp = new Date().toLocaleString('en-US', {
-		timeZoneName: 'short',
-	});
+	const logFilePath = path.join(logDir, getLogFileName());
+
+	if (!fs.existsSync(logDir)) {
+		fs.mkdirSync(logDir, { recursive: true });
+	}
+
+	const timestamp = new Date().toLocaleString('en-US', { timeZoneName: 'short' });
 	const logMessage = `[${timestamp}] ${args.join(' ')}\n`;
 
 	console.log(logMessage);
