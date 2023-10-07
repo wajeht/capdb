@@ -1,17 +1,17 @@
 import fs from 'fs';
 import { exec } from 'child_process';
-import { Database as db } from '../utils/database.js';
+import db from '../database/db.js';
 import { input } from '@inquirer/prompts';
 
 export async function restore(cmd) {
-	const lists = await db.getAll();
+	const containers = await db.select('*').from('containers');
 
 	console.log();
 
-	if (lists.length === 0) {
-		console.error('No items found in the list. The backup scheduler is not active.');
+	if (containers.length === 0) {
+		console.error('No containers found in the database.');
 		console.log();
-		return;
+		process.exit(0);
 	}
 
 	let { index } = cmd;

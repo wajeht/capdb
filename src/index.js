@@ -13,7 +13,7 @@ import { config } from './commands/config.js';
 import { stop } from './commands/stop.js';
 import { restore } from './commands/restore.js';
 
-import { Database as db } from './utils/database.js';
+import db from './database/db.js';
 
 const program = new Command();
 
@@ -47,15 +47,17 @@ program
 	.command('start')
 	.description('Start the scheduled backup process for all configured database containers')
 	.action(async () => {
-		let lists = await db.getAll();
+		const containers = await db.select('*').from('containers');
 
 		console.log();
 
-		if (lists.length === 0) {
-			console.error('There are no databases configured for backup.');
+		if (containers.length === 0) {
+			console.error('No containers found in the database.');
 			console.log();
-			return;
+			process.exit(0);
 		}
+
+		process.chdir('../..'); // fix this
 
 		(async () => await shell('./src/scripts/start.sh'))();
 	});
