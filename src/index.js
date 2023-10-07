@@ -57,9 +57,10 @@ program
 			process.exit(0);
 		}
 
-		process.chdir('../..'); // fix this
+		await shell('npm run start');
 
-		(async () => await shell('./src/scripts/start.sh'))();
+		// process.chdir('../..'); // fix this
+		// (async () => await shell('./src/scripts/start.sh'))();
 	});
 
 program

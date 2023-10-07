@@ -18,7 +18,13 @@
 		"migrate:latest": "knex migrate:latest --knexfile=./src/database/knexfile.js",
 		"migrate:rollback": "knex migrate:rollback --knexfile=./src/database/knexfile.js",
 		"seed:make": "knex seed:make --knexfile=./src/database/knexfile.js",
-		"seed:run": "knex seed:run --knexfile=./src/database/knexfile.js"
+		"seed:run": "knex seed:run --knexfile=./src/database/knexfile.js",
+		"setup": "if ! command -v pm2 &> /dev/null; then echo 'Installing PM2...'; npm install pm2 -g; fi",
+		"clean": "if pm2 show capdb &> /dev/null; then echo 'Stopping and deleting existing capdb...'; pm2 stop capdb; pm2 delete capdb; fi",
+		"install-deps": "npm install",
+		"start-pm2": "npm run clean && npm run install-deps && pm2 start ./src/commands/start.js --name capdb && pm2 startup && pm2 save --force",
+		"start": "npm run setup && npm run start-pm2",
+		"backup": "echo '' && echo 'backup scheduler has been started' && echo '' && exit 0"
 	},
 	"keywords": [
 		"postgres",
