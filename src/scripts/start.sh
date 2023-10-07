@@ -20,3 +20,4 @@ pm2 save --force
 echo ""
 echo "backup scheduler has been started"
 echo ""
+exit

@@ -1,9 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-import os from 'os';
+import db from '../database/db.js';
+
+const config = await db.select('*').from('configurations').first();
 
 let logDate = new Date();
-const logDir = path.join(os.homedir(), '.config', 'capdb', 'logs');
+
+const logDir = path.join(config.capdb_config_folder_path, 'logs');
 
 function getLogFileName() {
 	const today = new Date();
