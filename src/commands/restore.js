@@ -66,6 +66,7 @@ export async function restore(cmd) {
 				console.log(stdout);
 				console.log('Restoring done.....!');
 				console.log();
+				process.exit(0);
 				return;
 			}
 		});

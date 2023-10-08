@@ -24,7 +24,7 @@ const queue = fastq(async (containerId, cb) => {
 	ensureDirectoryExists(backupDirectory);
 	try {
 		logger(`Starting backup job for container ID: ${containerId}`);
-		const currentDate = new Date();
+		const currentDate = new Date().toLocaleString();
 		const filePath = await backupDatabase(containerId);
 
 		if (filePath) {
