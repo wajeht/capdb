@@ -67,8 +67,14 @@ export async function restore(cmd) {
 				console.log('Restoring done.....!');
 				console.log();
 				process.exit(0);
-				return;
 			}
 		});
+	}
+
+	if (container.database_type === 'mongodb') {
+		console.log();
+		console.log('Restoring mongodb is not supported yet.');
+		console.log();
+		process.exit(1);
 	}
 }
