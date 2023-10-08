@@ -8,6 +8,7 @@
 		"capdb": "./src/index.js"
 	},
 	"scripts": {
+		"prepare": "husky install",
 		"cli": "npm unlink capdb && chmod +x ./src/index.js && npm link && rm -f ./src/database/db.sqlite && npm run migrate:latest",
 		"format:check": "prettier --check .",
 		"format": "prettier --write .",
@@ -38,6 +39,7 @@
 		"eslint": "^8.51.0",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-prettier": "^5.0.0",
+		"husky": "^8.0.3",
 		"prettier": "^3.0.3",
 		"vitest": "^0.34.6"
 	},
