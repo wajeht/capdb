@@ -58,9 +58,6 @@ program
 		}
 
 		await shell('npm run start');
-
-		// process.chdir('../..'); // fix this
-		// (async () => await shell('./src/scripts/start.sh'))();
 	});
 
 program
