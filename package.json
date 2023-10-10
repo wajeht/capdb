@@ -1,5 +1,5 @@
 {
-	"name": "capdb",
+	"name": "@wajeht/capdb",
 	"version": "0.0.0",
 	"description": "database management cli for docker environments",
 	"type": "module",
@@ -45,7 +45,7 @@
 		"access": "public"
 	},
 	"homepage": "https://github.com/wajeht/capdb#readme",
-	"author": "wajeht",
+	"author": "@wajeht",
 	"license": "MIT",
 	"devDependencies": {
 		"@commitlint/cli": "^17.7.2",
