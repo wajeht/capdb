@@ -6,9 +6,9 @@ database management cli for docker environments
 
 - [x] back up to disk
 - [x] log to file
-- [ ] email alert
+- [ ] email alert/notification
 - [x] cli ?
-- [ ] publish it to npm
+- [x] publish it to npm
 - [x] support for mysql _(sorry, we don't support msyql; this is not democracy. it's dictatorship!)_
 - [ ] back up to s3
 - [x] restore cmd
