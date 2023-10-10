@@ -5,7 +5,7 @@
 	"type": "module",
 	"main": "./src/index.js",
 	"bin": {
-		"capdb": "./src/index.js"
+		"capdb": "src/index.js"
 	},
 	"scripts": {
 		"prepare": "husky install",
@@ -35,7 +35,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/wajeht/capdb.git"
+		"url": "git+https://github.com/wajeht/capdb.git"
 	},
 	"bugs": {
 		"url": "https://github.com/wajeht/capdb/issues"
