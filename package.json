@@ -1,6 +1,6 @@
 {
 	"name": "capdb",
-	"version": "0.0.0-semantic-release",
+	"version": "0.0.0",
 	"description": "database management cli for docker environments",
 	"type": "module",
 	"main": "./src/index.js",
