@@ -1,10 +1,9 @@
 ## [0.1.3](https://github.com/wajeht/capdb/compare/v0.1.2...v0.1.3) (2023-10-11)
 
-
 ### Bug Fixes
 
-* use npm registry ([25c3bad](https://github.com/wajeht/capdb/commit/25c3badab628210198381e52e1d9630900850bdd))
-* use npm registry ([7e6db17](https://github.com/wajeht/capdb/commit/7e6db1701c023a5f072376cd6b688d0b2c425267))
+- use npm registry ([25c3bad](https://github.com/wajeht/capdb/commit/25c3badab628210198381e52e1d9630900850bdd))
+- use npm registry ([7e6db17](https://github.com/wajeht/capdb/commit/7e6db1701c023a5f072376cd6b688d0b2c425267))
 
 ## [0.1.2](https://github.com/wajeht/capdb/compare/v0.1.1...v0.1.2) (2023-10-11)
 
