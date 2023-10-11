@@ -15,7 +15,21 @@ module.exports = {
 				changelogFile: 'CHANGELOG.md',
 			},
 		],
-		'@semantic-release/npm',
+		[
+			'@semantic-release/npm',
+			{
+				npmPublish: true,
+				pkgRoot: '.',
+			},
+		],
+		[
+			'@semantic-release/npm',
+			{
+				npmPublish: true,
+				pkgRoot: '.',
+				registry: 'https://npm.pkg.github.com/',
+			},
+		],
 		'@semantic-release/github',
 		[
 			'@semantic-release/git',
