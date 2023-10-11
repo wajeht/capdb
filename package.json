@@ -8,6 +8,7 @@
 		"capdb": "src/index.js"
 	},
 	"scripts": {
+		"release": "semantic-release",
 		"prepare": "husky install",
 		"cli": "npm unlink capdb && chmod +x ./src/index.js && npm link && rm -f ./src/database/db.sqlite && npm run migrate:latest",
 		"format:check": "prettier --check .",
