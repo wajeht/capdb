@@ -41,7 +41,7 @@
 		"url": "https://github.com/wajeht/capdb/issues"
 	},
 	"publishConfig": {
-		"registry": "https://npm.pkg.github.com/",
+		"registry": "https://registry.npmjs.org/",
 		"access": "public"
 	},
 	"homepage": "https://github.com/wajeht/capdb#readme",

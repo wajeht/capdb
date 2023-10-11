@@ -27,7 +27,7 @@ module.exports = {
 			{
 				npmPublish: true,
 				pkgRoot: '.',
-				registry: 'https://npm.pkg.github.com/',
+				registry: 'https://registry.npmjs.org/',
 			},
 		],
 		'@semantic-release/github',
