@@ -32,7 +32,8 @@
 	},
 	"keywords": [
 		"postgres",
-		"mysql"
+		"mongodb",
+		"docker"
 	],
 	"repository": {
 		"type": "git",
