@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/wajeht/capdb/compare/v1.1.0...v1.2.0) (2023-10-12)
+
+
+### Bug Fixes
+
+* possible fix for npm bug release ([4549c07](https://github.com/wajeht/capdb/commit/4549c077d104edb3bf5d58d4167edaf2514a5c4f))
+
+
+### Features
+
+* possible fix ([711ff53](https://github.com/wajeht/capdb/commit/711ff53e19f41cfd861c8217e44c8300289c7f60))
+
 # [1.1.0](https://github.com/wajeht/capdb/compare/v1.0.0...v1.1.0) (2023-10-12)
 
 ### Bug Fixes
