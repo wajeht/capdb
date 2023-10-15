@@ -1,9 +1,8 @@
 ## [1.6.3](https://github.com/wajeht/capdb/compare/v1.6.2...v1.6.3) (2023-10-15)
 
-
 ### Bug Fixes
 
-* scirpt not found ([92c7c3b](https://github.com/wajeht/capdb/commit/92c7c3bf80bc70ab65d35c610be5140c8df5488e))
+- scirpt not found ([92c7c3b](https://github.com/wajeht/capdb/commit/92c7c3bf80bc70ab65d35c610be5140c8df5488e))
 
 ## [1.6.2](https://github.com/wajeht/capdb/compare/v1.6.1...v1.6.2) (2023-10-15)
 
