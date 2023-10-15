@@ -12,8 +12,10 @@ npm run format
 # Add all changes to Git
 git add .
 
+# Extract the version from package.json
+VERSION=$(grep -o '"version": "[^"]*' package.json | sed 's/"version": "//')
+
 # Commit changes with a version number
-VERSION=$(node -p "require('./utils/constants.js').version()")
 git commit -am "chore: release v$VERSION" --no-verify
 
 # Push changes to Git
