@@ -1,3 +1,11 @@
+# [1.7.0](https://github.com/wajeht/capdb/compare/v1.6.4...v1.7.0) (2023-10-15)
+
+
+### Features
+
+* add release script ([ad73026](https://github.com/wajeht/capdb/commit/ad73026e97d46930fa211b17cf22e32b598f4262))
+* add release script ([7f44133](https://github.com/wajeht/capdb/commit/7f4413333a11beab023c3e1272c63730ffad0ef8))
+
 ## [1.6.4](https://github.com/wajeht/capdb/compare/v1.6.3...v1.6.4) (2023-10-15)
 
 ### Bug Fixes
