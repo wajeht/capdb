@@ -169,4 +169,61 @@ $ capdb scan
 
 ---
 
+### `capdb export`
+
+**Description**:
+Export all the capdb config as json to desktop.
+
+**Example**:
+
+```bash
+$ capdb export
+```
+
+---
+
+## capdb import [options]
+
+**Description**:
+Import all the capdb config from a json file.
+
+**Options**:
+
+`-f, --file <string>` File path to import from.
+**Example**:
+
+```bash
+$ capdb import -f /path/to/file.json
+```
+
+```json
+{
+	"containers": [
+		{
+			"id": 1,
+			"container_name": "postgres",
+			"database_type": "postgres",
+			"database_name": "database",
+			"database_username": "username",
+			"database_password": "password",
+			"status": 0,
+			"back_up_to_s3": 0,
+			"back_up_frequency": 1,
+			"last_backed_up_at": null,
+			"last_backed_up_file": null
+		}
+	],
+	"config": [
+		{
+			"id": 1,
+			"capdb_config_folder_path": "/Users/wajeht/capdb",
+			"s3_access_key": null,
+			"s3_secret_key": null,
+			"s3_bucket_name": null,
+			"s3_region": null
+		}
+	]
+}
+```
+
 To use any command, run `capdb [command] [options]` in the terminal.
