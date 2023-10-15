@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 (async function main() {
-	await shell('./publish.sh');
+	await shell(`${path.resolve(__dirname, 'publish.sh')}`);
 	await shell('npm run format');
 	console.log(`git commit -am "chore: release v${version()}" --no-verify`);
 	console.log(`git push --no-verify`);
