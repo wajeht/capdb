@@ -12,7 +12,7 @@ export async function log() {
 		process.exit(0);
 	}
 
-	await shell('pm2 log capdb --lines 5');
+	await shell('pm2 log capdb --lines 10');
 
 	console.log();
 }
