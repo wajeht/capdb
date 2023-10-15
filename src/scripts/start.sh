@@ -12,7 +12,7 @@ if pm2 show capdb &> /dev/null; then
   pm2 delete capdb
 fi
 
-pm2 start ./src/commands/start.js --name capdb
+pm2 start ../commands/start.js --name capdb
 pm2 startup
 pm2 save --force
 
