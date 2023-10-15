@@ -1,9 +1,8 @@
 ## [1.6.1](https://github.com/wajeht/capdb/compare/v1.6.0...v1.6.1) (2023-10-15)
 
-
 ### Bug Fixes
 
-* **database:** db was not writable on prod ([4bc67d7](https://github.com/wajeht/capdb/commit/4bc67d75081aa93769408a53423baf92c13409c2))
+- **database:** db was not writable on prod ([4bc67d7](https://github.com/wajeht/capdb/commit/4bc67d75081aa93769408a53423baf92c13409c2))
 
 # [1.6.0](https://github.com/wajeht/capdb/compare/v1.5.1...v1.6.0) (2023-10-15)
 
