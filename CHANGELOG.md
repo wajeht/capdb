@@ -1,3 +1,10 @@
+## [1.8.3](https://github.com/wajeht/capdb/compare/v1.8.2...v1.8.3) (2023-10-15)
+
+
+### Bug Fixes
+
+* start cmd ([2d38208](https://github.com/wajeht/capdb/commit/2d38208e9d7e65407f751d8314bed860c58ddc07))
+
 ## [1.8.2](https://github.com/wajeht/capdb/compare/v1.8.1...v1.8.2) (2023-10-15)
 
 ### Bug Fixes
