@@ -12,7 +12,10 @@ if pm2 show capdb &> /dev/null; then
   pm2 delete capdb
 fi
 
-pm2 start ./src/commands/start.js --name capdb
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PARENT_DIR="$(dirname "$DIR")"
+
+pm2 start $PARENT_DIR/commands/start.js --name capdb
 pm2 startup
 pm2 save --force
 
