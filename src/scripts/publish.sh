@@ -13,7 +13,7 @@ npm run format
 git add .
 
 # Commit changes with a version number
-VERSION=$(node -p "require('../utils/constants.js').version()")
+VERSION=$(node -p "require('./utils/constants.js').version()")
 git commit -am "chore: release v$VERSION" --no-verify
 
 # Push changes to Git
