@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 (async function main() {
 	await shell(`${path.resolve(__dirname, 'publish.sh')}`);
 	await shell('npm run format');
-	console.log(`git commit -am "chore: release v${version()}" --no-verify`);
-	console.log(`git push --no-verify`);
+	await shell('git add .');
+	await shell(`git commit -am "chore: release v${version()}" --no-verify`);
+	await shell(`git push --no-verify`);
 })();
