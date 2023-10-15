@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 import { Command } from 'commander';
 
 import { shell } from './utils/shell.js';
@@ -58,7 +64,7 @@ program
 			process.exit(0);
 		}
 
-		await shell('npm run start');
+		(async () => await shell(path.resolve(__dirname, './scripts/start.sh')))();
 	});
 
 program

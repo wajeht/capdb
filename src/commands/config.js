@@ -39,6 +39,7 @@ export async function config(cmd) {
 			console.log();
 			console.log('Default folder structure created at', capdbDirectory);
 			console.log();
+			process.exit(0);
 		}
 
 		// capdb config --remove-all
