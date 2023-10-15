@@ -1,9 +1,8 @@
 # [1.6.0](https://github.com/wajeht/capdb/compare/v1.5.1...v1.6.0) (2023-10-15)
 
-
 ### Features
 
-* put real version number ([4b4a4b6](https://github.com/wajeht/capdb/commit/4b4a4b692575c925edba9d78011d1deb702f3666))
+- put real version number ([4b4a4b6](https://github.com/wajeht/capdb/commit/4b4a4b692575c925edba9d78011d1deb702f3666))
 
 ## [1.5.1](https://github.com/wajeht/capdb/compare/v1.5.0...v1.5.1) (2023-10-15)
 
