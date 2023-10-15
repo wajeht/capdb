@@ -58,13 +58,13 @@ export async function importt(cmd) {
 	}
 
 	const containerInsertPromise = jsonData.containers.map((container) => {
-		// @eslint-disable-next-line
+		// eslint-disable-next-line no-unused-vars
 		const { id, ...rest } = container;
 		return db('containers').insert({ ...rest });
 	});
 
 	const configInsertPromise = jsonData.config.map((config) => {
-		// @eslint-disable-next-line
+		// eslint-disable-next-line no-unused-vars
 		const { id, ...rest } = config;
 		return db('configurations').insert({ ...rest });
 	});
