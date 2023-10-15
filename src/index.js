@@ -102,6 +102,7 @@ program
 
 program
 	.command('import')
+	.option('-f, --file <string>', 'Specify the file path to import')
 	.description('Import all the capdb config from a json file')
 	.action(async (cmd) => importt(cmd));
 
