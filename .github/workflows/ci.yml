@@ -108,9 +108,6 @@ jobs:
       - name: Install dependencies
         run: npm i
 
-      - name: Install semantic-release extra plugins
-        run: npm install --save-dev @semantic-release/changelog @semantic-release/git
-
       - name: Create .npmrc file
         run: |
           echo @wajeht:registry=https://registry.npmjs.org/ > .npmrc
@@ -120,4 +117,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+        run: npm run release
