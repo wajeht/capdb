@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/wajeht/capdb/compare/v1.2.5...v1.3.0) (2023-10-15)
+
+
+### Features
+
+* increase log line to 10 ([cbca668](https://github.com/wajeht/capdb/commit/cbca66805a70b184b93bb28cba983648d54bdd08))
+
 # [1.2.0](https://github.com/wajeht/capdb/compare/v1.1.0...v1.2.0) (2023-10-12)
 
 ### Bug Fixes
