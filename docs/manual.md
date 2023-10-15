@@ -190,7 +190,7 @@ Import all the capdb config from a json file.
 **Options**:
 
 - `-f, --file <string>` File path to import from.
-  
+
 **Example**:
 
 ```bash
