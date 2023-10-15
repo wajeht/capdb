@@ -12,6 +12,8 @@ import { shell } from './utils/shell.js';
 
 import { add } from './commands/add.js';
 import { remove } from './commands/remove.js';
+import { exportt } from './commands/exportt.js';
+import { importt } from './commands/importt.js';
 import { update } from './commands/update.js';
 import { status } from './commands/status.js';
 import { scan } from './commands/scan.js';
@@ -92,6 +94,16 @@ program
 	.option('-rm, --remove-all', 'remove all capdb configuration')
 	.description('Configuration needed for capdb functionality')
 	.action(async (cmd) => config(cmd));
+
+program
+	.command('export')
+	.description('Export all the capdb config as json to desktop')
+	.action(exportt);
+
+program
+	.command('import')
+	.description('Import all the capdb config from a json file')
+	.action(async (cmd) => importt(cmd));
 
 program.command('status').description('List all scheduled container databases').action(status);
 
