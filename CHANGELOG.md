@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/wajeht/capdb/compare/v1.6.1...v1.6.2) (2023-10-15)
+
+
+### Bug Fixes
+
+* fixed startup script ([9d577d1](https://github.com/wajeht/capdb/commit/9d577d1fc63054eeaae9740b83abc970a033baf4))
+
 ## [1.6.1](https://github.com/wajeht/capdb/compare/v1.6.0...v1.6.1) (2023-10-15)
 
 ### Bug Fixes
