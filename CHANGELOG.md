@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/wajeht/capdb/compare/v1.5.0...v1.5.1) (2023-10-15)
+
+
+### Bug Fixes
+
+* **database:** kenxfile was not recognizse ([8dc2949](https://github.com/wajeht/capdb/commit/8dc2949d8095846928d59f253718b6e3434b2fac))
+
 # [1.5.0](https://github.com/wajeht/capdb/compare/v1.4.0...v1.5.0) (2023-10-15)
 
 ### Features
