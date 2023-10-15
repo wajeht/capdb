@@ -1,3 +1,9 @@
+# [1.9.0](https://github.com/wajeht/capdb/compare/v1.8.3...v1.9.0) (2023-10-15)
+
+### Features
+
+- import and export config file ([f097692](https://github.com/wajeht/capdb/commit/f0976920dc5a2132f5daadfa133c21064a62b3b0))
+
 ## [1.8.3](https://github.com/wajeht/capdb/compare/v1.8.2...v1.8.3) (2023-10-15)
 
 ### Bug Fixes
