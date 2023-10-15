@@ -1,14 +1,12 @@
 # [1.8.0](https://github.com/wajeht/capdb/compare/v1.7.2...v1.8.0) (2023-10-15)
 
-
 ### Bug Fixes
 
-* dont wipe db ([a78b5b9](https://github.com/wajeht/capdb/commit/a78b5b98f4545523a69e2c68151483bc8f093e62))
-
+- dont wipe db ([a78b5b9](https://github.com/wajeht/capdb/commit/a78b5b98f4545523a69e2c68151483bc8f093e62))
 
 ### Features
 
-* **update:** added `update` command to udpate contaienrs info ([2ea82ca](https://github.com/wajeht/capdb/commit/2ea82ca19db32d2bc6118f09e3cc8ab61c93ce8a))
+- **update:** added `update` command to udpate contaienrs info ([2ea82ca](https://github.com/wajeht/capdb/commit/2ea82ca19db32d2bc6118f09e3cc8ab61c93ce8a))
 
 ## [1.7.2](https://github.com/wajeht/capdb/compare/v1.7.1...v1.7.2) (2023-10-15)
 
