@@ -26,7 +26,7 @@ const program = new Command();
 
 program
 	.name('capdb')
-	.description('CapDB - database management cli for docker environments')
+	.description('database management cli for docker environments')
 	.version(version());
 
 program
@@ -87,6 +87,8 @@ program
 	.action(async (cmd) => config(cmd));
 
 program.command('status').description('List all scheduled container databases').action(status);
+
+program.command('list').description('List all scheduled container databases').action(status);
 
 program.command('log').description('View logs of all backup activities').action(log);
 
