@@ -12,6 +12,7 @@ import { shell } from './utils/shell.js';
 
 import { add } from './commands/add.js';
 import { remove } from './commands/remove.js';
+import { update } from './commands/update.js';
 import { status } from './commands/status.js';
 import { scan } from './commands/scan.js';
 import { log } from './commands/log.js';
@@ -49,6 +50,12 @@ program
 	.option('-id, --id <string>', 'Specify the ID of the credentials to remove')
 	.option('-a, --all', 'Remove all database credentials from backup')
 	.action(async (cmd) => remove(cmd));
+
+program
+	.command('update')
+	.description('Update containers information')
+	.option('-id, --id <string>', 'Specify the ID of the credentials to update')
+	.action(async (cmd) => update(cmd));
 
 program
 	.command('start')
