@@ -9,7 +9,7 @@
 	},
 	"scripts": {
 		"release": "semantic-release",
-		"publish": "chmod +x ./src/scripts/publish.sh && node ./src/scripts/publish.sh",
+		"publish": "chmod +x ./src/scripts/publish.sh && ./src/scripts/publish.sh",
 		"prepare": "husky install",
 		"cli": "npm unlink capdb && chmod +x ./src/index.js && npm link && rm -f ./src/database/db.sqlite && npm run migrate:latest",
 		"format:check": "prettier --check .",
