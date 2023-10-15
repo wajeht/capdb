@@ -182,14 +182,15 @@ $ capdb export
 
 ---
 
-## capdb import [options]
+## `capdb import [options]`
 
 **Description**:
 Import all the capdb config from a json file.
 
 **Options**:
 
-`-f, --file <string>` File path to import from.
+- `-f, --file <string>` File path to import from.
+  
 **Example**:
 
 ```bash
