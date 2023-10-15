@@ -12,6 +12,7 @@ import { log } from './commands/log.js';
 import { config } from './commands/config.js';
 import { stop } from './commands/stop.js';
 import { restore } from './commands/restore.js';
+import { version } from './utils/constants.js';
 
 import db from './database/db.js';
 
@@ -20,7 +21,7 @@ const program = new Command();
 program
 	.name('capdb')
 	.description('CapDB - database management cli for docker environments')
-	.version(1);
+	.version(version());
 
 program
 	.command('add')
