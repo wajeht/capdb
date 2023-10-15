@@ -1,5 +1,12 @@
 # [1.10.0](https://github.com/wajeht/capdb/compare/v1.9.0...v1.10.0) (2023-10-15)
 
+
+### Features
+
+* **import:** we can now import config via a cli ([5897098](https://github.com/wajeht/capdb/commit/589709885dc447c353e656a89788f3b5ab87c1cf))
+
+# [1.10.0](https://github.com/wajeht/capdb/compare/v1.9.0...v1.10.0) (2023-10-15)
+
 ### Features
 
 - **import:** we can now import config via a cli ([5897098](https://github.com/wajeht/capdb/commit/589709885dc447c353e656a89788f3b5ab87c1cf))
