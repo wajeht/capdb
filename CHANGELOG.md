@@ -1,11 +1,10 @@
 ## [1.7.2](https://github.com/wajeht/capdb/compare/v1.7.1...v1.7.2) (2023-10-15)
 
-
 ### Bug Fixes
 
-* publish script ([2f6c4b0](https://github.com/wajeht/capdb/commit/2f6c4b0f6562940f7fd4e52f530822266d43c965))
-* publish script ([5617bed](https://github.com/wajeht/capdb/commit/5617bedb5234fa60e14792012c579718895cf5f7))
-* publish script ([67e83e8](https://github.com/wajeht/capdb/commit/67e83e80f8f18b138145508b7f33ee18a206b087))
+- publish script ([2f6c4b0](https://github.com/wajeht/capdb/commit/2f6c4b0f6562940f7fd4e52f530822266d43c965))
+- publish script ([5617bed](https://github.com/wajeht/capdb/commit/5617bedb5234fa60e14792012c579718895cf5f7))
+- publish script ([67e83e8](https://github.com/wajeht/capdb/commit/67e83e80f8f18b138145508b7f33ee18a206b087))
 
 ## [1.7.1](https://github.com/wajeht/capdb/compare/v1.7.0...v1.7.1) (2023-10-15)
 
