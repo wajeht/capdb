@@ -1,6 +1,7 @@
 import db from '../database/db.js';
 
 export async function importt(cmd) {
+	console.log(cmd);
 	const containers = await db.select('*').from('containers');
 	const config = await db.select('*').from('configurations');
 
