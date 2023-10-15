@@ -2,13 +2,13 @@
 
 `capdb` is a command-line interface for managing databases in Docker environments.
 
-## Installation
+## 🛠️ Installation
 
 ```bash
 $ npm install -g @wajeht/capdb
 ```
 
-## Commands
+## ⚙️ Commands
 
 Comprehensive documentation is available by running `capdb --help`. You can also find examples in [commands documentation](./docs/manual.md).
 
