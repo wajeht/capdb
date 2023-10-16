@@ -1,5 +1,6 @@
 import Docker from 'dockerode';
 import { logger } from '../utils/logger.js';
+import { minutesToCron } from '../utils/cron.js';
 import { shell } from '../utils/shell.js';
 import db from '../database/db.js';
 import { ensureDirectoryExists } from '../utils/utils.js';
@@ -150,8 +151,10 @@ async function start() {
 	}
 
 	containers.forEach((container) => {
+		const cronSchedule = minutesToCron(container.back_up_frequency);
+
 		const task = cron.schedule(
-			`*/${container.back_up_frequency} * * * *`,
+			cronSchedule,
 			() => {
 				handleBackup(container.id);
 			},
