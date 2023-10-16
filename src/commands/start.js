@@ -1,6 +1,6 @@
 import Docker from 'dockerode';
 import { logger } from '../utils/logger.js';
-import { minutesToCron } from '../utils/cron.js';
+import { minutesToCron } from '../utils/minutes-to-crons.js';
 import { shell } from '../utils/shell.js';
 import db from '../database/db.js';
 import { ensureDirectoryExists } from '../utils/utils.js';
