@@ -1,9 +1,8 @@
 ## [1.10.2](https://github.com/wajeht/capdb/compare/v1.10.1...v1.10.2) (2023-10-16)
 
-
 ### Bug Fixes
 
-* cron syntax ([61e1fc8](https://github.com/wajeht/capdb/commit/61e1fc853cd25186af7fa226a26cd0bede64df35))
+- cron syntax ([61e1fc8](https://github.com/wajeht/capdb/commit/61e1fc853cd25186af7fa226a26cd0bede64df35))
 
 ## [1.10.1](https://github.com/wajeht/capdb/compare/v1.10.0...v1.10.1) (2023-10-16)
 
