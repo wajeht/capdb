@@ -1,6 +1,6 @@
 import Docker from 'dockerode';
 import { logger } from '../utils/logger.js';
-import { minutesToCron } from '../utils/minutes-to-crons.js';
+import { timeToCron } from '../utils/time-to-cron.js';
 import { shell } from '../utils/shell.js';
 import db from '../database/db.js';
 import { ensureDirectoryExists } from '../utils/utils.js';
@@ -21,10 +21,15 @@ ensureDirectoryExists(backupDirectory);
 
 const docker = new Docker();
 
-const queue = fastq(async (containerId, cb) => {
+const queue = fastq.promise(async (containerId) => {
 	ensureDirectoryExists(backupDirectory);
+	await performBackup(containerId);
+}, 1);
+
+async function performBackup(containerId) {
 	try {
 		logger(`Starting backup job for container ID: ${containerId}`);
+
 		const currentDate = new Date().toLocaleString();
 		const filePath = await backupDatabase(containerId);
 
@@ -36,12 +41,10 @@ const queue = fastq(async (containerId, cb) => {
 			await updateContainerStatus(containerId, false, currentDate, null);
 			logger(`Backup failed for container ID: ${containerId}`);
 		}
-		cb();
 	} catch (error) {
 		logger(`Error in backup job for container ID: ${containerId}, ${error.message}`);
-		cb(error);
 	}
-}, 1);
+}
 
 async function handleBackup(containerId) {
 	try {
@@ -87,23 +90,15 @@ async function backupDatabase(containerId) {
 			case 'postgres':
 				process.env.PGPASSWORD = container.database_password;
 				fileName = `dump-${container.container_name}-${container.database_name}-${currentDateISOString}.sql`;
-				await shell(
-					`docker exec -i ${container.container_name} pg_dump -U ${
-						container.database_username
-					} -d ${container.database_name} > ${path.join(backupDirectory, fileName)}`,
-				);
+				// prettier-ignore
+				await shell(`docker exec -i ${container.container_name} pg_dump -U ${ container.database_username } -d ${container.database_name} > ${path.join(backupDirectory, fileName)}`);
 				delete process.env.PGPASSWORD;
 				break;
 
 			case 'mongodb':
 				fileName = `dump-${container.container_name}-${container.database_name}-${currentDateISOString}`;
-				await shell(
-					`docker exec -i ${container.container_name} mongodump --username ${
-						container.database_username
-					} --password ${container.database_password} --db ${
-						container.database_name
-					} --out ${path.join(backupDirectory, fileName)}`,
-				);
+				// prettier-ignore
+				await shell(`docker exec -i ${container.container_name} mongodump --username ${ container.database_username } --password ${container.database_password} --db ${ container.database_name } --out ${path.join(backupDirectory, fileName)}`);
 				break;
 
 			default:
@@ -142,7 +137,7 @@ async function updateContainerStatus(containerId, status, lastBackedUpAt, lastBa
 
 async function start() {
 	ensureDirectoryExists(backupDirectory);
-	logger(`Fetching list of containers from database`);
+
 	const containers = await db.select('*').from('containers');
 
 	if (!containers.length) {
@@ -151,17 +146,9 @@ async function start() {
 	}
 
 	containers.forEach((container) => {
-		const cronSchedule = minutesToCron(container.back_up_frequency);
-
-		const task = cron.schedule(
-			cronSchedule,
-			() => {
-				handleBackup(container.id);
-			},
-			{ scheduled: false },
-		);
-
-		task.start();
+		const cronExpression = timeToCron(container.back_up_frequency);
+		logger(`Scheduling backup for ${container.container_name}`);
+		cron.schedule(cronExpression, async () => await handleBackup(container.id));
 		logger(`Backup scheduled for ${container.container_name}`);
 	});
 }
