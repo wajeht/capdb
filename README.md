@@ -1,4 +1,5 @@
-<img src="https://raw.githubusercontent.com/wajeht/capdb/main/docs/assets/image.png" />
+<img src="https://raw.githubusercontent.com/wajeht/capdb/main/.github/image.png" />
+
 # 💾 capdb
 
 [![Node.js CI](https://github.com/wajeht/capdb/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/wajeht/capdb/actions/workflows/ci.yml) ![npm](https://img.shields.io/npm/dw/%40wajeht%2Fcapdb)
