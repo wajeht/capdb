@@ -5,6 +5,10 @@ import path from 'path';
 import Docker from 'dockerode';
 import { ensureDirectoryExists } from '../utils/utils.js';
 
+import fastq from 'fastq';
+
+const queue = fastq.promise(handleBackup, 1);
+
 const docker = new Docker();
 
 const config = await db.select('*').from('configurations').first();
@@ -18,7 +22,11 @@ const backupDirectory = path.join(config.capdb_config_folder_path, 'backups');
 
 ensureDirectoryExists(backupDirectory);
 
-process.on('message', async ({ containerId, backupDirectory }) => {
+process.on('message', async (containerId) => {
+  queue.push(containerId)
+});
+
+async function handleBackup(containerId) {
   ensureDirectoryExists(backupDirectory);
   try {
     const currentDate = new Date().toLocaleString();
@@ -35,7 +43,7 @@ process.on('message', async ({ containerId, backupDirectory }) => {
   } catch (error) {
     logger(`Error in backup job for container ID: ${containerId}, ${error.message}`);
   }
-});
+}
 
 async function backupDatabase(containerId) {
   ensureDirectoryExists(backupDirectory);
