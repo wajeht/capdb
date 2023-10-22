@@ -1,3 +1,10 @@
+## [1.10.6](https://github.com/wajeht/capdb/compare/v1.10.5...v1.10.6) (2023-10-22)
+
+
+### Bug Fixes
+
+* timeout ([f0f0b75](https://github.com/wajeht/capdb/commit/f0f0b75db44299ea40d49b2df1060455507f5fd1))
+
 ## [1.10.5](https://github.com/wajeht/capdb/compare/v1.10.4...v1.10.5) (2023-10-22)
 
 ### Bug Fixes
