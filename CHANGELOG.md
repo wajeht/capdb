@@ -1,3 +1,10 @@
+## [1.10.8](https://github.com/wajeht/capdb/compare/v1.10.7...v1.10.8) (2023-10-22)
+
+
+### Bug Fixes
+
+* remove watch flag ([36c63c1](https://github.com/wajeht/capdb/commit/36c63c115c9996d7c4c2b55ba8d3cbb9cdee3e0a))
+
 ## [1.10.7](https://github.com/wajeht/capdb/compare/v1.10.6...v1.10.7) (2023-10-22)
 
 ### Bug Fixes
