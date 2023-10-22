@@ -1,10 +1,9 @@
 ## [1.10.4](https://github.com/wajeht/capdb/compare/v1.10.3...v1.10.4) (2023-10-22)
 
-
 ### Bug Fixes
 
-* cron issues ([b9003da](https://github.com/wajeht/capdb/commit/b9003dae6aeaa70a3aa8bfd91ba4dc4206a53310))
-* restart dely ([81a77de](https://github.com/wajeht/capdb/commit/81a77de70e1f06b74f73733a6db23dc89fb7b02c))
+- cron issues ([b9003da](https://github.com/wajeht/capdb/commit/b9003dae6aeaa70a3aa8bfd91ba4dc4206a53310))
+- restart dely ([81a77de](https://github.com/wajeht/capdb/commit/81a77de70e1f06b74f73733a6db23dc89fb7b02c))
 
 ## [1.10.3](https://github.com/wajeht/capdb/compare/v1.10.2...v1.10.3) (2023-10-21)
 
