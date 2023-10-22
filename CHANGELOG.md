@@ -1,3 +1,10 @@
+## [1.10.5](https://github.com/wajeht/capdb/compare/v1.10.4...v1.10.5) (2023-10-22)
+
+
+### Bug Fixes
+
+* max restart ([6d0853e](https://github.com/wajeht/capdb/commit/6d0853ec4e5b7c00290b9a83bda130a4315b83f6))
+
 ## [1.10.4](https://github.com/wajeht/capdb/compare/v1.10.3...v1.10.4) (2023-10-22)
 
 ### Bug Fixes
