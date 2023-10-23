@@ -11,7 +11,7 @@ export async function add(cmd) {
 		console.log();
 		console.error('No configurations detected. Please run `capdb config` first!');
 		console.log();
-		process.exit(0);
+		process.exit(1);
 	}
 
 	let sure = false;
@@ -20,7 +20,7 @@ export async function add(cmd) {
 		console.log();
 		console.log('Frequency must be a number');
 		console.log();
-		process.exit(0);
+		process.exit(1);
 	}
 
 	while (!sure) {

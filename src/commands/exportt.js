@@ -11,13 +11,13 @@ export async function exportt() {
 	if (containers.length === 0) {
 		console.error('No containers found in the database.');
 		console.log();
-		process.exit(0);
+		process.exit(1);
 	}
 
 	if (config.length === 0) {
 		console.error('No configurations found in the database.');
 		console.log();
-		process.exit(0);
+		process.exit(1);
 	}
 
 	const data = {

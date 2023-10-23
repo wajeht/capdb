@@ -13,7 +13,7 @@ export async function remove(cmd) {
 			console.log();
 			console.warn('No containers found in the database.');
 			console.log();
-			process.exit(0);
+			process.exit(1);
 		}
 
 		console.log();

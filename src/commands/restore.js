@@ -11,7 +11,7 @@ export async function restore(cmd) {
 	if (containers.length === 0) {
 		console.error('No containers found in the database.');
 		console.log();
-		process.exit(0);
+		process.exit(1);
 	}
 
 	let { index } = cmd;
