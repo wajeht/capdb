@@ -17,6 +17,7 @@
 		"format": "prettier --write .",
 		"lint:check": "eslint .",
 		"lint": "eslint --fix .",
+		"clean:db": "rm -rf ./src/database/db.sqlite && touch ./src/database/db.sqlite",
 		"test:watch": "vitest",
 		"test": "vitest --run",
 		"rollback": "knex migrate:rollback --knexfile=./src/database/knexfile.js",
