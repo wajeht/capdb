@@ -4,6 +4,12 @@ import db from '../database/db.js';
 
 const config = await db.select('*').from('configurations').first();
 
+if (!config) {
+	console.error('No configurations found in the database.');
+	console.log();
+	process.exit(0);
+}
+
 let logDate = new Date();
 
 const logDir = path.join(config.capdb_config_folder_path, 'logs');
