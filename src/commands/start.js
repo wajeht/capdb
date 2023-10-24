@@ -19,10 +19,10 @@ if (!config) {
 
 const backupDirectory = path.join(config.capdb_config_folder_path, 'backups');
 
-ensureDirectoryExists(backupDirectory);
+await ensureDirectoryExists(backupDirectory);
 
 async function start() {
-	ensureDirectoryExists(backupDirectory);
+	await ensureDirectoryExists(backupDirectory);
 
 	const containers = await db.select('*').from('containers');
 

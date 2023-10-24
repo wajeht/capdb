@@ -1,7 +1,10 @@
-import fs from 'fs';
+import { existsSync, mkdirSync } from 'fs';
+import { promisify } from 'util';
 
-export function ensureDirectoryExists(directory) {
-	if (!fs.existsSync(directory)) {
-		fs.mkdirSync(directory, { recursive: true });
+const mkdirAsync = promisify(mkdirSync);
+
+export async function ensureDirectoryExists(directory) {
+	if (!existsSync(directory)) {
+		await mkdirAsync(directory, { recursive: true });
 	}
 }

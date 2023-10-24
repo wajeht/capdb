@@ -6,7 +6,6 @@ import path from 'path';
 
 describe('ensureDirectoryExists', async () => {
 	const testDirectory = path.join(os.homedir(), 'test');
-
 	it('should create a directory if it does not exist', async () => {
 		ensureDirectoryExists(testDirectory);
 		expect(fs.existsSync(testDirectory)).toBe(true);

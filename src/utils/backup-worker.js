@@ -20,14 +20,14 @@ if (!config) {
 
 const backupDirectory = path.join(config.capdb_config_folder_path, 'backups');
 
-ensureDirectoryExists(backupDirectory);
+await ensureDirectoryExists(backupDirectory);
 
 process.on('message', async (containerId) => {
   queue.push(containerId)
 });
 
 async function handleBackup(containerId) {
-  ensureDirectoryExists(backupDirectory);
+  await ensureDirectoryExists(backupDirectory);
   try {
     const currentDate = new Date().toLocaleString();
     const filePath = await backupDatabase(containerId, backupDirectory);
@@ -46,7 +46,7 @@ async function handleBackup(containerId) {
 }
 
 async function backupDatabase(containerId) {
-  ensureDirectoryExists(backupDirectory);
+  await ensureDirectoryExists(backupDirectory);
 
   let fileName = '';
   const currentDateISOString = new Date().toISOString().replace(/:/g, '-');
@@ -94,7 +94,7 @@ async function backupDatabase(containerId) {
 }
 
 async function updateContainerStatus(containerId, status, lastBackedUpAt, lastBackedUpFile) {
-  ensureDirectoryExists(backupDirectory);
+  await ensureDirectoryExists(backupDirectory);
   try {
     logger(`Updating container status in database`);
 
