@@ -97,10 +97,17 @@ async function updateContainerStatus(containerId, status, lastBackedUpAt, lastBa
   ensureDirectoryExists(backupDirectory);
   try {
     logger(`Updating container status in database`);
+
     const updatedContainer = await db('containers').where('id', containerId).update({
       status: status,
       last_backed_up_at: lastBackedUpAt,
       last_backed_up_file: lastBackedUpFile,
+    });
+
+   await db('backups').insert({
+      container_id: containerId,
+      file_name: lastBackedUpFile.split('\\').pop().split('/').pop(),
+      file_path: lastBackedUpFile,
     });
 
     if (updatedContainer === 1) {
