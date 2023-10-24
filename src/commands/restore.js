@@ -1,6 +1,8 @@
 import fs from 'fs';
-import { exec } from 'child_process';
 import db from '../database/db.js';
+import select from '@inquirer/select';
+
+import { exec } from 'child_process';
 import { input } from '@inquirer/prompts';
 
 export async function restore(cmd) {
@@ -37,31 +39,71 @@ export async function restore(cmd) {
 
 	if (!container.last_backed_up_at || !container.status || !container.last_backed_up_file) {
 		console.log();
-		console.error(
-			'The scheduler has not run for backing up this container or it cannot be restored.',
-		);
+		// prettier-ignore
+		console.error('The scheduler has not run for backing up this container or it cannot be restored.');
 		console.log();
-		return;
+		process.exit(1);
 	}
 
 	if (container.last_backed_up_file && !fs.existsSync(container.last_backed_up_file)) {
 		console.log();
 		console.log('Backup file does not exist for this container.');
 		console.log();
-		return;
+		process.exit(1);
+	}
+
+	const validBackupedFiles = {
+		message: 'Select a backup file to restore',
+		choices: [],
+	};
+
+	const backupedFiles = await db.select('*').from('backups').where('container_id', container.id);
+
+	let filePathToRestore = container.last_backed_up_file;
+	let restoreMessage = `Starting restore with last backup file ${filePathToRestore}...`;
+
+	const lastBackupFileOrFromHistory =
+		(await input({
+			message: 'Would you like to restore the most recent file (y) or choose from history? (n)',
+			validate: (value) => value === 'y' || value === 'n',
+		})) === 'y';
+
+	if (lastBackupFileOrFromHistory === false) {
+		if (backupedFiles.length === 0) {
+			console.log();
+			console.log('No backup files found for this container.');
+			console.log();
+			process.exit(1);
+		}
+
+		backupedFiles.forEach((backuup) => {
+			if (backuup.file_path && fs.existsSync(backuup.file_path)) {
+				validBackupedFiles.choices.push({
+					name: backuup.file_name,
+					value: backuup.file_path,
+				});
+			}
+		});
+
+		const answer = await select(validBackupedFiles);
+
+		filePathToRestore = answer;
+		restoreMessage = `Starting restore with ${answer} from history...`;
 	}
 
 	if (container.database_type === 'postgres') {
-		const command = `docker exec -i ${container.container_name} psql -U ${container.database_username} -d ${container.database_name} < ${container.last_backed_up_file}`;
+		const command = `docker exec -i ${container.container_name} psql -U ${container.database_username} -d ${container.database_name} < ${filePathToRestore}`;
 		exec(command, (error, stdout) => {
 			if (error) {
+				// prettier-ignore
 				console.error(`Something went wrong while restoring ${container.container_name}`, error);
 				console.log();
 				return;
 			}
 
 			if (stdout) {
-				console.log('Starting restore.....');
+				console.log();
+				console.log(restoreMessage);
 				console.log();
 				console.log(stdout);
 				console.log('Restoring done.....!');

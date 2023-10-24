@@ -55,8 +55,8 @@ export async function update(cmd) {
 		console.log();
 
 		const modify = await input({
-			message:
-				'Container (c), database type (t), database name (n), database username (u), database password (p), backup frequency (f) ?',
+			// prettier-ignore
+			message: 'Container (c), database type (t), database name (n), database username (u), database password (p), backup frequency (f) ?',
 			validate: (value) => ['c', 't', 'n', 'u', 'p', 'f'].includes(value),
 		});
 		console.log();
