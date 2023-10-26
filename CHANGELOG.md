@@ -1,9 +1,8 @@
 # [1.13.0](https://github.com/wajeht/capdb/compare/v1.12.0...v1.13.0) (2023-10-26)
 
-
 ### Features
 
-* mongodb restore command ([2f6f228](https://github.com/wajeht/capdb/commit/2f6f22826f94974af0f8190e21f4920309ec0b7b))
+- mongodb restore command ([2f6f228](https://github.com/wajeht/capdb/commit/2f6f22826f94974af0f8190e21f4920309ec0b7b))
 
 # [1.12.0](https://github.com/wajeht/capdb/compare/v1.11.0...v1.12.0) (2023-10-26)
 
