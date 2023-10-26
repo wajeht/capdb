@@ -4,6 +4,7 @@ import { validDatabaseTypes } from '../utils/constants.js';
 
 export async function update(cmd) {
 	let { id } = cmd;
+
 	const config = await db.select('*').from('configurations');
 
 	if (config.length === 0) {
