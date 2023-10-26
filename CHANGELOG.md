@@ -1,21 +1,19 @@
 # [1.11.0](https://github.com/wajeht/capdb/compare/v1.10.8...v1.11.0) (2023-10-26)
 
-
 ### Bug Fixes
 
-* guard not db ([284c0f1](https://github.com/wajeht/capdb/commit/284c0f1bf356345199c96a5de87efa673a2ac0c2))
-* remove cleandb: ([e03669e](https://github.com/wajeht/capdb/commit/e03669e12484954eeb6d385a64db554ac7d0b1c3))
-* remove cleandb: ([e7358c9](https://github.com/wajeht/capdb/commit/e7358c9d68652588fc55d904a0b919e1f74d23ab))
-* remove cleandb: ([ce0dcc2](https://github.com/wajeht/capdb/commit/ce0dcc2cf788f3bb6786f2ce43827072be6820cb))
-
+- guard not db ([284c0f1](https://github.com/wajeht/capdb/commit/284c0f1bf356345199c96a5de87efa673a2ac0c2))
+- remove cleandb: ([e03669e](https://github.com/wajeht/capdb/commit/e03669e12484954eeb6d385a64db554ac7d0b1c3))
+- remove cleandb: ([e7358c9](https://github.com/wajeht/capdb/commit/e7358c9d68652588fc55d904a0b919e1f74d23ab))
+- remove cleandb: ([ce0dcc2](https://github.com/wajeht/capdb/commit/ce0dcc2cf788f3bb6786f2ce43827072be6820cb))
 
 ### Features
 
-* auto restart on changed expect *.logs file ([89a452e](https://github.com/wajeht/capdb/commit/89a452e4afe5a5ad15c86ce31fffd4f660220583))
-* clean db on push ([2cdb070](https://github.com/wajeht/capdb/commit/2cdb070c3e17fb45988efcdf0c201c4041f9a157))
-* store all the backup files path in db ([2e65ccd](https://github.com/wajeht/capdb/commit/2e65ccd67f547b0c0590306af0b17254f65e8a20))
-* update and upgrade ([2aca674](https://github.com/wajeht/capdb/commit/2aca674fb99f266da15dc2a0df5a6e749c9e9670))
-* we can now restore from historical dump file ([aff25b9](https://github.com/wajeht/capdb/commit/aff25b922af6bb628452705a12e4f4a1ffde2cc6))
+- auto restart on changed expect \*.logs file ([89a452e](https://github.com/wajeht/capdb/commit/89a452e4afe5a5ad15c86ce31fffd4f660220583))
+- clean db on push ([2cdb070](https://github.com/wajeht/capdb/commit/2cdb070c3e17fb45988efcdf0c201c4041f9a157))
+- store all the backup files path in db ([2e65ccd](https://github.com/wajeht/capdb/commit/2e65ccd67f547b0c0590306af0b17254f65e8a20))
+- update and upgrade ([2aca674](https://github.com/wajeht/capdb/commit/2aca674fb99f266da15dc2a0df5a6e749c9e9670))
+- we can now restore from historical dump file ([aff25b9](https://github.com/wajeht/capdb/commit/aff25b922af6bb628452705a12e4f4a1ffde2cc6))
 
 ## [1.10.8](https://github.com/wajeht/capdb/compare/v1.10.7...v1.10.8) (2023-10-22)
 

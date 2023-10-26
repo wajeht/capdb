@@ -1,6 +1,6 @@
 {
 	"name": "@wajeht/capdb",
-	"version": "1.10.8",
+	"version": "1.11.0",
 	"description": "database management cli for docker environments",
 	"type": "module",
 	"main": "./src/index.js",
