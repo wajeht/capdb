@@ -15,6 +15,7 @@ import { remove } from './commands/remove.js';
 import { exportt } from './commands/exportt.js';
 import { importt } from './commands/importt.js';
 import { update } from './commands/update.js';
+import { backup } from './commands/backup.js';
 import { status } from './commands/status.js';
 import { scan } from './commands/scan.js';
 import { log } from './commands/log.js';
@@ -58,6 +59,12 @@ program
 	.description('Update containers information')
 	.option('-id, --id <string>', 'Specify the ID of the credentials to update')
 	.action(async (cmd) => update(cmd));
+
+program
+	.command('backup')
+	.description('Backup a database container')
+	.option('-id, --id <string>', 'Specify the ID of the container to update')
+	.action(async (cmd) => backup(cmd));
 
 program
 	.command('start')
