@@ -5,6 +5,20 @@ import select from '@inquirer/select';
 import { exec } from 'child_process';
 import { input } from '@inquirer/prompts';
 
+function wipePostgres(container) {
+	const wipeCommand = `docker exec -i ${container.container_name} psql -U ${container.database_username} -d ${container.database_name} -c 'DROP SCHEMA public CASCADE; CREATE SCHEMA public;'`;
+
+	return new Promise((resolve, reject) => {
+		exec(wipeCommand, (error) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			resolve();
+		});
+	});
+}
+
 export async function restore(cmd) {
 	const containers = await db.select('*').from('containers');
 
@@ -92,25 +106,28 @@ export async function restore(cmd) {
 	}
 
 	if (container.database_type === 'postgres') {
-		const command = `docker exec -i ${container.container_name} psql -U ${container.database_username} -d ${container.database_name} < ${filePathToRestore}`;
-		exec(command, (error, stdout) => {
-			if (error) {
-				// prettier-ignore
-				console.error(`Something went wrong while restoring ${container.container_name}`, error);
-				console.log();
-				return;
-			}
-
-			if (stdout) {
-				console.log();
-				console.log(restoreMessage);
-				console.log();
-				console.log(stdout);
-				console.log('Restoring done.....!');
-				console.log();
-				process.exit(0);
-			}
-		});
+		try {
+			await wipePostgres(container);
+			const command = `docker exec -i ${container.container_name} psql -U ${container.database_username} -d ${container.database_name} < ${filePathToRestore}`;
+			exec(command, (error, stdout) => {
+				if (error) {
+					console.error(`Something went wrong while restoring ${container.container_name}`, error);
+					return;
+				}
+				if (stdout) {
+					console.log(restoreMessage);
+					console.log(stdout);
+					console.log('Restoring done.....!');
+					console.log();
+					process.exit(0);
+				}
+			});
+		} catch (error) {
+			console.log();
+			console.error('Failed to wipe database', error);
+			console.log();
+			process.exit(1);
+		}
 	}
 
 	if (container.database_type === 'mongodb') {
