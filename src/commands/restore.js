@@ -5,6 +5,20 @@ import select from '@inquirer/select';
 import { exec } from 'child_process';
 import { input } from '@inquirer/prompts';
 
+function restoreMongoDB(container, filePathToRestore) {
+	const restoreCommand = `docker exec -i ${container.container_name} mongorestore --db ${container.database_name} --drop ${filePathToRestore}`;
+
+	return new Promise((resolve, reject) => {
+		exec(restoreCommand, (error, stdout) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			resolve(stdout);
+		});
+	});
+}
+
 function wipePostgres(container) {
 	const wipeCommand = `docker exec -i ${container.container_name} psql -U ${container.database_username} -d ${container.database_name} -c 'DROP SCHEMA public CASCADE; CREATE SCHEMA public;'`;
 
@@ -131,9 +145,21 @@ export async function restore(cmd) {
 	}
 
 	if (container.database_type === 'mongodb') {
-		console.log();
-		console.log('Restoring mongodb is not supported yet.');
-		console.log();
-		process.exit(1);
+		try {
+			const stdout = await restoreMongoDB(container, filePathToRestore);
+			console.log(`Starting restore with ${filePathToRestore}...`);
+			if (stdout) {
+				console.log(stdout);
+			}
+			console.log();
+			console.log('Restoring done.');
+			console.log();
+			process.exit(0);
+		} catch (error) {
+			console.log();
+			console.error('Something went wrong while restoring MongoDB', error);
+			console.log();
+			process.exit(1);
+		}
 	}
 }
