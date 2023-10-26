@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/wajeht/capdb/compare/v1.11.0...v1.12.0) (2023-10-26)
+
+
+### Features
+
+* wipe before restoreing pg ([29df2cb](https://github.com/wajeht/capdb/commit/29df2cbb82bed556346b4f021d68873819dfff91))
+
 # [1.11.0](https://github.com/wajeht/capdb/compare/v1.10.8...v1.11.0) (2023-10-26)
 
 ### Bug Fixes
