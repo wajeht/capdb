@@ -13,6 +13,23 @@
 $ npm install -g @wajeht/capdb
 ```
 
+## Development
+
+```bash
+$ git clone https://github.com/wajeht/capdb.git
+$ cd capdb
+$ npm install
+$ npm run cli
+$ docker compose up -d
+```
+
+### Database URL for client connection
+
+```
+postgresql://username:password@127.0.0.1:5432/database
+mongodb://username:password@127.0.0.1:27017/database
+```
+
 ## ⚙️ Commands
 
 Comprehensive documentation is available by running `capdb --help`. You can also find examples in [commands documentation](./docs/manual.md).
