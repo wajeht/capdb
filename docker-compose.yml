@@ -10,48 +10,27 @@ services:
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
     ports:
-      - 5432:5432
+      - '5432:5432'
     volumes:
       - postgres-data:/data/postgres
+      - ./src/scripts/init-postgres.sql:/docker-entrypoint-initdb.d/init-postgres.sql
 
-  # mysql:
-  #   image: mysql:latest
-  #   container_name: mysql
-  #   restart: unless-stopped
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: root_password
-  #     MYSQL_DATABASE: mysql_database
-  #     MYSQL_USER: mysql_user
-  #     MYSQL_PASSWORD: mysql_password
-  #   ports:
-  #     - 3306:3306
-  #   volumes:
-  #     - mysql-data:/var/lib/mysql
-
-  # redis:
-  #   image: redis:latest
-  #   container_name: redis
-  #   restart: unless-stopped
-  #   ports:
-  #     - 6379:6379
-
-  # mongo:
-  #   image: mongo:latest
-  #   container_name: mongo
-  #   restart: unless-stopped
-  #   ports:
-  #     - 27017:27017
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: your_username
-  #     MONGO_INITDB_ROOT_PASSWORD: your_password
-  #     MONGO_INITDB_DATABASE: database
-  #   volumes:
-  #     - mongo-data:/data/db
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: database
+    volumes:
+      - mongodb-data:/data/db
+      - ./src/scripts/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
 
 volumes:
   postgres-data:
     driver: local
-  # mysql-data:
-  #   driver: local
-  # mongo-data:
-  #   driver: local
+  mongodb-data:
+    driver: local
