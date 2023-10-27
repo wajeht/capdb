@@ -2,7 +2,7 @@ import { input } from '@inquirer/prompts';
 import db from '../database/db.js';
 import { validDatabaseTypes } from '../utils/constants.js';
 
-export async function update(cmd) {
+export async function backup(cmd) {
 	let { id } = cmd;
 
 	const config = await db.select('*').from('configurations');
@@ -25,6 +25,7 @@ export async function update(cmd) {
 	console.log();
 
 	let sure = false;
+
 	while (!sure) {
 		if (!id) {
 			id = await input({

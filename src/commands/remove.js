@@ -4,6 +4,25 @@ import db from '../database/db.js';
 export async function remove(cmd) {
 	let { id, all } = cmd;
 
+	const config = await db.select('*').from('configurations');
+
+	if (config.length === 0) {
+		console.log('No configurations detected. Please run `capdb config` first!');
+		process.exit(0);
+	}
+
+	const containers = await db.select('*').from('containers');
+	console.log();
+
+	if (containers.length === 0) {
+		console.log('No containers found in the database.');
+		console.log();
+		process.exit(0);
+	}
+
+	console.table(containers);
+	console.log();
+
 	let sure = false;
 
 	if (all) {
@@ -63,7 +82,6 @@ export async function remove(cmd) {
 
 	console.log();
 	console.log(`Container of id ${id} has been removed.`);
-
 	console.log();
 	process.exit(0);
 }
