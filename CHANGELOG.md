@@ -1,3 +1,10 @@
+## [1.16.3](https://github.com/wajeht/capdb/compare/v1.16.2...v1.16.3) (2023-10-28)
+
+
+### Bug Fixes
+
+* final fix for logger error ([0a7c42f](https://github.com/wajeht/capdb/commit/0a7c42f844d7f4d219cb4d7fc041f1dae6c7bb47))
+
 ## [1.16.2](https://github.com/wajeht/capdb/compare/v1.16.1...v1.16.2) (2023-10-28)
 
 ### Bug Fixes
