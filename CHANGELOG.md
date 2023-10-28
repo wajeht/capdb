@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/wajeht/capdb/compare/v1.16.7...v1.17.0) (2023-10-28)
+
+
+### Features
+
+* only watch inside parent dir ([bdfcd0b](https://github.com/wajeht/capdb/commit/bdfcd0b5366d663e8d823a30e261592950a80793))
+
 ## [1.16.7](https://github.com/wajeht/capdb/compare/v1.16.6...v1.16.7) (2023-10-28)
 
 ### Bug Fixes
