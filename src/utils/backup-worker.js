@@ -78,7 +78,7 @@ async function backupDatabase(containerId) {
       case 'mongodb':
         fileName = `dump-${container.container_name}-${container.database_name}-${currentDateISOString}.bson`;
         // prettier-ignore
-        await shell(`docker exec -i ${container.container_name} sh -c 'exec mongodump --username ${container.database_username} --password ${container.database_password} --db ${container.database_name} --archive' > ${path.join(backupDirectory, fileName)}`);
+        await shell(`docker exec -i ${container.container_name} sh -c 'exec mongodump --quiet --username ${container.database_username} --password ${container.database_password} --db ${container.database_name} --archive' > ${path.join(backupDirectory, fileName)}`);
         break;
 
       default:
@@ -104,7 +104,7 @@ async function updateContainerStatus(containerId, status, lastBackedUpAt, lastBa
       last_backed_up_file: lastBackedUpFile,
     });
 
-   await db('backups').insert({
+    await db('backups').insert({
       container_id: containerId,
       file_name: lastBackedUpFile.split('\\').pop().split('/').pop(),
       file_path: lastBackedUpFile,
