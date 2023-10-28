@@ -5,6 +5,7 @@ import db from '../database/db.js';
 const config = await db.select('*').from('configurations').first();
 
 if (!config) {
+	console.log();
 	console.error('No configurations found in the database.');
 	console.log();
 	process.exit(0);
