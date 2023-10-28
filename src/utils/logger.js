@@ -22,7 +22,7 @@ if (!config) {
 	config = await db
 		.insert({ capdb_config_folder_path: capdbDirectory })
 		.into('configurations')
-		.returning('*')[0];
+		.returning('*');
 }
 
 let logDate = new Date();

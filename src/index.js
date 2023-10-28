@@ -70,9 +70,9 @@ program
 	.command('start')
 	.description('Start the scheduled backup process for all configured database containers')
 	.action(async () => {
-		const containers = await db.select('*').from('containers').first();
+		const containers = await db.select('*').from('containers');
 
-		if (!containers) {
+		if (containers.length === 0) {
 			console.log();
 			console.error('No containers found in the database.');
 			console.log();
