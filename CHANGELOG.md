@@ -1,3 +1,10 @@
+## [1.17.1](https://github.com/wajeht/capdb/compare/v1.17.0...v1.17.1) (2023-10-28)
+
+
+### Bug Fixes
+
+* generate config reguardless of config or containers exist ([e0135d4](https://github.com/wajeht/capdb/commit/e0135d40fe248dda4d6ac422479d33b54632a1c3))
+
 # [1.17.0](https://github.com/wajeht/capdb/compare/v1.16.7...v1.17.0) (2023-10-28)
 
 ### Features
