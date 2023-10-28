@@ -1,9 +1,8 @@
 ## [1.14.1](https://github.com/wajeht/capdb/compare/v1.14.0...v1.14.1) (2023-10-28)
 
-
 ### Bug Fixes
 
-* auto generate to capdb default folder on start ([10f842a](https://github.com/wajeht/capdb/commit/10f842acec69de21d0c7b1c2931f6a1a56481490))
+- auto generate to capdb default folder on start ([10f842a](https://github.com/wajeht/capdb/commit/10f842acec69de21d0c7b1c2931f6a1a56481490))
 
 # [1.14.0](https://github.com/wajeht/capdb/compare/v1.13.0...v1.14.0) (2023-10-28)
 
