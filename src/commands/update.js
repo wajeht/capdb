@@ -12,6 +12,7 @@ export async function update(cmd) {
 	}
 
 	const containers = await db.select('*').from('containers');
+	console.log();
 
 	if (containers.length === 0) {
 		console.log();
