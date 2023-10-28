@@ -1,9 +1,8 @@
 ## [1.16.6](https://github.com/wajeht/capdb/compare/v1.16.5...v1.16.6) (2023-10-28)
 
-
 ### Bug Fixes
 
-* restore was missing ([2812107](https://github.com/wajeht/capdb/commit/2812107a59ae70b638cf709e43fec5daeca70edc))
+- restore was missing ([2812107](https://github.com/wajeht/capdb/commit/2812107a59ae70b638cf709e43fec5daeca70edc))
 
 ## [1.16.5](https://github.com/wajeht/capdb/compare/v1.16.4...v1.16.5) (2023-10-28)
 
