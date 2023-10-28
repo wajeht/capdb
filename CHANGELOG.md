@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/wajeht/capdb/compare/v1.16.0...v1.16.1) (2023-10-28)
+
+
+### Bug Fixes
+
+* backup script not existing cp ([e62ce82](https://github.com/wajeht/capdb/commit/e62ce82caefb0a2aeb8addec10f839077e788d95))
+
 # [1.16.0](https://github.com/wajeht/capdb/compare/v1.15.0...v1.16.0) (2023-10-28)
 
 ### Features
