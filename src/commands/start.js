@@ -8,7 +8,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const backupWorker = fork(path.resolve(__dirname, '../utils/backup-worker.js'));
 
 const config = await db.select('*').from('configurations').first();
 
@@ -34,6 +33,7 @@ async function start() {
 	containers.forEach((container) => {
 		const cronExpression = timeToCron(container.back_up_frequency);
 		cron.schedule(cronExpression, () => {
+			const backupWorker = fork(path.resolve(__dirname, '../utils/backup-worker.js'));
 			backupWorker.send(container.id);
 		});
 	});
