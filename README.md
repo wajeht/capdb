@@ -11,6 +11,11 @@
 
 If you operate multiple Docker containers running databases on a VPS, `capdb` serves as a robust and efficient tool for managing scheduled backups and restores, all with a minimal memory footprint.
 
+## 📦 Supported Databases
+
+- mogodb v7.0.2
+- postgresql v16.0
+
 ## 🛠️ Installation
 
 ```bash
