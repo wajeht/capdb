@@ -1,9 +1,8 @@
 ## [1.16.5](https://github.com/wajeht/capdb/compare/v1.16.4...v1.16.5) (2023-10-28)
 
-
 ### Bug Fixes
 
-* mongo backup script for prod ([23661b6](https://github.com/wajeht/capdb/commit/23661b682cc0d6dc08b0081093903f64d8ccaa07))
+- mongo backup script for prod ([23661b6](https://github.com/wajeht/capdb/commit/23661b682cc0d6dc08b0081093903f64d8ccaa07))
 
 ## [1.16.4](https://github.com/wajeht/capdb/compare/v1.16.3...v1.16.4) (2023-10-28)
 
