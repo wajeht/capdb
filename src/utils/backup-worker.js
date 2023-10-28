@@ -26,7 +26,7 @@ process.on('message', async (containerId) => {
   queue.push(containerId)
 });
 
-async function handleBackup(containerId) {
+export async function handleBackup(containerId) {
   await ensureDirectoryExists(backupDirectory);
   try {
     const currentDate = new Date().toLocaleString();
