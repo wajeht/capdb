@@ -30,6 +30,18 @@ postgresql://username:password@127.0.0.1:5432/database
 mongodb://username:password@127.0.0.1:27017/database
 ```
 
+#### MongoDB Client
+
+```bash
+$ open http://localhost:8081/
+```
+
+#### PostgreSQL Client
+
+```bash
+$ open http://localhost:8082/
+```
+
 ## ⚙️ Commands
 
 Comprehensive documentation is available by running `capdb --help`. You can also find examples in [commands documentation](./docs/manual.md).
