@@ -9,20 +9,14 @@ const backupsDirectory = path.join(capdbDirectory, 'backups');
 const logsDirectory = path.join(capdbDirectory, 'logs');
 
 if (!config) {
-	console.log();
-	console.error('No configurations found in the database.');
-	console.log();
-
 	[capdbDirectory, backupsDirectory, logsDirectory].forEach((directory) => {
 		if (!fs.existsSync(directory)) {
 			fs.mkdirSync(directory, { recursive: true });
 		}
 	});
 
-	config = await db
-		.insert({ capdb_config_folder_path: capdbDirectory })
-		.into('configurations')
-		.returning('*');
+	await db.insert({ capdb_config_folder_path: capdbDirectory }).into('configurations');
+	config = await db.select('*').from('configurations').first();
 }
 
 let logDate = new Date();
