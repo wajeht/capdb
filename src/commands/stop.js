@@ -5,13 +5,16 @@ export async function stop() {
 	const config = await db.select('*').from('configurations').first();
 
 	if (!config) {
+		console.log();
 		console.error('No configurations found in database. Please run `capdb config` first.');
+		console.log();
 		process.exit(1);
 	}
 
 	const containers = await db.select('*').from('containers');
 
 	if (containers.length === 0) {
+		console.log();
 		console.error('No containers found in the database.');
 		console.log();
 		process.exit(0);
@@ -19,13 +22,17 @@ export async function stop() {
 
 	pm2.connect((err) => {
 		if (err) {
+			console.log();
 			console.error('Could not connect to PM2:', err);
+			console.log();
 			process.exit(1);
 		}
 
 		pm2.list((listErr, list) => {
 			if (listErr) {
+				console.log();
 				console.error('Error listing processes:', listErr);
+				console.log();
 				pm2.disconnect();
 				process.exit(1);
 			}
@@ -33,21 +40,27 @@ export async function stop() {
 			const capdbProcess = list.find((process) => process.name === 'capdb');
 
 			if (!capdbProcess) {
+				console.log();
 				console.error('The "capdb" process does not exist.');
+				console.log();
 				pm2.disconnect();
 				process.exit(1);
 			}
 
 			pm2.delete('capdb', (deleteErr) => {
 				if (deleteErr) {
+					console.log();
 					console.error('Error stopping the process:', deleteErr);
+					console.log();
 					pm2.disconnect();
 					process.exit(1);
 				}
 
 				pm2.dump(() => {
+					console.log();
 					console.log('Process stopped and changes saved.');
 					pm2.disconnect();
+					console.log();
 					process.exit(0);
 				});
 			});

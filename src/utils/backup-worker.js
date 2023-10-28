@@ -26,7 +26,7 @@ process.on('message', async (containerId) => {
   queue.push(containerId)
 });
 
-async function handleBackup(containerId) {
+export async function handleBackup(containerId) {
   await ensureDirectoryExists(backupDirectory);
   try {
     const currentDate = new Date().toLocaleString();
@@ -52,7 +52,6 @@ async function backupDatabase(containerId) {
   const currentDateISOString = new Date().toISOString().replace(/:/g, '-');
 
   try {
-    logger(`Fetching container info from database`);
     const container = await db.select('*').from('containers').where({ id: containerId }).first();
     const dockerContainers = await docker.listContainers({ all: true });
 
@@ -66,6 +65,7 @@ async function backupDatabase(containerId) {
     }
 
     logger(`Starting database backup for ${container.container_name}`);
+
     switch (container.database_type) {
       case 'postgres':
         process.env.PGPASSWORD = container.database_password;
@@ -76,9 +76,9 @@ async function backupDatabase(containerId) {
         break;
 
       case 'mongodb':
-        fileName = `dump-${container.container_name}-${container.database_name}-${currentDateISOString}`;
+        fileName = `dump-${container.container_name}-${container.database_name}-${currentDateISOString}.bson`;
         // prettier-ignore
-        await shell(`docker exec -i ${container.container_name} mongodump --username ${container.database_username} --password ${container.database_password} --db ${container.database_name} --out ${path.join(backupDirectory, fileName)}`);
+        await shell(`docker exec -i ${container.container_name} sh -c 'exec mongodump --quiet --username ${container.database_username} --password ${container.database_password} --db ${container.database_name} --archive' > ${path.join(backupDirectory, fileName)}`);
         break;
 
       default:
@@ -104,7 +104,7 @@ async function updateContainerStatus(containerId, status, lastBackedUpAt, lastBa
       last_backed_up_file: lastBackedUpFile,
     });
 
-   await db('backups').insert({
+    await db('backups').insert({
       container_id: containerId,
       file_name: lastBackedUpFile.split('\\').pop().split('/').pop(),
       file_path: lastBackedUpFile,

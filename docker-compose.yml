@@ -10,48 +10,57 @@ services:
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
     ports:
-      - 5432:5432
+      - '5432:5432'
     volumes:
       - postgres-data:/data/postgres
+      - ./src/scripts/init-postgres.sql:/docker-entrypoint-initdb.d/init-postgres.sql
 
-  # mysql:
-  #   image: mysql:latest
-  #   container_name: mysql
-  #   restart: unless-stopped
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: root_password
-  #     MYSQL_DATABASE: mysql_database
-  #     MYSQL_USER: mysql_user
-  #     MYSQL_PASSWORD: mysql_password
-  #   ports:
-  #     - 3306:3306
-  #   volumes:
-  #     - mysql-data:/var/lib/mysql
+  pgweb:
+    image: sosedoff/pgweb:latest
+    container_name: pgweb
+    restart: unless-stopped
+    ports:
+      - '8082:8081'
+    environment:
+      - PGWEB_DATABASE_URL=postgresql://username:password@postgres:5432/database?sslmode=disable
+    depends_on:
+      - postgres
 
-  # redis:
-  #   image: redis:latest
-  #   container_name: redis
-  #   restart: unless-stopped
-  #   ports:
-  #     - 6379:6379
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: database
+    volumes:
+      - mongodb-data:/data/db
+      - ./src/scripts/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
 
-  # mongo:
-  #   image: mongo:latest
-  #   container_name: mongo
-  #   restart: unless-stopped
-  #   ports:
-  #     - 27017:27017
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: your_username
-  #     MONGO_INITDB_ROOT_PASSWORD: your_password
-  #     MONGO_INITDB_DATABASE: database
-  #   volumes:
-  #     - mongo-data:/data/db
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    restart: unless-stopped
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=false
+      - ME_CONFIG_BASICAUTH_USERNAME=username
+      - ME_CONFIG_BASICAUTH_PASSWORD=password
+      - ME_CONFIG_MONGODB_AUTH_DATABASE=database
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=username
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+      - VCAP_APP_PORT=8081
+    depends_on:
+      - mongodb
+    ports:
+      - '8081:8081'
 
 volumes:
   postgres-data:
     driver: local
-  # mysql-data:
-  #   driver: local
-  # mongo-data:
-  #   driver: local
+  mongodb-data:
+    driver: local
