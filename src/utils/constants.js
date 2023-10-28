@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { fileURLToPath } from 'url';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 export const NODE_ENV = process.env.NODE_ENV || 'production';
 export const validDatabaseTypes = ['postgres', 'mongodb'];

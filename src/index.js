@@ -1,15 +1,10 @@
 #!/usr/bin/env node
 
-import { fileURLToPath } from 'url';
 import path from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
+import db from './database/db.js';
+import { fileURLToPath } from 'url';
 import { Command } from 'commander';
-
 import { shell } from './utils/shell.js';
-
 import { add } from './commands/add.js';
 import { remove } from './commands/remove.js';
 import { exportt } from './commands/exportt.js';
@@ -24,8 +19,8 @@ import { stop } from './commands/stop.js';
 import { restore } from './commands/restore.js';
 import { version } from './utils/constants.js';
 
-import db from './database/db.js';
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const program = new Command();
 
 program

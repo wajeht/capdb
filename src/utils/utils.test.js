@@ -1,8 +1,8 @@
-import { ensureDirectoryExists } from './utils.js';
-import { describe, it, expect, afterAll } from 'vitest';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
+import { ensureDirectoryExists } from './utils.js';
+import { describe, it, expect, afterAll } from 'vitest';
 
 describe('ensureDirectoryExists', async () => {
 	const testDirectory = path.join(os.homedir(), 'test');

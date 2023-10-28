@@ -1,5 +1,5 @@
-import db from '../database/db.js';
 import fs from 'fs';
+import db from '../database/db.js';
 
 function isValidJSONFormat(data) {
 	if (!data || !Array.isArray(data.containers) || !Array.isArray(data.config)) return false;

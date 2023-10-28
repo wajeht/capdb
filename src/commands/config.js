@@ -1,9 +1,9 @@
-import { input } from '@inquirer/prompts';
-import db from '../database/db.js';
-import path from 'path';
-import ppath from 'path';
 import fs from 'fs';
 import os from 'os';
+import path from 'path';
+import ppath from 'path';
+import db from '../database/db.js';
+import { input } from '@inquirer/prompts';
 
 const capdbDirectory = path.join(os.homedir(), 'capdb');
 const backupsDirectory = path.join(capdbDirectory, 'backups');
@@ -45,18 +45,16 @@ export async function config(cmd) {
 		// capdb config --remove-all
 		if (removeAll) {
 			console.log();
-			console.log(
-				'There is no configuration found to remove in the database. Starting interactive configuration!',
-			);
+			// prettier-ignore
+			console.log('There is no configuration found to remove in the database. Starting interactive configuration!');
 			console.log();
 		}
 
 		// capdb config
 		if (update) {
 			console.log();
-			console.error(
-				'There is no configuration found to update in the database. Starting interactive configuration!',
-			);
+			// prettier-ignore
+			console.error('There is no configuration found to update in the database. Starting interactive configuration!');
 			console.log();
 		}
 
@@ -118,30 +116,26 @@ export async function config(cmd) {
 
 			if (!access_key) {
 				console.log();
-				access_key = await input({
-					message: 'Enter s3 access key',
-				});
+				// prettier-ignore
+				access_key = await input({ message: 'Enter s3 access key' });
 			}
 
 			if (!secret_key) {
 				console.log();
-				secret_key = await input({
-					message: 'Enter s3 secret key',
-				});
+				// prettier-ignore
+				secret_key = await input({ message: 'Enter s3 secret key' });
 			}
 
 			if (!bucket_name) {
 				console.log();
-				bucket_name = await input({
-					message: 'Enter s3 backet name',
-				});
+				// prettier-ignore
+				bucket_name = await input({ message: 'Enter s3 backet name' });
 			}
 
 			if (!region) {
 				console.log();
-				region = await input({
-					message: 'Enter s3 region',
-				});
+				// prettier-ignore
+				region = await input({ message: 'Enter s3 region' });
 			}
 
 			console.log();
@@ -156,17 +150,14 @@ export async function config(cmd) {
 			]);
 			console.log();
 
-			sure =
-				(await input({
-					message: 'Are you sure these are the correct information? (y/n)',
-					validate: (value) => value === 'y' || value === 'n',
-				})) === 'y';
+			// prettier-ignore
+			sure = (await input({ message: 'Are you sure these are the correct information? (y/n)', validate: (value) => value === 'y' || value === 'n', })) === 'y';
 			console.log();
 
 			if (!sure) {
 				let modify = await input({
-					message:
-						'What do you want to change? \n\nCapdb config folder path (p), s3 access key (a), s3 secret key (s), s3 bucket name (b), s3 region (r)?',
+					// prettier-ignore
+					message: 'What do you want to change? \n\nCapdb config folder path (p), s3 access key (a), s3 secret key (s), s3 bucket name (b), s3 region (r)?',
 					validate: (value) => ['p', 'a', 's', 'b', 'r'].includes(value),
 				});
 				console.log();
@@ -200,11 +191,8 @@ export async function config(cmd) {
 		console.table(configurations);
 		console.log();
 
-		sure =
-			(await input({
-				message: 'Are you sure you want to remove all configurations?(y/n)',
-				validate: (value) => value === 'y' || value === 'n',
-			})) === 'y';
+		// prettier-ignore
+		sure = (await input({ message: 'Are you sure you want to remove all configurations?(y/n)', validate: (value) => value === 'y' || value === 'n' })) === 'y';
 
 		if (sure) {
 			await db.del('*').from('configurations');
@@ -226,38 +214,32 @@ export async function config(cmd) {
 
 		while (!sure) {
 			if (!path) {
-				path = await input({
-					message: 'Enter capdb config folder path',
-					validate: (value) => value.length !== 0,
-				});
+				// prettier-ignore
+				path = await input({ message: 'Enter capdb config folder path', validate: (value) => value.length !== 0 });
 				console.log();
 			}
 
 			if (!access_key) {
-				access_key = await input({
-					message: 'Enter s3 access key',
-				});
+				// prettier-ignore
+				access_key = await input({ message: 'Enter s3 access key' });
 				console.log();
 			}
 
 			if (!secret_key) {
-				secret_key = await input({
-					message: 'Enter s3 secret key',
-				});
+				// prettier-ignore
+				secret_key = await input({ message: 'Enter s3 secret key' });
 				console.log();
 			}
 
 			if (!bucket_name) {
-				bucket_name = await input({
-					message: 'Enter s3 backet name',
-				});
+				// prettier-ignore
+				bucket_name = await input({ message: 'Enter s3 backet name' });
 				console.log();
 			}
 
 			if (!region) {
-				region = await input({
-					message: 'Enter s3 region',
-				});
+				// prettier-ignore
+				region = await input({ message: 'Enter s3 region' });
 				console.log();
 			}
 
@@ -274,17 +256,14 @@ export async function config(cmd) {
 			]);
 			console.log();
 
-			sure =
-				(await input({
-					message: 'Are you sure these are the correct information? (y/n)',
-					validate: (value) => value === 'y' || value === 'n',
-				})) === 'y';
+			// prettier-ignore
+			sure = (await input({ message: 'Are you sure these are the correct information? (y/n)', validate: (value) => value === 'y' || value === 'n', })) === 'y';
 			console.log();
 
 			if (!sure) {
 				let modify = await input({
-					message:
-						'What do you want to change? \n\nCapdb config folder path (p), s3 access key (a), s3 secret key (s), s3 bucket name (b), s3 region (r)?',
+					// prettier-ignore
+					message: 'What do you want to change? \n\nCapdb config folder path (p), s3 access key (a), s3 secret key (s), s3 bucket name (b), s3 region (r)?',
 					validate: (value) => ['p', 'a', 's', 'b', 'r'].includes(value),
 				});
 				console.log();

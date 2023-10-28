@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from 'vitest';
 import { scan } from './scan.js';
+import { describe, it, expect, vi } from 'vitest';
 
 vi.mock('dockerode', async () => {
 	return {

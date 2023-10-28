@@ -1,13 +1,13 @@
-import { input } from '@inquirer/prompts';
 import db from '../database/db.js';
+import { input } from '@inquirer/prompts';
 import { validDatabaseTypes } from '../utils/constants.js';
 
 export async function add(cmd) {
 	let { container, type, name, username, password, frequency } = cmd;
 
-	const config = await db.select('*').from('configurations');
+	const config = await db.select('*').from('configurations').first();
 
-	if (config.length === 0) {
+	if (!config) {
 		console.log();
 		console.error('No configurations detected. Please run `capdb config` first!');
 		console.log();
@@ -26,10 +26,8 @@ export async function add(cmd) {
 	while (!sure) {
 		if (!container) {
 			console.log();
-			container = await input({
-				message: 'Enter container name',
-				validate: (value) => value.length !== 0,
-			});
+			// prettier-ignore
+			container = await input({ message: 'Enter container name', validate: (value) => value.length !== 0 });
 		}
 
 		if (!type) {
@@ -37,35 +35,28 @@ export async function add(cmd) {
 			type = await input({
 				message: 'Enter database type',
 				validate: function (value) {
-					return validDatabaseTypes.includes(value)
-						? true
-						: `Invalid database type. Please enter one of: ${validDatabaseTypes.join(', ')}.`;
+					// prettier-ignore
+					return validDatabaseTypes.includes(value) ? true : `Invalid database type. Please enter one of: ${validDatabaseTypes.join(', ')}.`;
 				},
 			});
 		}
 
 		if (!name) {
 			console.log();
-			name = await input({
-				message: 'Enter database name',
-				validate: (value) => value.length !== 0,
-			});
+			// prettier-ignore
+			name = await input({ message: 'Enter database name', validate: (value) => value.length !== 0 });
 		}
 
 		if (!username) {
 			console.log();
-			username = await input({
-				message: 'Enter database username',
-				validate: (value) => value.length !== 0,
-			});
+			// prettier-ignore
+			username = await input({ message: 'Enter database username', validate: (value) => value.length !== 0 });
 		}
 
 		if (!password) {
 			console.log();
-			password = await input({
-				message: 'Enter database password',
-				validate: (value) => value.length !== 0,
-			});
+			// prettier-ignore
+			password = await input({ message: 'Enter database password', validate: (value) => value.length !== 0 });
 		}
 
 		if (!frequency) {
@@ -76,30 +67,25 @@ export async function add(cmd) {
 					if (value.length === 0) return true;
 					const parsedValue = parseInt(value);
 					const isNumber = !isNaN(parsedValue) && parsedValue > 0;
-					return value.length !== 0 && isNumber
-						? true
-						: 'The frequency must be in minutes. For example, 60 for every hour.';
+					// prettier-ignore
+					return value.length !== 0 && isNumber ? true : 'The frequency must be in minutes. For example, 60 for every hour.';
 				},
 			});
 		}
 
 		console.log();
-		console.table([
-			{ container, type, name, username, password, frequency: frequency === '' ? 60 : frequency },
-		]);
+		// prettier-ignore
+		console.table([ { container, type, name, username, password, frequency: frequency === '' ? 60 : frequency } ]);
 		console.log();
 
-		sure =
-			(await input({
-				message: 'Are you sure these are the correct information? (y/n)',
-				validate: (value) => value === 'y' || value === 'n',
-			})) === 'y';
+		// prettier-ignore
+		sure = (await input({ message: 'Are you sure these are the correct information? (y/n)', validate: (value) => value === 'y' || value === 'n' })) === 'y';
 
 		if (!sure) {
 			console.log();
 			const modify = await input({
-				message:
-					'What do you want to change? \nContainer (c), database type (t), database name (n), database username (u), database password (p), backup frequency (f) ?',
+				// prettier-ignore
+				message: 'What do you want to change? \nContainer (c), database type (t), database name (n), database username (u), database password (p), backup frequency (f) ?',
 				validate: (value) => ['c', 't', 'n', 'u', 'p', 'f'].includes(value) === true,
 			});
 

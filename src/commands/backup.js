@@ -1,8 +1,8 @@
-import { input } from '@inquirer/prompts';
-import { fork } from 'child_process';
-import { fileURLToPath } from 'url';
 import path from 'path';
 import db from '../database/db.js';
+import { fileURLToPath } from 'url';
+import { fork } from 'child_process';
+import { input } from '@inquirer/prompts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,8 +10,9 @@ const __dirname = path.dirname(__filename);
 export async function backup(cmd) {
 	let { id } = cmd;
 
-	const config = await db.select('*').from('configurations');
-	if (config.length === 0) {
+	const config = await db.select('*').from('configurations').first();
+
+	if (!config) {
 		console.log();
 		console.log('No configurations detected. Please run `capdb config` first!');
 		console.log();
@@ -31,10 +32,8 @@ export async function backup(cmd) {
 	console.log();
 
 	if (!id) {
-		id = await input({
-			message: 'Enter the ID of the container to backup',
-			validate: (value) => value.length !== 0,
-		});
+		// prettier-ignore
+		id = await input({ message: 'Enter the ID of the container to backup', validate: (value) => value.length !== 0 });
 	}
 
 	const container = await db.select('*').from('containers').where('id', id).first();
@@ -50,11 +49,10 @@ export async function backup(cmd) {
 	backupWorker.send(container.id);
 	console.log();
 
-	// this causes infinite loop on prod
-	// backupWorker.on('message', (message) => {
-	// 	if (message === 'done') {
-	// 		backupWorker.kill();
-	// 		process.exit(0);
-	// 	}
-	// });
+	backupWorker.on('message', (message) => {
+		if (message === 'done') {
+			backupWorker.kill();
+			process.exit(0);
+		}
+	});
 }

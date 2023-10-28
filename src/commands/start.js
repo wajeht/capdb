@@ -1,14 +1,14 @@
+import db from '../database/db.js';
+import cron from 'node-cron';
+import path from 'path';
 import { fork } from 'child_process';
 import { logger } from '../utils/logger.js';
 import { timeToCron } from '../utils/time-to-cron.js';
-import db from '../database/db.js';
 import { ensureDirectoryExists } from '../utils/utils.js';
-import cron from 'node-cron';
-import path from 'path';
 import { fileURLToPath } from 'url';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 const config = await db.select('*').from('configurations').first();
 
 if (!config) {

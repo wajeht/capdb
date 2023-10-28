@@ -1,8 +1,8 @@
-import db from '../database/db.js';
-import { logger } from '../utils/logger.js';
-import { shell } from '../utils/shell.js';
 import path from 'path';
 import Docker from 'dockerode';
+import db from '../database/db.js';
+import { shell } from '../utils/shell.js';
+import { logger } from '../utils/logger.js';
 import { ensureDirectoryExists } from '../utils/utils.js';
 
 import fastq from 'fastq';
@@ -14,7 +14,9 @@ const docker = new Docker();
 const config = await db.select('*').from('configurations').first();
 
 if (!config) {
+  console.log();
   logger('No configurations found in database. Please run `capdb config` first.');
+  console.log();
   process.exit(1);
 }
 
@@ -37,7 +39,7 @@ export async function handleBackup(containerId) {
       await updateContainerStatus(containerId, true, currentDate, absoluteBackupFilePath);
       logger(`dump file created at ${absoluteBackupFilePath}`)
       logger(`Successfully backed up container ID: ${containerId}`);
-      // process.send('done');
+      process.send('done');
     } else {
       await updateContainerStatus(containerId, false, currentDate, null);
       logger(`Backup failed for container ID: ${containerId}`);
@@ -57,12 +59,13 @@ async function backupDatabase(containerId) {
     const container = await db.select('*').from('containers').where({ id: containerId }).first();
     const dockerContainers = await docker.listContainers({ all: true });
 
-    const containerExists = dockerContainers.some((c) =>
-      c.Names.includes(`/${container.container_name}`),
-    );
+    // prettier-ignore
+    const containerExists = dockerContainers.some((c) => c.Names.includes(`/${container.container_name}`));
 
     if (!containerExists) {
+      console.log();
       logger(`Container ${container.container_name} does not exist.`);
+      console.log();
       return null;
     }
 

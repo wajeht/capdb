@@ -1,5 +1,5 @@
-import db from '../database/db.js';
 import pm2 from 'pm2';
+import db from '../database/db.js';
 
 export async function stop() {
 	const config = await db.select('*').from('configurations').first();

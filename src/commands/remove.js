@@ -1,12 +1,13 @@
-import { input } from '@inquirer/prompts';
 import db from '../database/db.js';
+import { input } from '@inquirer/prompts';
 
 export async function remove(cmd) {
 	let { id, all } = cmd;
 
-	const config = await db.select('*').from('configurations');
+	const config = await db.select('*').from('configurations').first();
 
-	if (config.length === 0) {
+	if (!config) {
+		console.log();
 		console.log('No configurations detected. Please run `capdb config` first!');
 		process.exit(0);
 	}
@@ -39,13 +40,8 @@ export async function remove(cmd) {
 		console.table(containers);
 		console.log();
 
-		sure =
-			(await input({
-				message: 'Are you sure these above the correct information? (y/n)',
-				validate: (value) => value === 'y' || value === 'n',
-			})) === 'y'
-				? true
-				: false;
+		// prettier-ignore
+		sure = (await input({ message: 'Are you sure these above the correct information? (y/n)', validate: (value) => value === 'y' || value === 'n', })) === 'y' ? true : false;
 
 		if (!sure) {
 			console.log();
@@ -63,10 +59,8 @@ export async function remove(cmd) {
 	}
 
 	if (!id) {
-		id = await input({
-			message: 'Enter id',
-			validate: (value) => value.length !== 0,
-		});
+		// prettier-ignore
+		id = await input({ message: 'Enter id', validate: (value) => value.length !== 0 });
 	}
 
 	const container = await db.select('*').from('containers').where({ id });

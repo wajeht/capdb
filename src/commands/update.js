@@ -1,12 +1,13 @@
-import { input } from '@inquirer/prompts';
 import db from '../database/db.js';
+import { input } from '@inquirer/prompts';
 import { validDatabaseTypes } from '../utils/constants.js';
 
 export async function update(cmd) {
 	let { id } = cmd;
-	const config = await db.select('*').from('configurations');
 
-	if (config.length === 0) {
+	const config = await db.select('*').from('configurations').first();
+
+	if (!config) {
 		console.log('No configurations detected. Please run `capdb config` first!');
 		process.exit(0);
 	}
@@ -24,6 +25,7 @@ export async function update(cmd) {
 	console.log();
 
 	let sure = false;
+
 	while (!sure) {
 		if (!id) {
 			id = await input({
@@ -112,11 +114,8 @@ export async function update(cmd) {
 		console.log(`New ${columnName}: ${newValue}`);
 		console.log();
 
-		sure =
-			(await input({
-				message: 'Is this correct? (y/n)',
-				validate: (value) => ['y', 'n'].includes(value),
-			})) === 'y';
+		// prettier-ignore
+		sure = (await input({ message: 'Is this correct? (y/n)', validate: (value) => ['y', 'n'].includes(value), })) === 'y';
 		console.log();
 
 		if (sure) {

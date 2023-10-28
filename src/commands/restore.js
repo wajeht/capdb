@@ -6,6 +6,7 @@ import { exec } from 'child_process';
 import { input } from '@inquirer/prompts';
 
 async function restoreMongoDB(container, filePathToRestore) {
+	// prettier-ignore
 	const restoreCommand = `docker exec -i ${container.container_name} mongorestore --username=${container.database_username} --password=${container.database_password} --authenticationDatabase=admin --nsInclude=${container.database_name}.* --drop --archive < ${filePathToRestore}`;
 	return new Promise((resolve, reject) => {
 		exec(restoreCommand, (error, stdout) => {
@@ -19,8 +20,8 @@ async function restoreMongoDB(container, filePathToRestore) {
 }
 
 function wipePostgres(container) {
+	// prettier-ignore
 	const wipeCommand = `docker exec -i ${container.container_name} psql -U ${container.database_username} -d ${container.database_name} -c 'DROP SCHEMA public CASCADE; CREATE SCHEMA public;'`;
-
 	return new Promise((resolve, reject) => {
 		exec(wipeCommand, (error) => {
 			if (error) {
@@ -89,11 +90,8 @@ export async function restore(cmd) {
 	let filePathToRestore = container.last_backed_up_file;
 	let restoreMessage = `Starting restore with last backup file ${filePathToRestore}...`;
 
-	const lastBackupFileOrFromHistory =
-		(await input({
-			message: 'Would you like to restore the most recent file (y) or choose from history? (n)',
-			validate: (value) => value === 'y' || value === 'n',
-		})) === 'y';
+	// prettier-ignore
+	const lastBackupFileOrFromHistory = (await input({ message: 'Would you like to restore the most recent file (y) or choose from history? (n)', validate: (value) => value === 'y' || value === 'n', })) === 'y';
 
 	if (lastBackupFileOrFromHistory === false) {
 		if (backupedFiles.length === 0) {
