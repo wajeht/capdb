@@ -52,19 +52,19 @@ program
 	.description('Remove database credentials from container backup')
 	.option('-id, --id <string>', 'Specify the ID of the credentials to remove')
 	.option('-a, --all', 'Remove all database credentials from backup')
-	.action(async (cmd) => remove(cmd));
+	.action(async (cmd) => await remove(cmd));
 
 program
 	.command('update')
 	.description('Update containers information')
 	.option('-id, --id <string>', 'Specify the ID of the credentials to update')
-	.action(async (cmd) => update(cmd));
+	.action(async (cmd) => await update(cmd));
 
 program
 	.command('backup')
 	.description('Backup a database container')
 	.option('-id, --id <string>', 'Specify the ID of the container to update')
-	.action(async (cmd) => backup(cmd));
+	.action(async (cmd) => await backup(cmd));
 
 program
 	.command('start')
@@ -87,7 +87,7 @@ program
 	.command('restore')
 	.option('-idx, --index <number>', 'Specify the index of the container to restore')
 	.description('Restore a database backup to its respective container')
-	.action(async (cmd) => restore(cmd));
+	.action(async (cmd) => await restore(cmd));
 
 program
 	.command('config')
@@ -100,7 +100,7 @@ program
 	.option('-r, --region', 's3 region')
 	.option('-rm, --remove-all', 'remove all capdb configuration')
 	.description('Configuration needed for capdb functionality')
-	.action(async (cmd) => config(cmd));
+	.action(async (cmd) => await config(cmd));
 
 program
 	.command('export')
@@ -111,7 +111,7 @@ program
 	.command('import')
 	.option('-f, --file <string>', 'Specify the file path to import')
 	.description('Import all the capdb config from a json file')
-	.action(async (cmd) => importt(cmd));
+	.action(async (cmd) => await importt(cmd));
 
 program.command('status').description('List all scheduled container databases').action(status);
 
