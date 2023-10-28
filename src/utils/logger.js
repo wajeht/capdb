@@ -1,25 +1,14 @@
-import os from 'os';
 import fs from 'fs';
 import path from 'path';
 import db from '../database/db.js';
 
-let config = await db.select('*').from('configurations').first();
-const capdbDirectory = path.join(os.homedir(), 'capdb');
-const backupsDirectory = path.join(capdbDirectory, 'backups');
-const logsDirectory = path.join(capdbDirectory, 'logs');
+const config = await db.select('*').from('configurations').first();
 
 if (!config) {
-	[capdbDirectory, backupsDirectory, logsDirectory].forEach((directory) => {
-		if (!fs.existsSync(directory)) {
-			fs.mkdirSync(directory, { recursive: true });
-		}
-	});
-
-	await db
-		.insert({ capdb_config_folder_path: capdbDirectory })
-		.into('configurations')
-		.returning('*');
-	config = await db.select('*').from('configurations').first();
+	console.log();
+	console.error('No configurations found in the database.');
+	console.log();
+	process.exit(0);
 }
 
 let logDate = new Date();

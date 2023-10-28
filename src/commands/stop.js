@@ -1,6 +1,5 @@
 import db from '../database/db.js';
 import pm2 from 'pm2';
-import { logger } from '../utils/logger.js';
 
 export async function stop() {
 	const config = await db.select('*').from('configurations').first();
@@ -24,7 +23,7 @@ export async function stop() {
 	pm2.connect((err) => {
 		if (err) {
 			console.log();
-			logger('Could not connect to PM2:', err);
+			console.log('Could not connect to PM2:', err);
 			console.log();
 			process.exit(1);
 		}
@@ -32,7 +31,7 @@ export async function stop() {
 		pm2.list((listErr, list) => {
 			if (listErr) {
 				console.log();
-				logger('Error listing processes:', listErr);
+				console.log('Error listing processes:', listErr);
 				console.log();
 				pm2.disconnect();
 				process.exit(1);
@@ -42,7 +41,7 @@ export async function stop() {
 
 			if (!capdbProcess) {
 				console.log();
-				logger('The "capdb" process does not exist.');
+				console.log('The "capdb" process does not exist.');
 				console.log();
 				pm2.disconnect();
 				process.exit(1);
@@ -51,7 +50,7 @@ export async function stop() {
 			pm2.delete('capdb', (deleteErr) => {
 				if (deleteErr) {
 					console.log();
-					logger('Error stopping the process:', deleteErr);
+					console.log('Error stopping the process:', deleteErr);
 					console.log();
 					pm2.disconnect();
 					process.exit(1);
@@ -59,7 +58,7 @@ export async function stop() {
 
 				pm2.dump(() => {
 					console.log();
-					logger('Process stopped and changes saved.');
+					console.log('Process stopped and changes saved.');
 					pm2.disconnect();
 					console.log();
 					process.exit(0);
