@@ -223,6 +223,7 @@ export async function config(cmd) {
 		secret_key = secret_key ?? currentConfig.s3_secret_key;
 		bucket_name = bucket_name ?? currentConfig.s3_bucket_name;
 		region = region ?? currentConfig.s3_region;
+		console.log();
 
 		while (!sure) {
 			if (!path) {
@@ -307,6 +308,7 @@ export async function config(cmd) {
 					})
 					.into('configurations')
 					.where({ id: currentConfig.id });
+				console.log('Configuration updated successfully!');
 				console.log();
 				process.exit(0);
 			}
@@ -315,6 +317,9 @@ export async function config(cmd) {
 
 	console.log();
 	console.table(configurations);
+	console.log();
+	console.log('to udpate configurations run `capdb config --update`');
+	console.log();
 	console.log();
 	process.exit(0);
 }
