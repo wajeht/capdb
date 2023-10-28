@@ -50,10 +50,11 @@ export async function backup(cmd) {
 	backupWorker.send(container.id);
 	console.log();
 
-	backupWorker.on('message', (message) => {
-		if (message === 'done') {
-			backupWorker.kill();
-			process.exit(0);
-		}
-	});
+	// this causes infinite loop on prod
+	// backupWorker.on('message', (message) => {
+	// 	if (message === 'done') {
+	// 		backupWorker.kill();
+	// 		process.exit(0);
+	// 	}
+	// });
 }
