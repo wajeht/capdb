@@ -1,3 +1,10 @@
+## [1.14.4](https://github.com/wajeht/capdb/compare/v1.14.3...v1.14.4) (2023-10-28)
+
+
+### Bug Fixes
+
+* possible fix for no config error ([cc4e856](https://github.com/wajeht/capdb/commit/cc4e8568bb1ddc1e602439f2bad69e74bfe7cdab))
+
 ## [1.14.3](https://github.com/wajeht/capdb/compare/v1.14.2...v1.14.3) (2023-10-28)
 
 ### Bug Fixes
