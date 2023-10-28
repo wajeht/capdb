@@ -18,35 +18,21 @@ If you operate multiple Docker containers running databases on a VPS, `capdb` se
 
 ## 🛠️ Installation
 
-```bash
-npm install -g @wajeht/capdb
-```
-
-## 💻 Development
+Before installing **capdb**, please ensure that you have Node.js version 20 or higher installed on your system. You can check your Node.js version by running the following command in your terminal:
 
 ```bash
-$ git clone https://github.com/wajeht/capdb.git
-$ cd capdb
-$ npm install
-$ npm run cli
-$ docker compose up -d
+$ node -v
 ```
 
-## 🗄️ Database URLs
+```bash
+$ npm install -g @wajeht/capdb
+```
 
-Example URLs for client connections:
+## 📖 Documentation
 
-- PostgreSQL: `postgresql://username:password@127.0.0.1:5432/database`
-- MongoDB: `mongodb://username:password@127.0.0.1:27017/database`
+- **Commands**: Comprehensive documentation is available by running `capdb --help`. You can also find examples in [commands documentation](./docs/manual.md).
 
-Web Clients
-
-- MongoDB: `$ open localhost:8081`
-- PostgreSQL: `$ open localhost:8082`
-
-## ⚙️ Commands
-
-Comprehensive documentation is available by running `capdb --help`. You can also find examples in [commands documentation](./docs/manual.md).
+- **Development**: If you want to contribute to this project, please read [development documentation](./docs/development.md).
 
 # © License
 
