@@ -1,9 +1,8 @@
 ## [1.16.7](https://github.com/wajeht/capdb/compare/v1.16.6...v1.16.7) (2023-10-28)
 
-
 ### Bug Fixes
 
-* possible fix for infinite restarts ([90d98f2](https://github.com/wajeht/capdb/commit/90d98f2ffd653c0fe4e8674d3f4229c7de83f6d5))
+- possible fix for infinite restarts ([90d98f2](https://github.com/wajeht/capdb/commit/90d98f2ffd653c0fe4e8674d3f4229c7de83f6d5))
 
 ## [1.16.6](https://github.com/wajeht/capdb/compare/v1.16.5...v1.16.6) (2023-10-28)
 
