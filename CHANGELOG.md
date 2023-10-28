@@ -1,5 +1,25 @@
 # [1.14.0](https://github.com/wajeht/capdb/compare/v1.13.0...v1.14.0) (2023-10-28)
 
+
+### Bug Fixes
+
+* possible fix for no config error ([17d1440](https://github.com/wajeht/capdb/commit/17d14407f6769c865312eb797add4e038936f7e4))
+* possible fix for no config error ([2bdecb3](https://github.com/wajeht/capdb/commit/2bdecb3ee24bd5b23a377281660b4ed37b6c32a8))
+* possible fix for no config error ([be4c5ae](https://github.com/wajeht/capdb/commit/be4c5ae7232dbc9454ce0b0858b6e3f86cc6ed8a))
+
+
+### Features
+
+* db client ([4a4c1b9](https://github.com/wajeht/capdb/commit/4a4c1b96598840f96f25bc09968c8d2a7a3c743e))
+* individual backup command ([131e337](https://github.com/wajeht/capdb/commit/131e3378b61666f2874b68c00f4fd286f28804d8))
+* init scripts ([668a4ed](https://github.com/wajeht/capdb/commit/668a4edcc9cf9681467791d7337ce5c6628cbcb4))
+* possible fix for no config error ([ba09d86](https://github.com/wajeht/capdb/commit/ba09d86cd7740abc0ac3552924eb134d50f22ebf))
+* possible fix for no config error ([4586d8f](https://github.com/wajeht/capdb/commit/4586d8f45c947b4e0b1c7f42a44df4661f22d14b))
+* some new feature\n\nBREAKING CHANGE: alters someAPI() API ([25a0d4a](https://github.com/wajeht/capdb/commit/25a0d4aa2eea916209971fbb8dc373c1a3fc25d8))
+* support for mongodb ([9748675](https://github.com/wajeht/capdb/commit/97486751facbc281c12294ddfbd27aee119f00dc))
+
+# [1.14.0](https://github.com/wajeht/capdb/compare/v1.13.0...v1.14.0) (2023-10-28)
+
 ### Bug Fixes
 
 - possible fix for no config error ([17d1440](https://github.com/wajeht/capdb/commit/17d14407f6769c865312eb797add4e038936f7e4))
