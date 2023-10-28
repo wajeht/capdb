@@ -1,17 +1,15 @@
 # [1.14.0](https://github.com/wajeht/capdb/compare/v1.13.0...v1.14.0) (2023-10-28)
 
-
 ### Bug Fixes
 
-* possible fix for no config error ([be4c5ae](https://github.com/wajeht/capdb/commit/be4c5ae7232dbc9454ce0b0858b6e3f86cc6ed8a))
-
+- possible fix for no config error ([be4c5ae](https://github.com/wajeht/capdb/commit/be4c5ae7232dbc9454ce0b0858b6e3f86cc6ed8a))
 
 ### Features
 
-* db client ([4a4c1b9](https://github.com/wajeht/capdb/commit/4a4c1b96598840f96f25bc09968c8d2a7a3c743e))
-* individual backup command ([131e337](https://github.com/wajeht/capdb/commit/131e3378b61666f2874b68c00f4fd286f28804d8))
-* init scripts ([668a4ed](https://github.com/wajeht/capdb/commit/668a4edcc9cf9681467791d7337ce5c6628cbcb4))
-* support for mongodb ([9748675](https://github.com/wajeht/capdb/commit/97486751facbc281c12294ddfbd27aee119f00dc))
+- db client ([4a4c1b9](https://github.com/wajeht/capdb/commit/4a4c1b96598840f96f25bc09968c8d2a7a3c743e))
+- individual backup command ([131e337](https://github.com/wajeht/capdb/commit/131e3378b61666f2874b68c00f4fd286f28804d8))
+- init scripts ([668a4ed](https://github.com/wajeht/capdb/commit/668a4edcc9cf9681467791d7337ce5c6628cbcb4))
+- support for mongodb ([9748675](https://github.com/wajeht/capdb/commit/97486751facbc281c12294ddfbd27aee119f00dc))
 
 # [1.13.0](https://github.com/wajeht/capdb/compare/v1.12.0...v1.13.0) (2023-10-26)
 
