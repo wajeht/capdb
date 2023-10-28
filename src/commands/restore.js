@@ -6,7 +6,7 @@ import { exec } from 'child_process';
 import { input } from '@inquirer/prompts';
 
 async function restoreMongoDB(container, filePathToRestore) {
-	const restoreCommand = `docker exec -i ${container.container_name} mongorestore --quiet --username=${container.database_username} --password=${container.database_password} --db ${container.database_name} --drop --archive < ${filePathToRestore}`;
+	const restoreCommand = `docker exec -i ${container.container_name} mongorestore --username=${container.database_username} --password=${container.database_password} --authenticationDatabase=admin --nsInclude=${container.database_name}.* --drop --archive < ${filePathToRestore}`;
 	return new Promise((resolve, reject) => {
 		exec(restoreCommand, (error, stdout) => {
 			if (error) {
