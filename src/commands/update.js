@@ -15,6 +15,7 @@ export async function update(cmd) {
 	console.log();
 
 	if (containers.length === 0) {
+		console.log();
 		console.log('No containers found in the database.');
 		console.log();
 		process.exit(0);
