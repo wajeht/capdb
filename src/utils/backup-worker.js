@@ -39,7 +39,7 @@ export async function handleBackup(containerId) {
       await updateContainerStatus(containerId, true, currentDate, absoluteBackupFilePath);
       logger(`dump file created at ${absoluteBackupFilePath}`)
       logger(`Successfully backed up container ID: ${containerId}`);
-      process.send('done');
+      // process.send('done'); // todo: find alternative
     } else {
       await updateContainerStatus(containerId, false, currentDate, null);
       logger(`Backup failed for container ID: ${containerId}`);
