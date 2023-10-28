@@ -1,3 +1,10 @@
+## [1.17.2](https://github.com/wajeht/capdb/compare/v1.17.1...v1.17.2) (2023-10-28)
+
+
+### Bug Fixes
+
+* backup worker keep restarting by pm2 ([a67c62a](https://github.com/wajeht/capdb/commit/a67c62a6a3425af10f07b375c91314a550e5687b))
+
 ## [1.17.1](https://github.com/wajeht/capdb/compare/v1.17.0...v1.17.1) (2023-10-28)
 
 ### Bug Fixes
