@@ -18,11 +18,7 @@ If you operate multiple Docker containers running databases on a VPS, `capdb` se
 
 ## 🛠️ Installation
 
-Before installing **capdb**, please ensure that you have Node.js version 20 or higher installed on your system. You can check your Node.js version by running the following command in your terminal:
-
-```bash
-$ node -v
-```
+Before installing **capdb**, please ensure that you have Node.js version 20 or higher installed on your system.
 
 ```bash
 $ npm install -g @wajeht/capdb
