@@ -17,7 +17,7 @@ async function start() {
 		console.log();
 		console.error('No configurations found. Run `capdb config` first.');
 		console.log();
-		process.exit(1);
+		return process.exit(1);
 	}
 
 	const backupDirectory = path.join(config.capdb_config_folder_path, 'backups');
@@ -28,9 +28,9 @@ async function start() {
 
 	if (!containers.length) {
 		console.log();
-		console.error('No containers to back up.');
+		console.error('No containers found in the database.');
 		console.log();
-		process.exit(1);
+		return process.exit(1);
 	}
 
 	containers.forEach((container) => {
