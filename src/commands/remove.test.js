@@ -1,6 +1,6 @@
 import db from '../database/db.js';
 import { remove } from './remove.js';
-import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest';
+import { describe, it, expect, vi, beforeAll, afterAll, afterEach } from 'vitest';
 import { input } from '@inquirer/prompts';
 
 describe('remove', () => {
@@ -8,11 +8,14 @@ describe('remove', () => {
 		vi.spyOn(console, 'log').mockImplementation(() => {});
 		vi.spyOn(console, 'error').mockImplementation(() => {});
 		vi.spyOn(process, 'exit').mockImplementation(() => {});
-		vi.mock('@inquirer/prompts', () => ({
-			input: vi.fn(),
-		}));
-
+		vi.mock('@inquirer/prompts', () => ({ input: vi.fn() }));
 		await db.migrate.latest();
+	});
+
+	afterEach(async () => {
+		await db('containers').del();
+		await db('configurations').del();
+		vi.resetAllMocks();
 	});
 
 	afterAll(async () => {
@@ -38,7 +41,7 @@ describe('remove', () => {
 			// prettier-ignore
 			expect(console.error).toHaveBeenCalledWith('No containers found in the database.');
 			expect(process.exit).toHaveBeenCalledWith(1);
-			expect(console.log).toHaveBeenCalledTimes(3);
+			expect(console.log).toHaveBeenCalledTimes(2);
 		});
 	});
 
@@ -58,7 +61,7 @@ describe('remove', () => {
 					}),
 				);
 				expect(console.log).toHaveBeenCalledWith('Everything has been removed!');
-				expect(console.log).toHaveBeenCalledTimes(12);
+				expect(console.log).toHaveBeenCalledTimes(9);
 				expect(process.exit).toHaveBeenCalledWith(0);
 			});
 		});
@@ -83,6 +86,35 @@ describe('remove', () => {
 				);
 				expect(console.log).toHaveBeenCalledWith('Ok, exited remove operation!');
 				expect(process.exit).toHaveBeenCalledWith(0);
+			});
+		});
+	});
+
+	describe('when providing the --id flag', () => {
+		describe('when the user enter an id', () => {
+			it('should exit with "Enter id"', async () => {
+				// prettier-ignore
+				const [{ id }] = await db('containers').insert({ container_name: 'container_name', database_type: 'container_path', database_name: 'container_size', database_username: 'container_last_modified', database_password: 'container_last_modified', }).returning('*');
+				// prettier-ignore
+				await db('configurations').insert({ capdb_config_folder_path: 'path', s3_access_key: 'access_key', s3_secret_key: 'secret_key', s3_bucket_name: 'bucket_name', s3_region: 'region', });
+				await remove({ id: id });
+				expect(console.log).toHaveBeenCalledWith(`Container of id ${id} has been removed.`);
+				expect(process.exit).toHaveBeenCalledWith(0);
+			});
+		});
+	});
+
+	describe('when providing the --id flag', () => {
+		describe('when the user enter a container id that does not exist', () => {
+			it('should exit with "No container found with id of ${id} in the database."', async () => {
+				// prettier-ignore
+				const [{ id }] = await db('containers').insert({ container_name: 'container_name', database_type: 'container_path', database_name: 'container_size', database_username: 'container_last_modified', database_password: 'container_last_modified', }).returning('*');
+				// prettier-ignore
+				await db('configurations').insert({ capdb_config_folder_path: 'path', s3_access_key: 'access_key', s3_secret_key: 'secret_key', s3_bucket_name: 'bucket_name', s3_region: 'region', });
+				await remove({ id: id + 99 });
+				// prettier-ignore
+				expect(console.error).toHaveBeenCalledWith(`No container found with id of ${id + 99} in the database.`);
+				expect(process.exit).toHaveBeenCalledWith(1);
 			});
 		});
 	});
