@@ -1,36 +1,37 @@
 import path from 'path';
+import fastq from 'fastq';
 import Docker from 'dockerode';
 import db from '../database/db.js';
 import { shell } from '../utils/shell.js';
 import { logger } from '../utils/logger.js';
 import { ensureDirectoryExists } from '../utils/utils.js';
 
-import fastq from 'fastq';
-
 const queue = fastq.promise(handleBackup, 1);
 
-const docker = new Docker();
-
-const config = await db.select('*').from('configurations').first();
-
-if (!config) {
-  console.log();
-  logger('No configurations found in database. Please run `capdb config` first.');
-  console.log();
-  return process.exit(1);
-}
-
-const backupDirectory = path.join(config.capdb_config_folder_path, 'backups');
-
-await ensureDirectoryExists(backupDirectory);
-
 process.on('message', async (containerId) => {
-  queue.push(containerId)
+  queue.push(containerId);
 });
 
-export async function handleBackup(containerId) {
+async function makeFolders() {
+  const config = await db.select('*').from('configurations').first();
+
+  if (!config) {
+    console.log();
+    logger('No configurations found in database. Please run `capdb config` first.');
+    console.log();
+    return process.exit(1);
+  }
+
+  const backupDirectory = path.join(config.capdb_config_folder_path, 'backups');
+
   await ensureDirectoryExists(backupDirectory);
+
+  return backupDirectory;
+}
+
+async function handleBackup(containerId) {
   try {
+    const backupDirectory = await makeFolders();
     const currentDate = new Date().toLocaleString();
     const filePath = await backupDatabase(containerId, backupDirectory);
 
@@ -50,12 +51,12 @@ export async function handleBackup(containerId) {
 }
 
 async function backupDatabase(containerId) {
-  await ensureDirectoryExists(backupDirectory);
-
-  let fileName = '';
-  const currentDateISOString = new Date().toISOString().replace(/:/g, '-');
-
   try {
+    const backupDirectory = await makeFolders();
+    const docker = new Docker();
+
+    let fileName = '';
+    const currentDateISOString = new Date().toISOString().replace(/:/g, '-');
     const container = await db.select('*').from('containers').where({ id: containerId }).first();
     const dockerContainers = await docker.listContainers({ all: true });
 
@@ -104,7 +105,6 @@ async function backupDatabase(containerId) {
         logger(`Unsupported database type: ${container.database_type}`);
         return null;
     }
-
     return fileName;
   } catch (error) {
     logger(`Error during backup: ${error?.message}`);
@@ -113,8 +113,8 @@ async function backupDatabase(containerId) {
 }
 
 async function updateContainerStatus(containerId, status, lastBackedUpAt, lastBackedUpFile) {
-  await ensureDirectoryExists(backupDirectory);
   try {
+    await makeFolders();
     logger(`Updating container status in database`);
 
     const updatedContainer = await db('containers').where('id', containerId).update({

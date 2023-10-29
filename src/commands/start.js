@@ -9,33 +9,40 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const config = await db.select('*').from('configurations').first();
-
-if (!config) {
-	logger('No configurations found in database. Please run `capdb config` first.');
-	process.exit(0);
-}
-
-const backupDirectory = path.join(config.capdb_config_folder_path, 'backups');
-
-await ensureDirectoryExists(backupDirectory);
 
 async function start() {
+	const config = await db.select('*').from('configurations').first();
+
+	if (!config) {
+		console.log();
+		console.error('No configurations found. Run `capdb config` first.');
+		console.log();
+		process.exit(1);
+	}
+
+	const backupDirectory = path.join(config.capdb_config_folder_path, 'backups');
+
 	await ensureDirectoryExists(backupDirectory);
 
 	const containers = await db.select('*').from('containers');
 
 	if (!containers.length) {
-		logger('No containers to back up.');
-		return process.exit(0);
+		console.log();
+		console.error('No containers to back up.');
+		console.log();
+		process.exit(1);
 	}
 
 	containers.forEach((container) => {
 		const cronExpression = timeToCron(container.back_up_frequency);
+		// prettier-ignore
+		logger(`Scheduling backup for container ${container.id} with cron expression ${cronExpression}`);
 		cron.schedule(cronExpression, () => {
 			const backupWorker = fork(path.resolve(__dirname, '../utils/backup-worker.js'));
+			logger(`Starting backup worker for container ${container.id}...`);
 			backupWorker.send(container.id);
 		});
+		logger(`Scheduled backup for container ${container.id}`);
 	});
 }
 
