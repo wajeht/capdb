@@ -1,4 +1,10 @@
 import knex from 'knex';
 import knexConfig from './knexfile.js';
 
-export default knex(knexConfig);
+let config = knexConfig.production;
+
+if (process.env.NODE_ENV === 'testing') {
+	config = knexConfig.testing;
+}
+
+export default knex(config);
