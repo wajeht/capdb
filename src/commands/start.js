@@ -33,16 +33,16 @@ async function start() {
 		return process.exit(1);
 	}
 
-	containers.forEach((container) => {
+	containers.forEach(async (container) => {
 		const cronExpression = timeToCron(container.back_up_frequency);
 		// prettier-ignore
-		logger(`Scheduling backup for container ${container.id} with cron expression ${cronExpression}`);
-		cron.schedule(cronExpression, () => {
+		await logger(`Scheduling backup for container ${container.id} with cron expression ${cronExpression}`);
+		cron.schedule(cronExpression, async () => {
 			const backupWorker = fork(path.resolve(__dirname, '../utils/backup-worker.js'));
-			logger(`Starting backup worker for container ${container.id}...`);
+			await logger(`Starting backup worker for container ${container.id}...`);
 			backupWorker.send(container.id);
 		});
-		logger(`Scheduled backup for container ${container.id}`);
+		await logger(`Scheduled backup for container ${container.id}`);
 	});
 }
 

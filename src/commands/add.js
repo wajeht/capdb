@@ -18,7 +18,7 @@ export async function add(cmd) {
 
 	if (frequency && isNaN(frequency) && frequency.length) {
 		console.log();
-		console.log('Frequency must be a number');
+		console.error('Frequency must be a number');
 		console.log();
 		return process.exit(1);
 	}

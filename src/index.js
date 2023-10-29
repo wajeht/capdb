@@ -67,9 +67,8 @@ program
 	.action(async () => {
 		const containers = await db.select('*').from('containers');
 
-		console.log();
-
 		if (containers.length === 0) {
+			console.log();
 			console.error('No containers found in the database.');
 			console.log();
 			return process.exit(0);

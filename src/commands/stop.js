@@ -23,7 +23,7 @@ export async function stop() {
 	pm2.connect((err) => {
 		if (err) {
 			console.log();
-			console.log('Could not connect to PM2:', err);
+			console.error('Could not connect to PM2:', err);
 			console.log();
 			return process.exit(1);
 		}
@@ -31,7 +31,7 @@ export async function stop() {
 		pm2.list((listErr, list) => {
 			if (listErr) {
 				console.log();
-				console.log('Error listing processes:', listErr);
+				console.error('Error listing processes:', listErr);
 				console.log();
 				pm2.disconnect();
 				return process.exit(1);
@@ -41,7 +41,7 @@ export async function stop() {
 
 			if (!capdbProcess) {
 				console.log();
-				console.log('The "capdb" process does not exist.');
+				console.error('The "capdb" process does not exist.');
 				console.log();
 				pm2.disconnect();
 				return process.exit(1);
@@ -50,7 +50,7 @@ export async function stop() {
 			pm2.delete('capdb', (deleteErr) => {
 				if (deleteErr) {
 					console.log();
-					console.log('Error stopping the process:', deleteErr);
+					console.error('Error stopping the process:', deleteErr);
 					console.log();
 					pm2.disconnect();
 					return process.exit(1);

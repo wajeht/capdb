@@ -9,12 +9,12 @@ export async function exportt() {
 	console.log();
 
 	if (config.length === 0) {
-		console.warn('No configurations found in the database.');
+		console.error('No configurations found in the database.');
 		console.log();
 	}
 
 	if (containers.length === 0) {
-		console.warn('No containers found in the database.');
+		console.error('No containers found in the database.');
 		console.log();
 	}
 

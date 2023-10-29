@@ -17,7 +17,7 @@ async function makeFolders() {
 
   if (!config) {
     console.log();
-    logger('No configurations found in database. Please run `capdb config` first.');
+    await logger('No configurations found in database. Please run `capdb config` first.');
     console.log();
     return process.exit(1);
   }
@@ -38,15 +38,15 @@ async function handleBackup(containerId) {
     if (filePath) {
       const absoluteBackupFilePath = path.join(backupDirectory, filePath);
       await updateContainerStatus(containerId, true, currentDate, absoluteBackupFilePath);
-      logger(`dump file created at ${absoluteBackupFilePath}`)
-      logger(`Successfully backed up container ID: ${containerId}`);
+      await logger(`dump file created at ${absoluteBackupFilePath}`)
+      await logger(`Successfully backed up container ID: ${containerId}`);
       // process.send('done'); // todo: find alternative
     } else {
       await updateContainerStatus(containerId, false, currentDate, null);
-      logger(`Backup failed for container ID: ${containerId}`);
+      await logger(`Backup failed for container ID: ${containerId}`);
     }
   } catch (error) {
-    logger(`Error in backup job for container ID: ${containerId}, ${error.message}`);
+    await logger(`Error in backup job for container ID: ${containerId}, ${error.message}`);
   }
 }
 
@@ -65,12 +65,12 @@ async function backupDatabase(containerId) {
 
     if (!containerExists) {
       console.log();
-      logger(`Container ${container.container_name} does not exist.`);
+      await logger(`Container ${container.container_name} does not exist.`);
       console.log();
       return null;
     }
 
-    logger(`Starting database backup for ${container.container_name}`);
+    await logger(`Starting database backup for ${container.container_name}`);
 
     switch (container.database_type) {
       case 'postgres':
@@ -102,12 +102,12 @@ async function backupDatabase(containerId) {
         break;
 
       default:
-        logger(`Unsupported database type: ${container.database_type}`);
+        await logger(`Unsupported database type: ${container.database_type}`);
         return null;
     }
     return fileName;
   } catch (error) {
-    logger(`Error during backup: ${error?.message}`);
+    await logger(`Error during backup: ${error?.message}`);
     return null;
   }
 }
@@ -115,7 +115,7 @@ async function backupDatabase(containerId) {
 async function updateContainerStatus(containerId, status, lastBackedUpAt, lastBackedUpFile) {
   try {
     await makeFolders();
-    logger(`Updating container status in database`);
+    await logger(`Updating container status in database`);
 
     const updatedContainer = await db('containers').where('id', containerId).update({
       status: status,
@@ -132,11 +132,11 @@ async function updateContainerStatus(containerId, status, lastBackedUpAt, lastBa
     if (updatedContainer === 1) {
       return true;
     } else {
-      logger(`Failed to update container with ID ${containerId}`);
+      await logger(`Failed to update container with ID ${containerId}`);
       return false;
     }
   } catch (error) {
-    logger(`Error updating container with ID ${containerId}: ${error.message}`);
+    await logger(`Error updating container with ID ${containerId}: ${error.message}`);
     return false;
   }
 }

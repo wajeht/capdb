@@ -75,7 +75,7 @@ export async function restore(cmd) {
 
 	if (container.last_backed_up_file && !fs.existsSync(container.last_backed_up_file)) {
 		console.log();
-		console.log('Backup file does not exist for this container.');
+		console.error('Backup file does not exist for this container.');
 		console.log();
 		return process.exit(1);
 	}
@@ -96,7 +96,7 @@ export async function restore(cmd) {
 	if (lastBackupFileOrFromHistory === false) {
 		if (backupedFiles.length === 0) {
 			console.log();
-			console.log('No backup files found for this container.');
+			console.error('No backup files found for this container.');
 			console.log();
 			return process.exit(1);
 		}
@@ -145,9 +145,7 @@ export async function restore(cmd) {
 		try {
 			const stdout = await restoreMongoDB(container, filePathToRestore);
 			console.log(`Starting restore with ${filePathToRestore}...`);
-			if (stdout) {
-				console.log(stdout);
-			}
+			if (stdout) console.log(stdout);
 			console.log();
 			console.log('Restoring done.');
 			console.log();

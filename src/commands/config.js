@@ -46,7 +46,7 @@ export async function config(cmd) {
 		if (removeAll) {
 			console.log();
 			// prettier-ignore
-			console.log('There is no configuration found to remove in the database. Starting interactive configuration!');
+			console.error('There is no configuration found to remove in the database. Starting interactive configuration!');
 			console.log();
 		}
 
@@ -63,13 +63,12 @@ export async function config(cmd) {
 				let pathIsValid = false;
 				while (!pathIsValid) {
 					console.log();
-					path = await input({
-						message: 'Enter capdb config folder path',
-					});
+					// prettier-ignore
+					path = await input({ message: 'Enter capdb config folder path' });
 
 					if (path.length === 0) {
 						console.log();
-						console.log('Path cannot be empty!');
+						console.error('Path cannot be empty!');
 					} else if (!fs.existsSync(path)) {
 						console.log();
 						const createDir = await input({

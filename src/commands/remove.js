@@ -45,7 +45,7 @@ export async function remove(cmd) {
 
 		if (!sure) {
 			console.log();
-			console.info('Ok, exited remove operation!');
+			console.log('Ok, exited remove operation!');
 			console.log();
 			return process.exit(0);
 		}
@@ -53,7 +53,7 @@ export async function remove(cmd) {
 		await db.del('*').from('containers');
 
 		console.log();
-		console.info('Everything has been removed!');
+		console.log('Everything has been removed!');
 		console.log();
 		return process.exit(0);
 	}
@@ -75,7 +75,7 @@ export async function remove(cmd) {
 	await db('containers').where({ id }).delete();
 
 	console.log();
-	console.info(`Container of id ${id} has been removed.`);
+	console.log(`Container of id ${id} has been removed.`);
 	console.log();
 	return process.exit(0);
 }

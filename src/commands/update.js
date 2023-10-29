@@ -8,7 +8,9 @@ export async function update(cmd) {
 	const config = await db.select('*').from('configurations').first();
 
 	if (!config) {
-		console.log('No configurations detected. Please run `capdb config` first!');
+		console.log();
+		console.error('No configurations detected. Please run `capdb config` first!');
+		console.log();
 		return process.exit(0);
 	}
 
@@ -16,7 +18,7 @@ export async function update(cmd) {
 
 	if (containers.length === 0) {
 		console.log();
-		console.log('No containers found in the database.');
+		console.error('No containers found in the database.');
 		console.log();
 		return process.exit(0);
 	}
@@ -38,7 +40,7 @@ export async function update(cmd) {
 		const credentials = await db.select('*').from('containers').where('id', id);
 
 		if (credentials.length === 0) {
-			console.log('No credentials found with that ID');
+			console.error('No credentials found with that ID');
 			console.log();
 			return process.exit(0);
 		}

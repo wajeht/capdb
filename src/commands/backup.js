@@ -14,15 +14,16 @@ export async function backup(cmd) {
 
 	if (!config) {
 		console.log();
-		console.log('No configurations detected. Please run `capdb config` first!');
+		console.error('No configurations detected. Please run `capdb config` first!');
 		console.log();
 		return process.exit(1);
 	}
 
 	const containers = await db.select('*').from('containers');
+
 	if (containers.length === 0) {
 		console.log();
-		console.log('No containers found in the database.');
+		console.error('No containers found in the database.');
 		console.log();
 		return process.exit(1);
 	}
@@ -40,7 +41,7 @@ export async function backup(cmd) {
 
 	if (!container) {
 		console.log();
-		console.log('No credentials found with that ID');
+		console.error('No credentials found with that ID');
 		console.log();
 		return process.exit(1);
 	}
