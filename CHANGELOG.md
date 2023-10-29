@@ -1,9 +1,8 @@
 ## [1.18.2](https://github.com/wajeht/capdb/compare/v1.18.1...v1.18.2) (2023-10-29)
 
-
 ### Bug Fixes
 
-* return with process.exit ([ffcf698](https://github.com/wajeht/capdb/commit/ffcf698cf8bf8285fee7729f8a984d4d93a5e31d))
+- return with process.exit ([ffcf698](https://github.com/wajeht/capdb/commit/ffcf698cf8bf8285fee7729f8a984d4d93a5e31d))
 
 ## [1.18.1](https://github.com/wajeht/capdb/compare/v1.18.0...v1.18.1) (2023-10-29)
 
