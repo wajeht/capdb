@@ -8,8 +8,8 @@ export async function remove(cmd) {
 
 	if (!config) {
 		console.log();
-		console.log('No configurations detected. Please run `capdb config` first!');
-		process.exit(0);
+		console.error('No configurations detected. Please run `capdb config` first!');
+		return process.exit(1);
 	}
 
 	const containers = await db.select('*').from('containers');
@@ -18,7 +18,7 @@ export async function remove(cmd) {
 	if (containers.length === 0) {
 		console.log('No containers found in the database.');
 		console.log();
-		process.exit(0);
+		return process.exit(1);
 	}
 
 	console.table(containers);
@@ -33,7 +33,7 @@ export async function remove(cmd) {
 			console.log();
 			console.warn('No containers found in the database.');
 			console.log();
-			process.exit(1);
+			return process.exit(1);
 		}
 
 		console.log();
@@ -47,7 +47,7 @@ export async function remove(cmd) {
 			console.log();
 			console.info('Ok, exited remove operation!');
 			console.log();
-			process.exit(0);
+			return process.exit(0);
 		}
 
 		await db.del('*').from('containers');
@@ -55,7 +55,7 @@ export async function remove(cmd) {
 		console.log();
 		console.info('Everything has been removed!');
 		console.log();
-		process.exit(0);
+		return process.exit(0);
 	}
 
 	if (!id) {
@@ -69,7 +69,7 @@ export async function remove(cmd) {
 		console.log();
 		console.error(`No container found with id of ${id} in the database.`);
 		console.log();
-		process.exit(0);
+		return process.exit(1);
 	}
 
 	await db('containers').where({ id }).delete();
@@ -77,5 +77,5 @@ export async function remove(cmd) {
 	console.log();
 	console.log(`Container of id ${id} has been removed.`);
 	console.log();
-	process.exit(0);
+	return process.exit(0);
 }
