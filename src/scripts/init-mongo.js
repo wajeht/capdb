@@ -13,4 +13,4 @@ db.createUser({
 	],
 });
 
-db.mycollection.insert({ name: 'sample data' });
+db.capdb.insert({ name: 'capdb' });
