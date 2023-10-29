@@ -1,10 +1,9 @@
 ## [1.17.3](https://github.com/wajeht/capdb/compare/v1.17.2...v1.17.3) (2023-10-29)
 
-
 ### Bug Fixes
 
-* ignore prettier for db.sqlite ([5dca640](https://github.com/wajeht/capdb/commit/5dca64078f952443cf56ce40d5dbddef913e7706))
-* pin specific docker images for local dev ([b6bf0a7](https://github.com/wajeht/capdb/commit/b6bf0a799c5833662ee4d27c71ed09bf5fe90a1a))
+- ignore prettier for db.sqlite ([5dca640](https://github.com/wajeht/capdb/commit/5dca64078f952443cf56ce40d5dbddef913e7706))
+- pin specific docker images for local dev ([b6bf0a7](https://github.com/wajeht/capdb/commit/b6bf0a799c5833662ee4d27c71ed09bf5fe90a1a))
 
 ## [1.17.2](https://github.com/wajeht/capdb/compare/v1.17.1...v1.17.2) (2023-10-28)
 
