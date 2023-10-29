@@ -16,7 +16,7 @@ export async function remove(cmd) {
 	console.log();
 
 	if (containers.length === 0) {
-		console.log('No containers found in the database.');
+		console.error('No containers found in the database.');
 		console.log();
 		return process.exit(1);
 	}
@@ -31,7 +31,7 @@ export async function remove(cmd) {
 
 		if (containers.length === 0) {
 			console.log();
-			console.warn('No containers found in the database.');
+			console.error('No containers found in the database.');
 			console.log();
 			return process.exit(1);
 		}
@@ -75,7 +75,7 @@ export async function remove(cmd) {
 	await db('containers').where({ id }).delete();
 
 	console.log();
-	console.log(`Container of id ${id} has been removed.`);
+	console.info(`Container of id ${id} has been removed.`);
 	console.log();
 	return process.exit(0);
 }
