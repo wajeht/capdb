@@ -1,3 +1,11 @@
+# [1.18.0](https://github.com/wajeht/capdb/compare/v1.17.3...v1.18.0) (2023-10-29)
+
+
+### Features
+
+* add test setup ([6698bfe](https://github.com/wajeht/capdb/commit/6698bfeac83e075535d7c2330abcafc6eb08cb22))
+* very first testing ([91f30ae](https://github.com/wajeht/capdb/commit/91f30ae0f1332734dc90891fca4c7be99a459877))
+
 ## [1.17.3](https://github.com/wajeht/capdb/compare/v1.17.2...v1.17.3) (2023-10-29)
 
 ### Bug Fixes
