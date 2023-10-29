@@ -72,7 +72,7 @@ program
 		if (containers.length === 0) {
 			console.error('No containers found in the database.');
 			console.log();
-			process.exit(0);
+			return process.exit(0);
 		}
 
 		(async () => await shell(path.resolve(__dirname, './scripts/start.sh')))();

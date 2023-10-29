@@ -9,7 +9,7 @@ export async function log() {
 	if (containers.length === 0) {
 		console.error('No containers found in the database.');
 		console.log();
-		process.exit(0);
+		return process.exit(0);
 	}
 
 	await shell('pm2 log capdb --lines 10');

@@ -39,7 +39,7 @@ export async function config(cmd) {
 			console.log();
 			console.log('Default folder structure created at', capdbDirectory);
 			console.log();
-			process.exit(0);
+			return process.exit(0);
 		}
 
 		// capdb config --remove-all
@@ -180,7 +180,7 @@ export async function config(cmd) {
 					})
 					.into('configurations');
 				console.log();
-				process.exit(0);
+				return process.exit(0);
 			}
 		}
 	}
@@ -199,7 +199,7 @@ export async function config(cmd) {
 			console.log();
 			console.log('All configuration have been removed!');
 			console.log();
-			process.exit(0);
+			return process.exit(0);
 		}
 	}
 
@@ -287,7 +287,7 @@ export async function config(cmd) {
 					.into('configurations')
 					.where({ id: currentConfig.id });
 				console.log();
-				process.exit(0);
+				return process.exit(0);
 			}
 		}
 	}
@@ -295,5 +295,5 @@ export async function config(cmd) {
 	console.log();
 	console.table(configurations);
 	console.log();
-	process.exit(0);
+	return process.exit(0);
 }

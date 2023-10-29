@@ -16,7 +16,7 @@ export async function backup(cmd) {
 		console.log();
 		console.log('No configurations detected. Please run `capdb config` first!');
 		console.log();
-		process.exit(1);
+		return process.exit(1);
 	}
 
 	const containers = await db.select('*').from('containers');
@@ -24,7 +24,7 @@ export async function backup(cmd) {
 		console.log();
 		console.log('No containers found in the database.');
 		console.log();
-		process.exit(1);
+		return process.exit(1);
 	}
 
 	console.log();
@@ -42,7 +42,7 @@ export async function backup(cmd) {
 		console.log();
 		console.log('No credentials found with that ID');
 		console.log();
-		process.exit(1);
+		return process.exit(1);
 	}
 
 	const backupWorker = fork(path.resolve(__dirname, '../utils/backup-worker.js'));
@@ -53,7 +53,7 @@ export async function backup(cmd) {
 	// backupWorker.on('message', (message) => {
 	// 	if (message === 'done') {
 	// 		backupWorker.kill();
-	// 		process.exit(0);
+	// 		return process.exit(0);
 	// 	}
 	// });
 }

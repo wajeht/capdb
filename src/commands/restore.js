@@ -41,7 +41,7 @@ export async function restore(cmd) {
 	if (containers.length === 0) {
 		console.error('No containers found in the database.');
 		console.log();
-		process.exit(1);
+		return process.exit(1);
 	}
 
 	let { index } = cmd;
@@ -70,14 +70,14 @@ export async function restore(cmd) {
 		// prettier-ignore
 		console.error('The scheduler has not run for backing up this container or it cannot be restored.');
 		console.log();
-		process.exit(1);
+		return process.exit(1);
 	}
 
 	if (container.last_backed_up_file && !fs.existsSync(container.last_backed_up_file)) {
 		console.log();
 		console.log('Backup file does not exist for this container.');
 		console.log();
-		process.exit(1);
+		return process.exit(1);
 	}
 
 	const validBackupedFiles = {
@@ -98,7 +98,7 @@ export async function restore(cmd) {
 			console.log();
 			console.log('No backup files found for this container.');
 			console.log();
-			process.exit(1);
+			return process.exit(1);
 		}
 
 		backupedFiles.forEach((backuup) => {
@@ -130,14 +130,14 @@ export async function restore(cmd) {
 					console.log(stdout);
 					console.log('Restoring done.....!');
 					console.log();
-					process.exit(0);
+					return process.exit(0);
 				}
 			});
 		} catch (error) {
 			console.log();
 			console.error('Failed to wipe database', error);
 			console.log();
-			process.exit(1);
+			return process.exit(1);
 		}
 	}
 
@@ -151,12 +151,12 @@ export async function restore(cmd) {
 			console.log();
 			console.log('Restoring done.');
 			console.log();
-			process.exit(0);
+			return process.exit(0);
 		} catch (error) {
 			console.log();
 			console.error('Something went wrong while restoring MongoDB', error);
 			console.log();
-			process.exit(1);
+			return process.exit(1);
 		}
 	}
 }

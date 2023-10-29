@@ -29,5 +29,5 @@ export async function exportt() {
 
 	console.log(`capdb.json file has been created at ${desktopPath}/capdb.json`);
 	console.log();
-	process.exit(0);
+	return process.exit(0);
 }
