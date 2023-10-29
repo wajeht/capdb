@@ -31,13 +31,13 @@ export async function importt(cmd) {
 		console.log();
 		console.error('File does not exist.');
 		console.log();
-		process.exit(0);
+		return process.exit(0);
 	}
 	if (!file.endsWith('.json')) {
 		console.log();
 		console.error('File is not a json file.');
 		console.log();
-		process.exit(0);
+		return process.exit(0);
 	}
 
 	const fileContent = fs.readFileSync(file, 'utf-8');
@@ -47,14 +47,14 @@ export async function importt(cmd) {
 		console.log();
 		console.error('Invalid JSON file format.');
 		console.log();
-		process.exit(0);
+		return process.exit(0);
 	}
 
 	if (jsonData.containers.length === 0 || jsonData.config.length === 0) {
 		console.log();
 		console.error('No containers or configurations to import.');
 		console.log();
-		process.exit(0);
+		return process.exit(0);
 	}
 
 	const containerInsertPromise = jsonData.containers.map((container) => {
@@ -74,5 +74,5 @@ export async function importt(cmd) {
 	console.log();
 	console.log('Imported successfully.');
 	console.log();
-	process.exit(0);
+	return process.exit(0);
 }

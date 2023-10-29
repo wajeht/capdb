@@ -27,7 +27,7 @@ async function start() {
 
 	if (!containers.length) {
 		logger('No containers to back up.');
-		process.exit(0);
+		return process.exit(0);
 	}
 
 	containers.forEach((container) => {

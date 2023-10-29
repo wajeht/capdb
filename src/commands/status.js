@@ -8,10 +8,10 @@ export async function status() {
 	if (containers.length === 0) {
 		console.error('No containers found in the database.');
 		console.log();
-		process.exit(0);
+		return process.exit(0);
 	}
 
 	console.table(containers);
 	console.log();
-	process.exit(0);
+	return process.exit(0);
 }

@@ -17,7 +17,7 @@ if (!config) {
   console.log();
   logger('No configurations found in database. Please run `capdb config` first.');
   console.log();
-  process.exit(1);
+  return process.exit(1);
 }
 
 const backupDirectory = path.join(config.capdb_config_folder_path, 'backups');
