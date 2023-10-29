@@ -7,4 +7,5 @@ env.json
 ./src/database/db.sqlite
 *.sqlite
 /src/database/db.sqlite
+./src/database/db.sqlite
 .env
