@@ -1,8 +1,5 @@
 #!/bin/bash
 
-git config --global user.email "58354193+wajeht@users.noreply.github.com"
-git config --global user.name "wajeht"
-
 # Get the current directory of the script
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
