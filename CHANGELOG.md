@@ -1,9 +1,8 @@
 ## [1.18.4](https://github.com/wajeht/capdb/compare/v1.18.3...v1.18.4) (2023-10-29)
 
-
 ### Bug Fixes
 
-* early process.exit on backup-worker ([0c762b7](https://github.com/wajeht/capdb/commit/0c762b7dbfe0e082a5587a2f221e0986e39f5a22))
+- early process.exit on backup-worker ([0c762b7](https://github.com/wajeht/capdb/commit/0c762b7dbfe0e082a5587a2f221e0986e39f5a22))
 
 ## [1.18.3](https://github.com/wajeht/capdb/compare/v1.18.2...v1.18.3) (2023-10-29)
 
