@@ -1,9 +1,8 @@
 ## [1.18.3](https://github.com/wajeht/capdb/compare/v1.18.2...v1.18.3) (2023-10-29)
 
-
 ### Bug Fixes
 
-* use capdb collection on database ([0c95153](https://github.com/wajeht/capdb/commit/0c95153d72ab52a5f6bc10158f644893d529ecf9))
+- use capdb collection on database ([0c95153](https://github.com/wajeht/capdb/commit/0c95153d72ab52a5f6bc10158f644893d529ecf9))
 
 ## [1.18.2](https://github.com/wajeht/capdb/compare/v1.18.1...v1.18.2) (2023-10-29)
 
