@@ -90,17 +90,23 @@ describe('remove', () => {
 		});
 	});
 
-	describe('when providing the --id flag', () => {
-		describe('when the user enter an id', () => {
-			it('should exit with "Enter id"', async () => {
-				// prettier-ignore
-				const [{ id }] = await db('containers').insert({ container_name: 'container_name', database_type: 'container_path', database_name: 'container_size', database_username: 'container_last_modified', database_password: 'container_last_modified', }).returning('*');
-				// prettier-ignore
-				await db('configurations').insert({ capdb_config_folder_path: 'path', s3_access_key: 'access_key', s3_secret_key: 'secret_key', s3_bucket_name: 'bucket_name', s3_region: 'region', });
-				await remove({ id: id });
-				expect(console.log).toHaveBeenCalledWith(`Container of id ${id} has been removed.`);
-				expect(process.exit).toHaveBeenCalledWith(0);
-			});
+	describe('when without providing any flag', () => {
+		it('should start interactive remove operation', async () => {
+			// prettier-ignore
+			const [{ id }] = await db('containers').insert({ container_name: 'container_name', database_type: 'container_path', database_name: 'container_size', database_username: 'container_last_modified', database_password: 'container_last_modified', }).returning('*');
+			// prettier-ignore
+			await db('configurations').insert({ capdb_config_folder_path: 'path', s3_access_key: 'access_key', s3_secret_key: 'secret_key', s3_bucket_name: 'bucket_name', s3_region: 'region', });
+
+			input.mockImplementationOnce(() => id);
+			await remove({});
+
+			expect(input).toHaveBeenCalledWith(
+				expect.objectContaining({
+					message: 'Enter id',
+				}),
+			);
+			expect(console.log).toHaveBeenCalledWith(`Container of id ${id} has been removed.`);
+			expect(process.exit).toHaveBeenCalledWith(0);
 		});
 	});
 
@@ -115,6 +121,20 @@ describe('remove', () => {
 				// prettier-ignore
 				expect(console.error).toHaveBeenCalledWith(`No container found with id of ${id + 99} in the database.`);
 				expect(process.exit).toHaveBeenCalledWith(1);
+			});
+		});
+	});
+
+	describe('when providing the --id flag', () => {
+		describe('when the user enter a container id that does exist', () => {
+			it('should exit with "Container of id ${id} has been removed."', async () => {
+				// prettier-ignore
+				const [{ id }] = await db('containers').insert({ container_name: 'container_name', database_type: 'container_path', database_name: 'container_size', database_username: 'container_last_modified', database_password: 'container_last_modified', }).returning('*');
+				// prettier-ignore
+				await db('configurations').insert({ capdb_config_folder_path: 'path', s3_access_key: 'access_key', s3_secret_key: 'secret_key', s3_bucket_name: 'bucket_name', s3_region: 'region', });
+				await remove({ id: id });
+				expect(console.log).toHaveBeenCalledWith(`Container of id ${id} has been removed.`);
+				expect(process.exit).toHaveBeenCalledWith(0);
 			});
 		});
 	});
