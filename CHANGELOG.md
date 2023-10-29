@@ -1,3 +1,10 @@
+## [1.18.1](https://github.com/wajeht/capdb/compare/v1.18.0...v1.18.1) (2023-10-29)
+
+
+### Bug Fixes
+
+* testing config for knex ([5f9e9a9](https://github.com/wajeht/capdb/commit/5f9e9a9be6639bf64201fe888df77e08948cf407))
+
 # [1.18.0](https://github.com/wajeht/capdb/compare/v1.17.3...v1.18.0) (2023-10-29)
 
 ### Features
