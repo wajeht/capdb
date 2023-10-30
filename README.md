@@ -17,6 +17,7 @@ If you operate multiple Docker containers running databases on a VPS, `capdb` se
 - postgresql v16.0
 
 ## 🛠️ Installation
+
 > [!WARNING]
 > Before installing **capdb**, please ensure that you have Node.js version 20 or higher installed on your system.
 
